@@ -1,46 +1,15 @@
 
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Animated, {
-    useSharedValue,
-    useAnimatedStyle,
-    withTiming,
-    withRepeat,
-} from 'react-native-reanimated';
+import {  View, Text } from 'react-native';
+import { styles } from './styles';
 
 export default function DashboarScreen() {
-    const offset = useSharedValue(200);
-
-    const animatedStyles = useAnimatedStyle(() => ({
-        transform: [{ translateX: offset.value }],
-    }));
-
-    React.useEffect(() => {
-        offset.value = withRepeat(
-            withTiming(-offset.value, { duration: 1500 }),
-            -1,
-            true
-        );
-    }, []);
 
     return (
         <View style={styles.container}>
-            <Animated.View style={[styles.box, animatedStyles]} />
+            <Text>
+                Hola
+            </Text>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
-    },
-    box: {
-        height: 120,
-        width: 120,
-        backgroundColor: '#b58df1',
-        borderRadius: 20,
-    },
-});

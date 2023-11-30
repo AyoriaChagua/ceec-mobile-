@@ -5,15 +5,17 @@ import { LoadIndicator } from '../components';
 import AdminDrawer from './AdminDrawer';
 import StudentDrawer from './StudentDrawer';
 
+
 export default function AppNav() {
     const { userToken, isLoading, userInfo } = useAuth();
-    let role = 'visitor'
+    let role = 'visitor';
     if (userInfo) {
         const user = userInfo as {
             id: number,
             role: number,
             email: string
         }
+        console.log(user)
         switch (user.role) {
             case 1:
                 role = 'student'

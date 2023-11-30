@@ -5,13 +5,14 @@ import { loginService } from "../services/auth.service";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { LoginResponse } from "../interfaces/AuthInterfaces";
+import { io } from 'socket.io-client';
+import { API_SOCKET_URL } from '../utils/Endpoints';
 
+const socket = io(API_SOCKET_URL);
 const AuthContext = createContext<AuthProps>({});
-
 export const useAuth = () => {
     return useContext(AuthContext);
 }
-
 export const AuthProvider = ({ children }: any) => {
     const [isLoading, setIsLoading] = useState(false);
     const [userToken, setUserToken] = useState<string | null>(null);
@@ -22,6 +23,13 @@ export const AuthProvider = ({ children }: any) => {
         email: string
     } | string | null>(null);
 
+    const emitLogin = (token: string) => {
+        socket.emit('login', { token });
+        console.log('emitido');
+        socket.on('active-users', (data: []) => {
+            console.log(data);
+        });
+    }
     const login = async (email: string, password: string) => {
         setIsLoading(true);
         try {
@@ -32,6 +40,7 @@ export const AuthProvider = ({ children }: any) => {
                 setUserInfo({ id: decodedToken.id, role: decodedToken.role, email: decodedToken.email });
                 SecureStore.setItemAsync('userToken', response.token);
                 SecureStore.setItemAsync('userInfo', JSON.stringify(userInfo));
+                emitLogin(response.token);
                 axios.defaults.headers.common['Authorization'] = response.token;
             } else {
                 setError(response.msg ?? 'Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo.');
@@ -46,30 +55,37 @@ export const AuthProvider = ({ children }: any) => {
     const logout = () => {
         setIsLoading(true);
         setUserToken(null);
+        setUserInfo(null);  
         SecureStore.deleteItemAsync('userToken');
         SecureStore.deleteItemAsync('userInfo');
+        socket.emit('logout');
         setIsLoading(false);
     }
 
-    const isLoggedIn = async () => {
-        try {
-            setIsLoading(true);
-            let userToken = await SecureStore.getItemAsync('userToken');
-            let userInfo = await SecureStore.getItemAsync('userInfo');
-            userInfo = JSON.parse(userInfo!);
-            if (userInfo) {
-                setUserToken(userToken);
-                setUserInfo(userInfo);
-            }
-            setIsLoading(false);
-        } catch (error) {
-            console.error(error);
-            throw error
-        }
-    }
-
     useEffect(() => {
-        isLoggedIn();
+        (async () => {
+            try {
+                setIsLoading(true);
+                const storedUserToken = await SecureStore.getItemAsync('userToken');
+                const storedUserInfo = await SecureStore.getItemAsync('userInfo');
+                if (storedUserInfo) {
+                    const parsedUserInfo = JSON.parse(storedUserInfo);
+                    setUserToken(storedUserToken);
+                    setUserInfo(parsedUserInfo);
+                    socket.emit('login', { userToken: storedUserToken });
+                } else {
+                    setUserToken(null);
+                    setUserInfo(null);
+                }
+    
+                setIsLoading(false);
+            } catch (error) {
+                console.error(error);
+                throw error;
+            } finally {
+                setIsLoading(false);
+            }
+        })();
     }, []);
 
     const value = useMemo(() => {
@@ -78,11 +94,10 @@ export const AuthProvider = ({ children }: any) => {
             onLogout: logout,
             isLoading,
             userToken,
-            isLoggedIn,
             error,
-            userInfo
+            userInfo,
         };
-    }, [login, logout, isLoading, userToken, isLoggedIn, error, userInfo]);
+    }, [login, logout, isLoading, userToken, error, userInfo]);
 
     return (
         <AuthContext.Provider value={value}>

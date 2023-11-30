@@ -5,8 +5,13 @@ import { Icon } from 'react-native-paper';
 import { styles } from './styles';
 import { useAuth } from '../../context/AuthContext';
 import Account from '../../../assets/images/account.svg';
+
+
 export default function CustomDrawer(props: any) {
     const { onLogout } = useAuth();
+    const handleLogout = () => {
+        onLogout!();
+    };
     return (
         <View style={styles.container}>
             <DrawerContentScrollView
@@ -26,7 +31,7 @@ export default function CustomDrawer(props: any) {
             </DrawerContentScrollView>
             <View style={styles.footer}>
                 <TouchableOpacity
-                    onPress={onLogout}>
+                    onPress={handleLogout}>
                     <View style={styles.button}>
                         <Icon source={'logout'} size={22} />
                         <Text style={{ marginLeft: 30 }}>Sign Out</Text>

@@ -8,5 +8,5 @@ export interface AuthProps {
         id: number,
         role: number,
         email: string
-    } | string | null
+    } | string | null;
 }
