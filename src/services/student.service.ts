@@ -1,8 +1,8 @@
 import axios from "axios";
-import { API_GET_ALL_USERS } from "../utils/Endpoints";
-import { User } from "../interfaces/AuthInterfaces";
+import {  API_GET_ALL_USERS } from "../utils/Endpoints";
+import {  User } from "../interfaces/UserInterfaces";
 
-export const GetAllUsers = async (): Promise<User[]> => {
+export const GetAllStudent = async (): Promise<User[]> => {
     try {
         const configObject = {
             method: 'GET',
@@ -15,3 +15,4 @@ export const GetAllUsers = async (): Promise<User[]> => {
         throw error
     }
 }
+

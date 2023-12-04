@@ -1,3 +1,5 @@
+import { Profile } from "./UserInterfaces";
+
 export interface AuthProps {
     userToken?: string | null;
     onLogin?: (email: string, password: string) => any;
@@ -9,4 +11,5 @@ export interface AuthProps {
         role: number,
         email: string
     } | string | null;
+    profileInfo?: Profile | null
 }

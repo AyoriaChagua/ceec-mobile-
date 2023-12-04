@@ -7,7 +7,7 @@ import { Input, CustomButton } from '../../../components';
 import Ebook from '../../../../assets/images/ebook.svg';
 import Logo from '../../../../assets/images/logo.svg';
 import { useAuth } from '../../../context/AuthContext';
-import { LoginRequest } from '../../../interfaces/AuthInterfaces';
+import { LoginRequest } from '../../../interfaces/UserInterfaces';
 
 export type Props = {
   readonly navigation: NavigationProp<RootStackParamList, 'Login'>;

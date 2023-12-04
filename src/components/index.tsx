@@ -1,3 +1,10 @@
 export { default as Input } from './Input';
 export { default as CustomButton } from './CustomButton';
 export { default as LoadIndicator } from './LoadIndicator';
+export { default as CustomDrawer } from './CustomDrawer';
+export { default as CardCircularProgress } from './CardCircularProgress';
+export { default as Subtitle } from './Subtitle';
+export { default as CustomLinearChart } from './CustomLinearChart';
+export { default as HeaderDashboard } from './HeaderDashboard';
+export { default as CustomProgressChart } from './CustomProgressChart';
+export { default as CardCourse } from './CardCourse';

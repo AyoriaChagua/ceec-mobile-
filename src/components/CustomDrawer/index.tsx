@@ -19,8 +19,8 @@ export default function CustomDrawer(props: any) {
                 {...props}>
                 <View style={styles.header}>
                     <Account width={80} height={80} />
-                    <Text style={styles.textTitle}>f</Text>
-                    <Text style={styles.text}>f</Text>
+                    <Text style={styles.textTitle}>{props.fullname}</Text>
+                    <Text style={styles.text}>{props.email}</Text>
                 </View>
 
                 <View style={styles.body}>

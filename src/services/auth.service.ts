@@ -1,4 +1,4 @@
-import { LoginResponse, LoginRequest } from "../interfaces/AuthInterfaces";
+import { LoginResponse, LoginRequest } from "../interfaces/UserInterfaces";
 import axios, { AxiosError } from 'axios';
 import { API_AUTH_URL } from "../utils/Endpoints";
 

@@ -1,7 +1,9 @@
 import axios from "axios";
-import { API_COURSES_WITH_USERS } from "../utils/Endpoints";
+import { API_COURSES_WITH_USERS, API_GET_STUDENTS_INFO } from "../utils/Endpoints";
 import { CoursesWithUser } from "../interfaces/CoursesInterfaces";
+import { StudentInfo } from "../interfaces/UserInterfaces";
 
+//todos los cursos con los estudiantes inscritos en el ;D
 export const GetCoursesWithUsers = async (): Promise<CoursesWithUser[]> => {
     try {
         const configObject = {
@@ -10,6 +12,22 @@ export const GetCoursesWithUsers = async (): Promise<CoursesWithUser[]> => {
         }
         const coursesWithUsers = await axios<CoursesWithUser[]>(configObject);
         return coursesWithUsers.data;
+    } catch (error) {
+        console.error(error, 'customer service');
+        throw error
+    }
+}
+
+
+//obtener todos los cursos con los usuario informacion agregada si esta desaprobado, etc
+export const GetAllStudentInfo = async (): Promise<StudentInfo[]> => {
+    try {
+        const configObject = {
+            method: 'GET',
+            url: API_GET_STUDENTS_INFO
+        }
+        const users = await axios<StudentInfo[]>(configObject);
+        return users.data;
     } catch (error) {
         console.error(error, 'customer service');
         throw error

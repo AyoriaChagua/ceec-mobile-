@@ -1,4 +1,4 @@
-import { User } from "./AuthInterfaces";
+import { User } from "./UserInterfaces";
 
 export interface CoursesWithUser {
     course: Course;

@@ -1,22 +1,18 @@
 import axios from "axios";
-import jwtDecode from "jwt-decode";
-import * as SecureStore from 'expo-secure-store';
-import { UserProfile } from "../interfaces/AuthInterfaces";
+import { Profile, UserInfo} from "../interfaces/UserInterfaces";
 import { API_GET_PROFILE } from "../utils/Endpoints";
 
-export const GetProfile = async (): Promise<UserProfile  | null> => {
-    const token = await SecureStore.getItemAsync("userToken");
+export const GetProfile = async (id: number): Promise<Profile | null> => {
     try {
-        if (token) {
-            const decodedToken: { id: number } = jwtDecode(token);
-            const configObject = {
-                method: 'GET',
-                url: `${API_GET_PROFILE}/${decodedToken.id}`
-            }
-            const userProfile = await axios<UserProfile>(configObject)
-            return userProfile.data;
+        const configObject = {
+            method: 'GET',
+            url: `${API_GET_PROFILE}/${id}`
         }
-        return null
+        const userProfile = await axios<UserInfo>(configObject);
+        if (userProfile.data.Profile)
+            return userProfile.data.Profile;
+        else
+            return null;
     } catch (error) {
         console.error(error);
         throw error
