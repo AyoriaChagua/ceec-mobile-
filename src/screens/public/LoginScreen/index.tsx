@@ -26,7 +26,6 @@ const LoginScreen = () => {
         alert('Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo.');
       }
     };
-  
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
