@@ -2,12 +2,34 @@ import AuthStack from './AuthStack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { LoadIndicator } from '../components';
-import AdminDrawer from './AdminDrawer';
+import AdminNav from './AdminNav';
 import StudentDrawer from './StudentDrawer';
+import { useEffect, useState } from 'react';
+import NetInfo from '@react-native-community/netinfo';
+import NoSignalScreen from '../screens/public/NoSignalScreen';
+
 
 export default function AppNav() {
     const { userToken, isLoading, userInfo } = useAuth();
-    let role = 'visitor'
+    const [isConnected, setIsConnected] = useState<boolean | null>(true);
+
+    useEffect(() => {
+        const unsubscribe = NetInfo.addEventListener(state => {
+            setIsConnected(state.isConnected);
+        });
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
+    if (!isConnected) {
+        return (
+            <NoSignalScreen />
+        );
+    }
+
+    let role = 'visitor';
+
     if (userInfo) {
         const user = userInfo as {
             id: number,
@@ -32,7 +54,7 @@ export default function AppNav() {
     let drawerComponent;
 
     if (userToken !== null) {
-        drawerComponent = role === 'admin' ? <AdminDrawer /> : <StudentDrawer />;
+        drawerComponent = role === 'admin' ? <AdminNav /> : <StudentDrawer />;
     } else {
         drawerComponent = <AuthStack />;
     }

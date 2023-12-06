@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
+        rowGap: 10,
         padding: 20,
     },
     imageProfile: {
@@ -35,7 +36,7 @@ export const styles = StyleSheet.create({
     footer: {
         padding: 20,
         borderTopWidth: 1,
-        borderTopColor: '#616161'
+        borderTopColor: '#B6B9FF'
     },
     button: {
         flexDirection: 'row',

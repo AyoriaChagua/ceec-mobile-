@@ -9,6 +9,7 @@ interface Props {
 export default function LoadIndicator({ animating, size }: Props) {
     return (
         <View style={{
+            backgroundColor: "#fff",
             flex: 1,
             justifyContent: "center",
             alignItems: "center"
