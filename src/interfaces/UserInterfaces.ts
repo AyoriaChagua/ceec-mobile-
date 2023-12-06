@@ -34,12 +34,6 @@ export interface Profile {
     DocumentType?: DocumentType;
 }
 
-export interface DocumentType {
-    name: string;
-}
-
-
-
 export interface DailySession {
     session_day: Date;
     sessions: string;
@@ -51,9 +45,28 @@ export interface StudentInfo {
     progress: string;
     is_approved: boolean | null;
     User: UserInfo;
-    Course: CourseInfo;
+    Course: Course;
 }
 
-export interface CourseInfo {
+export interface Course {
+    name:    string;
+    modules: Module[];
+}
+
+export interface Module {
     name: string;
+}
+
+export interface DocumentType {
+    document_id: number;
+    name: string;
+}
+
+
+export interface ProfileRequest {
+    first_name: string;
+    last_name: string;
+    document_id: number;
+    document_number: number;
+    phone: number;
 }

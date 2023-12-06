@@ -3,7 +3,7 @@ import { AuthProps } from "../interfaces/ContextInterfaces";
 import * as SecureStore from 'expo-secure-store';
 import { loginService } from "../services/auth.service";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
+import  jwtDecode  from "jwt-decode";
 import { LoginResponse, Profile } from "../interfaces/UserInterfaces";
 import { io } from 'socket.io-client';
 import { API_SOCKET_URL } from '../utils/Endpoints';

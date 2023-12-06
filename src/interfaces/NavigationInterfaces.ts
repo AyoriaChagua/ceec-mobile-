@@ -17,3 +17,11 @@ export type RootStackParamStudent = {
     Details: { itemId: number }
     AdminDrawer: undefined
 };
+
+
+export type RootStackParamList= {
+    Login: undefined
+    Dashboard: undefined
+    Details: { itemId: number }
+    AdminDrawer: undefined
+};

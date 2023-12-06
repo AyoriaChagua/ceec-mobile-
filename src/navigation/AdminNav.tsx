@@ -7,7 +7,7 @@ import { Icon } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import DetailsTest from '../screens/auth/admin/DetailsTest';
 import { RootStackParamListAdmin } from '../interfaces/NavigationInterfaces';
-import ProfileScreen from '../screens/auth/profile';
+import ProfileScreen from '../screens/auth/profile/ProfileScreen';
 import { useAuth } from '../context/AuthContext';
 import CoursesScreen from '../screens/auth/admin/CoursesScreen';
 import CourseScreen from '../screens/auth/admin/CourseScreen';
@@ -101,9 +101,12 @@ const AdminNav = () => (
         />
         <Stack.Screen
             name="Course"
+            
             component={CourseScreen}
             initialParams={{ courseId: 1 }}
             options={{
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                title: "",
                 headerShown: true
             }}
         />

@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../interfaces/NavigationInterfaces';
 import { styles } from './styles';
-import { Input, CustomButton } from '../../../components';
+import { AuthInput, CustomButton } from '../../../components';
 import Ebook from '../../../../assets/images/ebook.svg';
 import Logo from '../../../../assets/images/logo.svg';
 import { useAuth } from '../../../context/AuthContext';
@@ -38,8 +38,8 @@ const LoginScreen = () => {
         <Text style={styles.text}>Centro de Excelencia en Experiencia del Cliente</Text>
       </View>
       <View style={styles.form}>
-        <Input label="Email" isEmail control={control} name="email" />
-        <Input label="Password" isSecure control={control} name="password" />
+        <AuthInput label="Email" isEmail control={control} name="email" />
+        <AuthInput label="Password" isSecure control={control} name="password" />
         {error && <Text style={{ color: 'red', fontWeight: '400' }}>{error}</Text>}
         <CustomButton
           text="Ingresar"

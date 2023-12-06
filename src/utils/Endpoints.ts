@@ -32,3 +32,18 @@ export const API_GET_STUDENTS_INFO = Platform.OS === 'ios' ?
 export const API_GET_BASIC_STATISTICS = Platform.OS === 'ios' ?
     'http://localhost:4100/api/users/student-statistics' :
     'http://192.168.0.11:4100/api/users/student-statistics';
+
+export const API_GET_DOCUMENT_TYPES = Platform.OS === 'ios' ?
+    'http://localhost:4100/api/profiles/document-types' :
+    'http://192.168.0.11:4100/api/profiles/document-types';
+
+export const API_POST_PROFILE = Platform.OS === 'ios' ?
+    'http://localhost:4100/api/profiles/profiles' :
+    'http://192.168.0.11:4100/api/profiles/profiles';
+
+export const API_GET_COURSES_WITH_MODULES = Platform.OS === 'ios' ?
+    'http://localhost:4100/api/courses/modules/all' :
+    'http://192.168.0.11:4100/api/courses/modules/all';
+
+
+
