@@ -24,4 +24,6 @@ export type RootStackParamList= {
     Dashboard: undefined
     Details: { itemId: number }
     AdminDrawer: undefined
+
 };
+

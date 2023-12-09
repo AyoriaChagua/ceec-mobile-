@@ -18,7 +18,7 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
             <Card
               key={index}
               containerStyle={{
-                backgroundColor: '#D8D9FF',
+                backgroundColor: '#B8BBFD',
                 borderRadius: 10,
                 width: 350,
                 height: 270,
@@ -34,7 +34,7 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
           </TouchableOpacity>
         ))
       ) : (
-        <Text>No courses available.</Text>
+        <Text>Cargando...</Text>
       )}
     </ScrollView>
   );
@@ -42,6 +42,7 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
   const styles = StyleSheet.create({
     container: {
       padding: 16,
+      backgroundColor: '#F8F7FB',
     },
     cardImage: {
       width: '100%',
@@ -52,9 +53,12 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingHorizontal: 10,
+      
     },
     title: {
       fontSize: 20,
+      fontWeight: 'bold',
+     
     },
   });
   export default HomeScreen; 

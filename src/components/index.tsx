@@ -1,4 +1,4 @@
-export { default as Input } from './Input';
+export { default as AuthInput } from './AuthInput';
 export { default as CustomButton } from './CustomButton';
 export { default as LoadIndicator } from './LoadIndicator';
 export { default as CourseCard } from './CourseCard';
@@ -11,3 +11,7 @@ export { default as CustomLinearChart } from './CustomLinearChart';
 export { default as HeaderDashboard } from './HeaderDashboard';
 export { default as CustomProgressChart } from './CustomProgressChart';
 export { default as CardCourse } from './CardCourse';
+export { default as ProfileInput } from './ProfileInput';
+export { default as CustomAccordionList } from './CustomAccordionList';
+export { default as LegendMark } from './LegendMark';
+

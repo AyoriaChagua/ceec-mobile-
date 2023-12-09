@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
     container: {
+        marginBottom: 30,
         backgroundColor: "#FAFAFF",
         justifyContent: "space-between",
         flexDirection: "row",
@@ -12,14 +13,14 @@ export const styles = StyleSheet.create({
         overflow: "hidden",
     },
     leftContainer: {
-        width: "15%",
+        width: "30%",
         alignSelf: 'flex-start',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
         height: 100,
       },
     rightContainer: {
-        width: "80%",
+        width: "70%",
         alignSelf: 'flex-start',
         alignItems: 'flex-start',
         justifyContent: 'space-between',

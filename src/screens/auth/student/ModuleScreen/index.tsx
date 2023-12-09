@@ -8,7 +8,6 @@ import { useModuleScreen } from './hooks/useModule';
 import { moduleScreenStyles as styles  } from './style'; 
 import { Module } from "../../../../interfaces/CourseInterfaces";
 
-
 type ModuleScreenRouteProp = RouteProp<RootStackParamList, 'Module'>;
 
 const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
@@ -95,6 +94,7 @@ const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
             </React.Fragment>
           ))}
         </ScrollView>
+        
       );
     };
 

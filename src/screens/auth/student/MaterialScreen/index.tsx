@@ -18,9 +18,8 @@ const  MaterialScreen: React.FC = () => {
   
   return (
     <View style={styles.container}>
-     
-        {/* Puedes agregar más diapositivas si tu presentación tiene varias páginas */}
-        <WebView source={{ uri: pptURL }} />
+  
+        <WebView source={{ uri: pptURL }}   />
       
     </View>
   );
@@ -31,6 +30,7 @@ const  MaterialScreen: React.FC = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: '#F5F5F5',
     },
     wrapper: {
       // Estilos personalizados para el deslizador si es necesario

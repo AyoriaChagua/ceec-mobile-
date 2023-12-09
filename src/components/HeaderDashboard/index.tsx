@@ -17,7 +17,7 @@ export default function HeaderDashboard({ nStudents = 0 }: Props) {
                 </View>
             </View>
             <View style={styles.containerText}>
-                <Text style={styles.title}>Hola, Ayoria</Text>
+                <Text style={styles.title}>Hola, Erika</Text>
                 <Text numberOfLines={3} style={styles.subHeaderText}>
                     Tienes a {nStudents} estudiantes inscritos en diferentes cursos,
                     list@ para hacerles un seguimiento?

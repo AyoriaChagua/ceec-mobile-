@@ -12,7 +12,7 @@ const ModuleCard: React.FC<CourseCardProps  & { handleModuleClick: (moduleId: nu
       content={
         <>
           <Icon name="book" size={30} color="#4951FF" />
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1}}>
             <Text numberOfLines={1} ellipsizeMode="tail">{namemodulo}</Text>
           </View>
         </>

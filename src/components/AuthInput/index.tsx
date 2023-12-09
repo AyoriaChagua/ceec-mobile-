@@ -11,7 +11,7 @@ interface Props {
     name: string;
 }
 
-const Input = ({ label, isSecure = false, isEmail = false, control, name }: Props) => {
+const AuthInput = ({ label, isSecure = false, isEmail = false, control, name }: Props) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(!isSecure);
 
     const getIconName = () => {
@@ -73,5 +73,5 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Input;
+export default AuthInput;
 

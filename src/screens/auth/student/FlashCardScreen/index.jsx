@@ -11,7 +11,7 @@ const  FlashCardScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>
-        {didPlayerWin() ? "Felicitaciones 🎉" : "Flashcard"}
+        {didPlayerWin() ? "Finalizado 🎉" : " "}
       </Text>
       <Text style={styles.title}>Score: {score}</Text>
       {/* iterando cada card con map , el index nos va identificar cada tarjeta */}
