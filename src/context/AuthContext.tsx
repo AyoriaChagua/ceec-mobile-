@@ -32,26 +32,27 @@ export const AuthProvider = ({ children }: any) => {
         try {
             const response: LoginResponse = await loginService({ email, password });
             if (response.token) {
+                axios.defaults.headers.common['Authorization'] = response.token;
                 const decodedToken: { id: number; role: number; email: string } = jwtDecode(response.token);
+                
                 setUserToken(response.token);
                 setUserInfo({ id: decodedToken.id, role: decodedToken.role, email: decodedToken.email });
+
                 await SecureStore.setItemAsync('userToken', response.token);
                 await SecureStore.setItemAsync('userInfo', JSON.stringify({
                     id: decodedToken.id,
                     role: decodedToken.role,
                     email: decodedToken.email,
                 }));
-
                 const profile = await GetProfile(decodedToken.id);
-
                 if (profile) {
                     setProfileInfo(profile);
                     await SecureStore.setItemAsync('profileInfo', JSON.stringify(profile));
                 }
-                if (decodedToken.role === 1)
-                    socket.emit('login', { userToken: response.token });
 
-                axios.defaults.headers.common['Authorization'] = response.token;
+                if (decodedToken.role === 1){
+                    socket.emit('login', { userToken: response.token });
+                }
             } else {
                 setError(response.msg ?? 'Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo.');
             }

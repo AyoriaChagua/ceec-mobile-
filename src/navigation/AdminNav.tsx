@@ -12,6 +12,7 @@ import { useAuth } from '../context/AuthContext';
 import CoursesScreen from '../screens/auth/admin/CoursesScreen';
 import CourseScreen from '../screens/auth/admin/CourseScreen';
 import UsersScreen from '../screens/auth/admin/UsersScreen/inde';
+import CreateCourse from '../screens/auth/admin/CreateCourse';
 
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
@@ -99,9 +100,17 @@ const AdminNav = () => (
         />
         <Stack.Screen
             name="Course"
-            
             component={CourseScreen}
             initialParams={{ courseId: 1 }}
+            options={{
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                title: "",
+                headerShown: true
+            }}
+        />
+        <Stack.Screen
+            name="CreateCourse"
+            component={CreateCourse}
             options={{
                 headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
                 title: "",

@@ -22,7 +22,7 @@ const CustomAccordionList = ({ documentTypes, title, selectedItem, onSelect }: P
     };
 
     return (
-        <List.Section style={{marginBottom: 10}}>
+        <List.Section style={{marginBottom: 10 }}>
             <List.Accordion
                 title={selectedTitle ?? title}
                 

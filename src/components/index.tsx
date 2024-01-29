@@ -14,4 +14,11 @@ export { default as CardCourse } from './CardCourse';
 export { default as ProfileInput } from './ProfileInput';
 export { default as CustomAccordionList } from './CustomAccordionList';
 export { default as LegendMark } from './LegendMark';
-
+export { default as ModuleCardAdmin } from './ModuleCardAdmin';
+export {default as FormModule} from './FormModule';
+export {default as FormCourse} from './FormCourse';
+export {default as FormFlashCard} from './FormFlashCard';
+export {default as FormEvaluation} from './FormEvaluation';
+export {default as AnimatedButton} from './AnimatedButton';
+export {default as CustomImagePicker} from './CustomImagePicker';
+export {default as StepIndicator} from './StepIndicator'

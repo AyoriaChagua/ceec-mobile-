@@ -8,6 +8,7 @@ export type RootStackParamListAdmin = {
     Course: { courseId: number }
     Users: undefined
     User: { userId: number }
+    CreateCourse: undefined
 };
 
 
