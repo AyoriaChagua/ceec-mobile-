@@ -15,11 +15,15 @@ export const useModuleScreen = (courseId: number) => {
     const fetchModuleData = async () => {
       if (courseId && typeof userInfo !== 'string' && userToken) {
         try {
+          // Obtener información del curso
           const course = await getCourseInfoById(courseId, userToken);
           setCourseData(course);
+
+          // Obtener información de los módulos
           const modulesData = await getModulesByIdCourse(courseId, userToken);
           setModules(modulesData);
         } catch (error) {
+          console.error('Error fetching module data:', error);
           // Manejo de errores
         }
       }

@@ -33,7 +33,11 @@ export const AuthProvider = ({ children }: any) => {
             const response: LoginResponse = await loginService({ email, password });
             if (response.token) {
                 const decodedToken: { id: number; role: number; email: string } = jwtDecode(response.token);
+
                 setUserToken(response.token);
+                console.log('RESPONSETOKEN:', response.token);
+                console.log('USERTOKEN:', userToken);
+
                 setUserInfo({ id: decodedToken.id, role: decodedToken.role, email: decodedToken.email });
                 await SecureStore.setItemAsync('userToken', response.token);
                 await SecureStore.setItemAsync('userInfo', JSON.stringify({

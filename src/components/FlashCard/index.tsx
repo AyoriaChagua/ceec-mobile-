@@ -24,9 +24,9 @@ export default function Flashcard({
 
 const styles = StyleSheet.create({
   cardUp: {
-    width: 100,
-    height: 100,
-    margin: 10,
+    width: 150,
+    height: 120,
+    margin: 8,
     borderColor: "#8086F9",
     borderRadius: 25,
     alignItems: "center",
@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#8086F9",
   },
   cardDown: {
-    width: 100,
-    height: 100,
-    margin: 10,
+    width: 150,
+    height: 120,
+    margin: 8,
     borderWidth: 10,
     borderColor: "#8086F9",
     borderRadius: 25,
@@ -47,5 +47,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 46,
     color: "#FFF",
+    textAlign: "center", 
   },
 });

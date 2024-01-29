@@ -1,6 +1,17 @@
 export interface Material{
  module_id : number; 
  ppt_url: string;
+ course_id: number,
+  is_finish: boolean,
+  is_active: boolean,
+}
+
+export interface FlashCard {
+  flashcard_id: number;
+  indication: string;
+  correct_answer: string[];
+  incorrect_answer: string[];
+  module_id: number;
 }
 
 export interface StudentFlashcardProps {

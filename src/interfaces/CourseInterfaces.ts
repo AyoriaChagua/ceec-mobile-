@@ -1,5 +1,8 @@
 import { IconProps } from '@rneui/themed';
 
+export interface BaseModule {
+  module_id: number;
+}
 
 export interface Course {
   course_id: number;
@@ -18,21 +21,21 @@ export interface Course {
   };
 }
 
-export  interface ModuleService {
-  module_id: number;
+
+
+export interface ModuleService extends BaseModule {
   course_id: number;
   is_finish: boolean;
   is_active: boolean;
   name: string;
   ppt_url: string;
 }
-export  interface Module {
+
+export interface Module extends BaseModule {
   numbertype: number;
-  module_id: number;
   contentName: string;
   icon: React.ReactElement<IconProps> | string | undefined;
 }
-
 
 export  interface CourseCardProps {
   modules: Module[];

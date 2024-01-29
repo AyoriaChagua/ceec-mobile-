@@ -18,18 +18,18 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
             <Card
               key={index}
               containerStyle={{
-                backgroundColor: '#B8BBFD',
-                borderRadius: 10,
+                backgroundColor: '#D8D9FF',
+                borderRadius: 20,
                 width: 350,
-                height: 270,
+                height: 370,
               }}
             >
               <Card.Image source={{ uri: course.image }} style={styles.cardImage} />
               <Card.Divider />
               <View style={styles.titleContainer}>
                 <Text style={styles.title}>{course.name}</Text>
-                <Icon name="arrow-right" size={30} color="#4951FF" />
               </View>
+              <Icon name="arrow-right" size={60} color="#4951FF" style={styles.icon} />
             </Card>
           </TouchableOpacity>
         ))
@@ -46,7 +46,7 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     },
     cardImage: {
       width: '100%',
-      height: 150,
+      height: 170,
     },
     titleContainer: {
       flexDirection: 'row',
@@ -57,8 +57,12 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     },
     title: {
       fontSize: 20,
-      fontWeight: 'bold',
+   
      
-    },
+    }, 
+    icon: {
+      marginLeft: 'auto', // Move icon to the right
+      marginTop: 'auto', // Align icon to the bottom
+    }
   });
   export default HomeScreen; 
