@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../../../../context/AuthContext';
 import { Question } from '../../../../../interfaces/EvaluationInterface';
 
-export const useQuiz = (evaluationId: number) => {
+export const usePreQuiz = (courseId: number) => {
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [ques, setQues] = useState<number>(0);
   const [options, setOptions] = useState<string[]>([]);
@@ -18,7 +18,7 @@ export const useQuiz = (evaluationId: number) => {
 // Función para obtener el cuestionario
   const getQuiz = useCallback(async () => {
     setIsLoading(true);
-    const url = `http://192.168.18.3:4100/api/quizzes/evaluacion/${evaluationId}`;
+    const url = `http://192.168.18.3:4100/prequizz/by-course/${courseId}`;
     try {
       const headers = {
         Authorization: userToken || '',
@@ -35,7 +35,7 @@ export const useQuiz = (evaluationId: number) => {
     } finally {
       setIsLoading(false);
     }
-  }, [userToken, evaluationId]);
+  }, [userToken, courseId]);
 
   useEffect(() => {
     getQuiz();
@@ -65,7 +65,7 @@ export const useQuiz = (evaluationId: number) => {
   const handlSelectedOption = (_option: string) => {
     setSelectedOption(_option);
     if (questions && questions[ques] && _option === questions[ques].correct_answer) {
-        setScore(score + questions[ques].points); // Sumar los puntos de la pregunta correcta
+      setScore(score +1); // Sumar los puntos de la pregunta correcta
         setIsCorrect(true);
         setTotalScore(totalScore + questions[ques].points); // Actualizar la puntuación total
     } else {

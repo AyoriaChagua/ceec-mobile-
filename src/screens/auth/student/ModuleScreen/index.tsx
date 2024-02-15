@@ -19,12 +19,12 @@ const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
 
   
   const content_list: Module[] = [
-    {
-      numbertype:1,
+   {
+     numbertype:1,
       module_id: selectedModule || 0, // Si selectedModule es null, asigna 0
       contentName: "Diccionario",
       icon: <Icon name="book" size={30} color="#4951FF" />,
-    },
+   },
     {
       numbertype:2,
       module_id: selectedModule || 0,

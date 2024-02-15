@@ -12,8 +12,6 @@ export interface Evaluation {
       quizz_type: number | null;
     };
   }
-  
-  
  export interface Question {
     type: string;
     image_url:string,
@@ -30,3 +28,43 @@ export interface Result {
     user_id: number,
     total_score: number;
   }
+
+  export interface GetResult {
+    result_id : number,
+    evaluation_id: number,
+    user_id: number,
+    total_score: number;
+  }
+
+export interface Nota {
+  result_id: number;
+  evaluation_id: number;
+  user_id: number;
+  total_score: string;
+  Evaluation: {
+    name: string;
+    Module: {
+      name: string;
+      course_id: number;
+    };
+  };
+}
+
+
+export interface RankingEva {
+  result_id: number;
+  evaluation_id: number;
+  user_id: number;
+  total_score: string;
+  User: {
+    user_id: number;
+    email: string;
+    role_id: number;
+    created_at: string;
+    updated_at: string;
+    Profile: {
+      first_name: string;
+      last_name: string;
+    };
+  };
+}

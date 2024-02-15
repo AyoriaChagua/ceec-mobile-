@@ -2,10 +2,10 @@ import { StyleSheet, Text, View ,  ScrollView,  TouchableOpacity} from 'react-na
 import React  from 'react';
 import { Card, Icon } from '@rneui/themed';
 import { useRoute, RouteProp,  NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/StudentStack';
-import {useCourse} from './hooks/useCourse';
-type HomeScreenRouteProp = RouteProp<RootStackParamList, 'Home'>;
-const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
+import { RootStackParamList } from '../../../../navigation/PreQuizStack';
+import {useCourse} from '../HomeScreen/hooks/useCourse';
+type CourseQuizScreenRouteProp = RouteProp<RootStackParamList, 'CourseQuiz'>;
+const CourseQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const { courseData } = useCourse();
     
   return (
@@ -14,7 +14,7 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
         courseData.map((course, index) => (
           <TouchableOpacity
             key={index}
-            onPress={() => navigation.navigate('Module', { course_id: course.course_id })}
+            onPress={() => navigation.navigate('PreQuiz', { course_id: course.course_id })}
           >
             <Card
               key={index}
@@ -22,10 +22,12 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
                 backgroundColor: '#D8D9FF',
                 borderRadius: 20,
                 width: 360,
-                height: 350,
+                height: 190,
               }}
             >
-              <Card.Image source={{ uri: course.image }} style={styles.cardImage} />
+               <View style={styles.titleContainer}>
+                <Text style={styles.title}>PREQUIZ</Text>
+                </View>
               <Card.Divider />
               <View style={styles.titleContainer}>
                 <Text style={styles.title}>{course.name}</Text>
@@ -59,10 +61,11 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     },
     title: {
       fontSize: 20,
+      color : '#4951FF',
     }, 
     icon: {
       marginLeft: 'auto', // Move icon to the right
       marginTop: 'auto', // Align icon to the bottom
     }
   });
-  export default HomeScreen; 
+  export default CourseQuizScreen; 

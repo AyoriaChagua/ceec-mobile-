@@ -1,10 +1,10 @@
 // useQuiz.tsx
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../../../../context/AuthContext';
-import { Question } from '../../../../../interfaces/EvaluationInterface';
+import { Diccionario } from '../../../../../interfaces/DiccionarioInterface';
 
-export const useQuiz = (evaluationId: number) => {
-  const [questions, setQuestions] = useState<Question[] | null>(null);
+export const useDiccionario = (moduleId: number) => {
+  const [questions, setQuestions] = useState<Diccionario[] | null>(null);
   const [ques, setQues] = useState<number>(0);
   const [options, setOptions] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
@@ -16,16 +16,16 @@ export const useQuiz = (evaluationId: number) => {
   const [totalQuestions, setTotalQuestions] = useState<number>(0); //cantidad total de preguntas
 
 // Función para obtener el cuestionario
-  const getQuiz = useCallback(async () => {
+  const getDiccionario = useCallback(async () => {
     setIsLoading(true);
-    const url = `http://192.168.18.3:4100/api/quizzes/evaluacion/${evaluationId}`;
+    const url = `http://192.168.18.3:4100/dictionary/by-module/${moduleId}`;
     try {
       const headers = {
         Authorization: userToken || '',
       };
       const res = await fetch(url, { headers });
       const data = await res.json();
-      console.log("QUIZ", data)
+      console.log("DICCIONARIO", data)
        // Almacenar el cuestionario y generar opciones de respuesta
       setQuestions(data);
       setTotalQuestions(data.length); // Establecer la cantidad total de preguntas
@@ -35,11 +35,11 @@ export const useQuiz = (evaluationId: number) => {
     } finally {
       setIsLoading(false);
     }
-  }, [userToken, evaluationId]);
+  }, [userToken, moduleId]);
 
   useEffect(() => {
-    getQuiz();
-  }, [getQuiz]);
+    getDiccionario();
+  }, [getDiccionario]);
  // Función para manejar el avance a la siguiente pregunta
   const handleNextPress = () => {
     if (questions && ques < questions.length - 1) {
@@ -50,7 +50,7 @@ export const useQuiz = (evaluationId: number) => {
     }
   };
  // Función para generar opciones de respuesta y mezclarlas
-  const generateOptionsAndShuffle = (_question: Question) => {
+  const generateOptionsAndShuffle = (_question: Diccionario) => {
     const options = [..._question.incorrect_answer];
     options.push(_question.correct_answer);
 
@@ -65,7 +65,7 @@ export const useQuiz = (evaluationId: number) => {
   const handlSelectedOption = (_option: string) => {
     setSelectedOption(_option);
     if (questions && questions[ques] && _option === questions[ques].correct_answer) {
-        setScore(score + questions[ques].points); // Sumar los puntos de la pregunta correcta
+        setScore(score +1); // Sumar los puntos de la pregunta correcta
         setIsCorrect(true);
         setTotalScore(totalScore + questions[ques].points); // Actualizar la puntuación total
     } else {
@@ -105,5 +105,7 @@ export const useQuiz = (evaluationId: number) => {
     formatTime,
     handleNextPress,
     handlSelectedOption,
+    setIsCorrect,
+   setSelectedOption,
   };
 };

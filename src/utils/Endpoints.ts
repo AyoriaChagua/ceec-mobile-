@@ -26,6 +26,12 @@ export const API_MODULE_ID_URL = Platform.OS === 'ios' ?
     'http://localhost:4100/api/modules' :
     'http://192.168.18.3:4100/api/modules';
 
+
+ //obtener las notas por el id_curso y id_usuario :    http://192.168.18.3:4100/api/evaluationresults/:curso_id/:user_id
+ export const API_NOTAS_URL = Platform.OS === 'ios' ?
+ 'http://localhost:4100/api/evaluationresults/notas' :
+ 'http://192.168.18.3:4100/api/evaluationresults/notas';
+
 //obtener info del falshcard por su module_id : http://192.168.18.3:4100/flashcard/module/1   
 
 export const API_FLASHCARD_URL = Platform.OS === 'ios' ?
@@ -44,11 +50,25 @@ export const API_EVALUATIONS_RESULT_URL = Platform.OS === 'ios' ?
     'http://localhost:4100/api/evaluationresults' :
     'http://192.168.18.3:4100/api/evaluationresults';
 
+//obtener ranking por evaluacion : http://192.168.18.3:4100/api/evaluationresults/by-evaluation/:id-evaluacion
+
+export const API_EVALUATIONS_RANKING_URL = Platform.OS === 'ios' ?
+    'http://localhost:4100/api/evaluationresults/by-evaluation' :
+    'http://192.168.18.3:4100/api/evaluationresults/by-evaluation';
 
 //Obtener todas los resultados por evaluationId : http://192.168.18.3:4100/api/evaluationresults/by-evaluation/:evaluationId
 export const API_EVALUATIONS_RESULT_EVAID = Platform.OS === 'ios' ?
     'http://localhost:4100/api/evaluationresults/by-evaluation' :
     'http://192.168.18.3:4100/api/evaluationresults/by-evaluation';
+
+
+    //Obtener todas los resultados por eva_id y user :  http://192.168.18.3:4100/api/evaluationresults/by-user-evaluation/:userId/:evaluationId 
+    export const API_EVALUATIONS_EVAID_USER = Platform.OS === 'ios' ?
+    'http://192.168.18.3:4100/api/evaluationresults/by-user-evaluation' :
+    'http://192.168.18.3:4100/api/evaluationresults/by-user-evaluation';
+
+
+
 
 
 export const API_COURSES_WITH_USERS = Platform.OS === 'ios' ?

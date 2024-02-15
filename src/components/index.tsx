@@ -14,4 +14,6 @@ export { default as CardCourse } from './CardCourse';
 export { default as ProfileInput } from './ProfileInput';
 export { default as CustomAccordionList } from './CustomAccordionList';
 export { default as LegendMark } from './LegendMark';
+export { default as Rectangle } from './Rectangle';
+
 
