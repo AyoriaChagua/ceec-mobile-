@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { Icon } from 'react-native-paper';
@@ -18,8 +18,12 @@ export default function CustomDrawer(props: any) {
                 contentContainerStyle={{ backgroundColor: '#2B32CE' }}
                 {...props}>
                 <View style={styles.header}>
-                    <Account width={80} height={80} />
-                    <Text style={styles.textTitle}>{props.fullname}</Text>
+                    {props.uri_picture ? <Image source={{ uri: props.uri_picture }} style={{
+                        width: 80,
+                        height: 80,
+                        borderRadius: 1000
+                    }} /> : <Account width={80} height={80} />}
+                    <Text style={styles.textTitle}>{props.fullname.toUpperCase()}</Text>
                     <Text style={styles.text}>{props.email}</Text>
                 </View>
 
@@ -34,7 +38,7 @@ export default function CustomDrawer(props: any) {
                     onPress={handleLogout}>
                     <View style={styles.button}>
                         <Icon source={'logout'} size={22} />
-                        <Text style={{ marginLeft: 30 }}>Sign Out</Text>
+                        <Text style={{ marginLeft: 30 }}>Cerrar sesión</Text>
                     </View>
                 </TouchableOpacity>
                 <Text style={{ fontSize: 12 }}>v. 1.0.0</Text>

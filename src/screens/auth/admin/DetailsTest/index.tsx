@@ -7,7 +7,6 @@ type DetailsTestScreenRouteProp = RouteProp<RootStackParamListAdmin, 'Details'>;
 
 export default function DetailsTest() {
   const route = useRoute<DetailsTestScreenRouteProp>();
-  console.log(route);
   const { params } = route;
   const userId = params ? params.itemId : null;
   return (

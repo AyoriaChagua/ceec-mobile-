@@ -5,7 +5,9 @@ import MaterialScreen from '../screens/auth/student/MaterialScreen';
 import FlashCardScreen from '../screens/auth/student/FlashCardScreen';
 import EvaluacionScreen from '../screens/auth/student/EvaluacionScreen';
 import DiccionarioScreen from '../screens/auth/student/DiccionarioScreen';
-
+import QuizScreen from '../screens/auth/student/QuizScreen';
+import ResultScreen from '../screens/auth/student/ResultScreen';
+import RankingScreen from '../screens/auth/student/RankingScreen';
 export type RootStackParamList = {
   Home: undefined;
   Module: { course_id: number };
@@ -13,7 +15,9 @@ export type RootStackParamList = {
   FlashCard: {  moduleId: number };
   Evaluacion: {  moduleId: number };
   Diccionario:  {  moduleId : number };
-
+  Quiz :  {  evaluationId : number };
+Result:  {  totalScore : number  , elapsedTime : number , evaluationId :number ,  effectiveness: number};
+Ranking : undefined;
   // ... other screens
 };
 const StudentStack: React.FC = () => {
@@ -27,6 +31,9 @@ const StudentStack: React.FC = () => {
         <Stack.Screen name="FlashCard" component={FlashCardScreen} />
         <Stack.Screen name="Evaluacion" component={EvaluacionScreen} />
         <Stack.Screen name="Diccionario" component={DiccionarioScreen} />
+        <Stack.Screen name="Quiz" component={QuizScreen} />
+        <Stack.Screen name="Result" component={ResultScreen} />
+        <Stack.Screen name="Ranking" component={RankingScreen} />
       </Stack.Navigator>
     );
   };

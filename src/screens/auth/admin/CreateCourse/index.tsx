@@ -1,7 +1,11 @@
 import { View, Text } from 'react-native';
 import { styles } from './styles';
-import {  FormCourse,  FormModule } from '../../../../components'; //AnimatedButton, FormEvaluation,
+import { CustomStepIndicator, FormCourse, FormEvaluation } from '../../../../components'; //AnimatedButton, FormEvaluation,
 import React, { useState } from 'react';
+import FormQuizz from '../../../../components/FormQuizz';
+
+export type Step = 'course' | 'module' | 'dictionary' | 'flash-card' | 'evaluation' | 'prequizz';
+
 //import { windowHeight } from '../../../../utils/Dimentions';
 export default function CreateCourse() {
   /*
@@ -27,54 +31,38 @@ export default function CreateCourse() {
       setIsVisibleFormEvaluation(true);
     };
   */
+
+  const [currentStep, setCurrentStep] = useState<Step>('course');
   const [createdCourse, setCreatedCourse] = useState({
     created: false,
     newCourseId: 0
   });
+
+
+  const [currentPosition, setCurrentPosition] = useState(0);
   const handleCreatedCourse = (course_id: number) => {
-    setCreatedCourse({ created: true, newCourseId: course_id });
+    if (course_id != 0) {
+      setCreatedCourse({ created: true, newCourseId: course_id });
+      setCurrentPosition(1);
+      setCurrentStep("prequizz")
+    }
   };
+  
   return (
     <View style={styles.container}>
-      {/*<View style={{ height: windowHeight * 0.08 }}>
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <View>
-            <AnimatedButton
-              icon='book-plus'
-              text='Curso'
-              widthText={105}
-              onPress={handlePressButtonCurso}
-              isVisible={isVisibleFormCourse}
-            />
-          </View>
-          <View>
-            <AnimatedButton
-              icon='view-module'
-              text='Módulos'
-              widthText={120}
-              onPress={handlePressButtoModule}
-              isVisible={isVisibleFormModule}
-            />
-          </View>
-          <View>
-            <AnimatedButton
-              icon='file'
-              text='Evaluación'
-              widthText={135}
-              onPress={handlePressButtoEvaluation}
-              isVisible={isVisibleFormEvaluation}
-            />
-          </View>
-        </View>
-      </View>
-       <View style={{ height: windowHeight * 0.75 }}>
-        {isVisibleFormCourse && (<FormCourse />)}
-        {isVisibleFormModule && (<FormModule />)}
-        {isVisibleFormEvaluation && (<FormEvaluation />)}
-      </View> */}
       <Text style={styles.title}>Creando nuevo <Text style={styles.b}>Curso</Text></Text>
-      <FormCourse onCourseCreated={handleCreatedCourse} hidden={createdCourse.created} />
-      {createdCourse.created && (<FormModule newCourseId={createdCourse.newCourseId} />)}
+      <CustomStepIndicator currentPosition={currentPosition} labels={["Curso", "Prequizz"]} />
+      <FormCourse
+        onCourseCreated={handleCreatedCourse}
+        step={currentStep}
+      />
+
+      {createdCourse.created && (
+        <FormQuizz
+          newCourseId={createdCourse.newCourseId}
+          step={currentStep}
+        />
+      )}
     </View>
   )
 }

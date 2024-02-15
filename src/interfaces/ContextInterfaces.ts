@@ -1,4 +1,4 @@
-import { Profile } from "./UserInterfaces";
+import { Profile, UserInfo } from "./UserInterfaces";
 
 export interface AuthProps {
     userToken?: string | null;
@@ -11,5 +11,5 @@ export interface AuthProps {
         role: number,
         email: string
     } | string | null;
-    profileInfo?: Profile | null
+    profileInfo?: Profile | null | UserInfo
 }

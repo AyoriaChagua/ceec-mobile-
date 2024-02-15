@@ -1,41 +1,63 @@
-import React , { useEffect, useState } from 'react';
-import { StyleSheet, Text, View ,  } from 'react-native';
-import { useRoute, RouteProp } from '@react-navigation/native';
-import { RootStackParamList }  from '../../../../navigation/StudentStack';
-import WebView from 'react-native-webview';
-import { getModuleInfoById } from '../../../../services/module.service';
-import { Material } from "../../../../interfaces/ContentModuleInterface";
-import { useAuth } from '../../../../context/AuthContext';
+// MaterialScreen.tsx
+import React, { useRef, useState } from 'react';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { Video, ResizeMode } from 'expo-av';
+import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { useMaterial } from './hooks/useMaterial';
+import { extractDriveFileId } from './hooks/extractDriveFileId';
+import { materialScreenStyles as styles } from './styles';
 type MaterialScreenRouteProp = RouteProp<RootStackParamList, 'Material'>;
-const  MaterialScreen: React.FC = () => {
+
+const MaterialScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<MaterialScreenRouteProp>();
   const { moduleId } = route.params;
-  const { userInfo, userToken } = useAuth();
-  const [material, setMaterial] = useState<Material []>([]);
-   
-  
-  const pptURL = 'https://docs.google.com/presentation/d/10QZ1I-Pqv5D4b9fhRF4fidKE3qFK9bHb/edit?usp=sharing&ouid=101448759285435625061&rtpof=true&sd=true';
-  
+  const video = useRef(null);
+  const { material, loading } = useMaterial(moduleId);
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
+  const [status, setStatus] = useState({});
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text>CARGANDO...</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
-  
-        <WebView source={{ uri: pptURL }}   />
-      
+      {material.length > 0 ? (
+        material.map((item) => (
+          <View key={item.module_id} style={styles.videoContainer}>
+            {isVideoLoading && (
+              <ActivityIndicator style={styles.videoLoadingIndicator} size="large" color="#0000ff" />
+            )}
+            <Video
+              ref={video}
+              style={styles.video}
+              source={{
+                uri: `https://drive.google.com/uc?id=${extractDriveFileId(item.ppt_url)}`,
+              }}
+              useNativeControls
+              resizeMode={ResizeMode.CONTAIN}
+              isLooping
+              onPlaybackStatusUpdate={(status) => {
+                setStatus(() => status);
+                if (!status.isLoaded) {
+                  setIsVideoLoading(true);
+                } else {
+                  setIsVideoLoading(false);
+                }
+              }}
+            />
+          </View>
+        ))
+      ) : (
+        <Text>No material data available</Text>
+      )}
     </View>
   );
 };
 
-
-  
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#F5F5F5',
-    },
-    wrapper: {
-      // Estilos personalizados para el deslizador si es necesario
-    },
-  });
-  
 
 export default MaterialScreen;

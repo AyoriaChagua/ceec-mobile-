@@ -6,7 +6,7 @@ import { TextInput } from 'react-native-paper';
 interface CourseInputProps {
     readonly label: string;
     readonly control: any;
-    readonly name: "name" | "description" | "image" | "limit_date";
+    readonly name: string;
     readonly inputType: 'text' | 'number' | 'date';
     readonly rules?: any;
 }
@@ -25,7 +25,13 @@ export default function CourseInput({ label, control, name, inputType, rules }: 
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
-                            mode={name === "description" ? "outlined": "flat"}
+                            mode={
+                                name.includes("description") || 
+                                name.includes("word") || 
+                                name.includes("meaning") || 
+                                name.includes("evaluation") ||
+                                name.includes("flash-card")
+                                ? "outlined" : "flat"}
                             style={{ backgroundColor: '#fff', padding: 3, fontSize: 15 }}
                             underlineColor="#2B32CE"
                             selectionColor="#2B32CE"

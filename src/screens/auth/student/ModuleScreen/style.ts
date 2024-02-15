@@ -18,18 +18,19 @@ export const moduleScreenStyles = StyleSheet.create({
   },
   courseImage: {
     width: '100%', // Adjust to take the full width
-    height: 180,
+    height: 200,
     borderRadius: 10,
     marginBottom: 16, // Add bottom margin for separation
   },
   courseInfo: {
-    marginTop: 16,
-    marginBottom: 16, // Add bottom margin for separation
+    marginTop: 13,
+    marginBottom: 8, // Add bottom margin for separation
   },
   courseTitle: {
     color: '#4951FF', // Adjust text color
     fontSize: 24, // Decrease font size
     fontWeight: 'normal', // Set to normal font weight
+    textAlign: 'center',
   },
   courseDescription: {
     fontSize: 14, // Decrease font size

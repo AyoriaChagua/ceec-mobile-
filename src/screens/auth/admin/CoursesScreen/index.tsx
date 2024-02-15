@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, ScrollView, View } from 'react-native';
 import React from 'react';
 import { styles } from './styles';
-import { CardCourse, LoadIndicator } from '../../../../components';
+import { CourseCardAdmin, LoadIndicator } from '../../../../components';
 import useCoursesWithModules from './hooks/useCourses';
 import { RootStackParamListAdmin } from '../../../../interfaces/NavigationInterfaces';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -49,20 +49,30 @@ export default function CoursesScreen({ navigation }: Props) {
     )
   }
 
+  const navigateToCreateModuleScreen = (courseId: number) => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'CreateModule',
+        params: {
+          courseId
+        },
+      })
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView style={styles.container} >
         {coursesWithModules.map(course => (
-          <TouchableOpacity key={course.course_id}
-            onPress={() => navigateToDetailScreen(course.course_id)}>
-            <CardCourse
-              userCount={course.user_count}
-              key={course.course_id}
-              moduleCount={course.modules.length}
-              courseName={course.name}
-              createdAt={course.created_at}
-            />
-          </TouchableOpacity>
+          <CourseCardAdmin
+            userCount={course.user_count}
+            key={course.course_id}
+            courseId={course.course_id}
+            moduleCount={course.modules.length}
+            courseName={course.name}
+            createdAt={course.created_at}
+            navigateTo={navigateToCreateModuleScreen}
+          />
         ))}
       </ScrollView>
       <TouchableOpacity

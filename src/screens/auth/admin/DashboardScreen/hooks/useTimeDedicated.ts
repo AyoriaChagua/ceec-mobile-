@@ -14,6 +14,7 @@ export const useSessionStatistics = () => {
         setIsLoading(true);
         try {
             const data = await GetSessionStatistics(page);
+            console.log(data);
             const updatedAverages = weekDays.map((weekDay, index) => {
                 const session = data.sessionsWithDay.find(session => session.day === weekDay);
                 return session ? (parseFloat(session.average_duration_seconds)/60) : averages[index];

@@ -16,6 +16,7 @@ const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
   const { courseData, modules } = useModuleScreen(course_id);
  
   const [selectedModule, setSelectedModuleId] = useState<number | null>(null);
+
   
   const content_list: Module[] = [
     {
@@ -44,8 +45,10 @@ const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
     },
   ];
   const handleModuleClick = (moduleId: number , numbertype :number) => {
+    console.log('Clicked moduleId:', moduleId); // ModuleId seleccionado
     setSelectedModuleId(moduleId);
-   
+    console.log(selectedModule);
+
     switch (numbertype) {
       case 1:
         navigation.navigate('Diccionario', { moduleId });
@@ -64,7 +67,6 @@ const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
         break;
     }
   };
-
     return (
         <ScrollView style={styles.container}>
          
@@ -87,9 +89,10 @@ const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
           {modules.map((module) => (
             <React.Fragment key={module.module_id}>
                
-               <ModuleCard modules={content_list} namemodulo={` ${module.name}`} handleModuleClick={handleModuleClick} />
+               <ModuleCard modules={content_list} namemodulo={` ${module.name}`}   handleModuleClick={(moduleId, numbertype) =>
+              handleModuleClick(module.module_id, numbertype)
+            } />
 
-             
               <View style={styles.divider} />
             </React.Fragment>
           ))}
