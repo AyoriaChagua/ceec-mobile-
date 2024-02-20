@@ -2,7 +2,10 @@
 import { NavigationProp } from '@react-navigation/native';
 import { useQuiz } from './useQuizLogic';
 import { useAuth } from '../../../../../context/AuthContext';
-import { sendQuizResult } from '../../../../../services/quizz.service';
+
+import { sendQuizResult  , getEvaluationUser , updateQuizResult} from '../../../../../services/evaluation.service';
+
+
 
 export const useResultEva = (navigation: NavigationProp<any>, evaluationId: number , totalScore :number ,calculateEffectiveness: () => number , elapsedTime : number) => {
   const { userToken, userInfo } = useAuth();
@@ -12,32 +15,41 @@ export const useResultEva = (navigation: NavigationProp<any>, evaluationId: numb
       if (userInfo && typeof userInfo !== 'string') {
         const user = userInfo as { id: number; role: number; email: string };
 
-        const quizResult = {
-          evaluation_id: evaluationId,
-          user_id: user.id,
-          total_score: totalScore,
-        };
+        const existingResults = await getEvaluationUser(user.id, evaluationId, userToken || '');
 
-        if (userToken) {
-          await sendQuizResult(quizResult, userToken);
-
-          navigation.navigate('Result', {
-            totalScore,
-            elapsedTime, 
-            evaluationId,
-            effectiveness: calculateEffectiveness(),
-          });
+        if (existingResults && existingResults.length > 0) {
+          // Si existen resultados, actualizar el resultado existente
+          const resultId = existingResults[0].result_id;
+          await updateQuizResult(resultId, totalScore, userToken || ''); // Use an empty string as a default value
         } else {
-          console.error('User token is null or undefined.');
-          // Handle this case accordingly
+          // Si no existen resultados, enviar un nuevo resultado
+          const quizResult = {
+            evaluation_id: evaluationId,
+            user_id: user.id,
+            total_score: totalScore,
+          };
+
+          if (userToken) {
+            await sendQuizResult(quizResult, userToken);
+          } else {
+            console.error('User token is null or undefined.');
+            // Handle this case accordingly
+          }
         }
+
+        navigation.navigate('Result', {
+          totalScore,
+          elapsedTime,
+          evaluationId,
+          effectiveness: calculateEffectiveness(),
+        });
       } else {
         console.error('User info is null or invalid.');
         // Handle this case accordingly
       }
     } catch (error) {
       // Handle errors or log them as needed
-      console.error('Error while sending quiz result:', error);
+      console.error('Error while handling quiz result:', error);
     }
   };
 

@@ -1,7 +1,6 @@
-// useGameLogic.tsx
 import { useEffect, useState } from 'react';
-import { useFlashCard } from './useFlashCards';
-import { shuffle } from './suffle';
+import { useFlashCard } from './useFlashCards'; // Importamos el hook useFlashCard para obtener las tarjetas de flash
+import { shuffle } from './suffle'; // Importamos la función shuffle para mezclar las respuestas de las tarjetas
 
 interface Card {
   flashcard_id: number;
@@ -12,13 +11,14 @@ interface Card {
 }
 
 export function useGameLogic(moduleId: number) {
-  const { flashCards, loading } = useFlashCard(moduleId);
+  const { flashCards, loading } = useFlashCard(moduleId); // Obtenemos las tarjetas de flash y el estado de carga desde el hook useFlashCard
 
-  const [board, setBoard] = useState<Card[]>([]);
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
-  const [matchedCards, setMatchedCards] = useState<number[]>([]);
-  const [score, setScore] = useState(0);
+  const [board, setBoard] = useState<Card[]>([]); // Estado para almacenar el tablero de tarjetas
+  const [selectedCard, setSelectedCard] = useState<number | null>(null); // Estado para almacenar la tarjeta seleccionada
+  const [matchedCards, setMatchedCards] = useState<number[]>([]); // Estado para almacenar las tarjetas que se han emparejado
+  const [score, setScore] = useState(0); // Estado para almacenar la puntuación del jugador
 
+  // Efecto para inicializar el tablero cuando las tarjetas estén cargadas y no haya errores
   useEffect(() => {
     const initializeBoard = async () => {
       const mixedAnswers: Card[] = [];
@@ -29,6 +29,7 @@ export function useGameLogic(moduleId: number) {
         const shuffledIncorrectAnswers = shuffle([...incorrect_answer]);
         const shuffledCorrectAnswers = shuffle([...correct_answer]);
 
+        // Creamos tarjetas para cada respuesta, mezclando las respuestas correctas e incorrectas
         shuffledIncorrectAnswers.forEach((incorrect: string) => {
           mixedAnswers.push({ flashcard_id, indication, answer: incorrect, isCorrect: false, isTurnedOver: false });
         });
@@ -38,50 +39,32 @@ export function useGameLogic(moduleId: number) {
         });
       }
 
-      setBoard(mixedAnswers);
+      setBoard(mixedAnswers); // Establecemos el tablero de tarjetas mezclado
     };
 
     if (!loading && flashCards.length > 0) {
-      initializeBoard();
+      initializeBoard(); // Inicializamos el tablero cuando las tarjetas estén cargadas y no haya errores
     }
   }, [loading, flashCards]);
 
-  useEffect(() => {
-    if (board.length === 0) return;
-
-    const flipAllCards = async () => {
-      for (let i = 0; i < board.length; i++) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        const updatedBoard = [...board];
-        updatedBoard[i] = { ...board[i], isTurnedOver: true };
-        setBoard(updatedBoard);
-      }
-
-      // Después de 10 segundos, volver a su posición inicial
-      setTimeout(() => {
-        const resetBoard = board.map(card => ({ ...card, isTurnedOver: false }));
-        setBoard(resetBoard);
-      }, 10000);
-    };
-
-    flipAllCards();
-  }, [board]);
-
+  // Efecto para manejar la lógica del juego cuando se selecciona una tarjeta
   useEffect(() => {
     if (selectedCard === null) return;
 
     const isMatch = board[selectedCard].isCorrect;
 
     if (isMatch) {
+      // Si la tarjeta seleccionada es correcta, la añadimos a las tarjetas emparejadas
       setMatchedCards([...matchedCards, selectedCard]);
       setSelectedCard(null);
 
       const allCorrectTurnedOver = board.filter(card => card.isCorrect).every(card => card.isTurnedOver);
       if (allCorrectTurnedOver) {
-        // El juego ha terminado
-        // Puedes agregar lógica adicional o mostrar un mensaje de victoria aquí
+        // Si todas las tarjetas correctas están volteadas, el juego ha terminado
+        // Aquí puedes agregar lógica adicional o mostrar un mensaje de victoria
       }
     } else {
+      // Si la tarjeta seleccionada no es correcta, la volvemos a girar después de un tiempo
       const timeoutId = setTimeout(() => {
         const updatedBoard = [...board];
         updatedBoard[selectedCard] = { ...board[selectedCard], isTurnedOver: false };
@@ -93,6 +76,7 @@ export function useGameLogic(moduleId: number) {
     }
   }, [selectedCard, board, matchedCards]);
 
+  // Función para manejar el tap en una tarjeta
   const handleTapCard = (index: number) => {
     if (selectedCard !== null || matchedCards.includes(index) || board[index].isTurnedOver) return;
 
@@ -104,8 +88,10 @@ export function useGameLogic(moduleId: number) {
     setScore(score + 1);
   };
 
+  // Función para verificar si el jugador ha ganado el juego
   const didPlayerWin = () => matchedCards.length === board.filter(card => card.isCorrect).length;
 
+  // Función para reiniciar el juego
   const resetGame = () => {
     setMatchedCards([]);
     setScore(0);
@@ -115,6 +101,7 @@ export function useGameLogic(moduleId: number) {
     setBoard(newShuffledBoard);
   };
 
+  // Función para generar un nuevo tablero de tarjetas mezclado
   function generateShuffledBoard() {
     const mixedAnswers: Card[] = [];
 
@@ -124,6 +111,7 @@ export function useGameLogic(moduleId: number) {
       const shuffledIncorrectAnswers = shuffle([...incorrect_answer]);
       const shuffledCorrectAnswers = shuffle([...correct_answer]);
 
+      // Creamos tarjetas para cada respuesta, mezclando las respuestas correctas e incorrectas
       shuffledIncorrectAnswers.forEach((incorrect: string) => {
         mixedAnswers.push({ flashcard_id, indication, answer: incorrect, isCorrect: false, isTurnedOver: false });
       });

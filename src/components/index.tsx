@@ -15,6 +15,10 @@ export { default as CourseCardAdmin } from './CourseCardAdmin';
 export { default as ProfileInput } from './ProfileInput';
 export { default as CustomAccordionList } from './CustomAccordionList';
 export { default as LegendMark } from './LegendMark';
+
+export { default as Rectangle } from './Rectangle';
+
+
 export { default as ModuleCardAdmin } from './ModuleCardAdmin';
 export { default as FormModule } from './FormModule';
 export { default as FormCourse } from './FormCourse';
@@ -27,3 +31,5 @@ export { default as CardStudent } from "./StudentCard";
 export { default as EvaluationResponseInput } from "./EvaluationResponseInput";
 export { default as EvaluationQuestion } from "./EvaluationQuestion";
 export { default as FormPrequizz } from "./FormPrequizz";
+export { default as FloatingEmotion } from "./FloatingEmotion";
+

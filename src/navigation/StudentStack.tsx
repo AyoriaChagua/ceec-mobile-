@@ -7,6 +7,7 @@ import EvaluacionScreen from '../screens/auth/student/EvaluacionScreen';
 import DiccionarioScreen from '../screens/auth/student/DiccionarioScreen';
 import QuizScreen from '../screens/auth/student/QuizScreen';
 import ResultScreen from '../screens/auth/student/ResultScreen';
+import ResultDiccionario from '../screens/auth/student/ResultDiccionarioScreen';
 import RankingScreen from '../screens/auth/student/RankingScreen';
 export type RootStackParamList = {
   Home: undefined;
@@ -17,7 +18,8 @@ export type RootStackParamList = {
   Diccionario:  {  moduleId : number };
   Quiz :  {  evaluationId : number };
 Result:  {  totalScore : number  , elapsedTime : number , evaluationId :number ,  effectiveness: number};
-Ranking : undefined;
+ResultDiccionario :  {   totalQuestions : number  , correctAnswers :number };
+Ranking :  {  totalScore : number , evaluationId : number};
   // ... other screens
 };
 const StudentStack: React.FC = () => {
@@ -34,6 +36,7 @@ const StudentStack: React.FC = () => {
         <Stack.Screen name="Quiz" component={QuizScreen} />
         <Stack.Screen name="Result" component={ResultScreen} />
         <Stack.Screen name="Ranking" component={RankingScreen} />
+        <Stack.Screen name="ResultDiccionario" component={ResultDiccionario} />
       </Stack.Navigator>
     );
   };

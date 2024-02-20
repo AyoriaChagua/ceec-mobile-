@@ -12,7 +12,8 @@ export interface FlashCard {
   indication: string;
   correct_answer: string[];
   incorrect_answer: string[];
-  module_id: number;
+ 
+
 }
 
 export interface StudentFlashcardProps {

@@ -1,83 +1,132 @@
-import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { quizScreenStyles as styles } from './style';
+import { useDiccionario } from './hooks/useDiccionarioLogic';
 
-const words = [
- { word: 'Apple', meaning: 'Manzana' },
- { word: 'Banana', meaning: 'Plátano' },
- { word: 'Grape', meaning: 'Uva' },
-];
+type QuizScreenRouteProp = RouteProp<RootStackParamList, 'Diccionario'>;
 
-const WordMeaningBox: React.FC<{ word: string; meaning: string }> = ({
- word,
- meaning,
-}) => {
- const wordBoxStyles = [styles.wordBox, word === 'Apple' ? styles.apple : styles.grape];
- const meaningBoxStyles = [styles.meaningBox, word === 'Banana' ? styles.banana : styles.default];
+const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
+  const route = useRoute<QuizScreenRouteProp>();
+  const { moduleId } = route.params;
+  const {
+    questions,
+    ques,
+    options,
+    score,
+    isLoading,
+    selectedOption,
+    isCorrect,
+    totalScore,
+    isIncorrectSelected,
+    formatTime,
+    handleNextPress,
+    handlSelectedOption,
+    totalQuestions,
+    calculateEffectiveness,
+  } = useDiccionario(moduleId);
 
- return (
-    <View style={styles.wordMeaningBox}>
-      <View style={wordBoxStyles}>
-        <Text style={styles.wordText}>{word}</Text>
-      </View>
-      <View style={meaningBoxStyles}>
-        <Text style={styles.meaningText}>{meaning}</Text>
-      </View>
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [showClap, setShowClap] = useState<boolean>(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsedTime((prevTime) => prevTime + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (isCorrect) {
+      setShowClap(true);
+      setTimeout(() => {
+        setShowClap(false);
+      }, 1000);
+    }
+  }, [isCorrect]);
+
+  const handleShowResult = () => {
+    navigation.navigate('ResultDiccionario', {
+      totalQuestions: totalQuestions,
+      correctAnswers: score,
+    });
+  };
+
+  return (
+    <View style={styles.container}>
+      {isLoading ? (
+        <View style={styles.loadingContainer}>
+          <Text style={styles.loadingText}>CARGANDO...</Text>
+        </View>
+      ) : questions && ques < questions.length ? (
+        <View style={styles.parent}>
+          <View style={styles.top}>
+            <Text style={styles.elapsedTimeText}>{`Tiempo: ${elapsedTime}`}</Text>
+            <Image source={{ uri: questions[ques].word }} style={styles.questionImage} />
+          </View>
+          <View style={styles.options}>
+            {options.map((opt, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.optionButton,
+                  selectedOption !== null && !isCorrect && opt !== questions[ques].correct_answer
+                    ? styles.incorrectOption
+                    : null,
+                  selectedOption !== null &&
+                  !isCorrect &&
+                  opt !== questions[ques].correct_answer &&
+                  isIncorrectSelected &&
+                  selectedOption === opt
+                    ? styles.incorrectSelected
+                    : null,
+                  selectedOption === opt && isCorrect ? styles.correctOption : null,
+                ]}
+                onPress={() => handlSelectedOption(opt)}
+                disabled={selectedOption !== null}
+              >
+                <Text style={styles.optionText}>{decodeURIComponent(opt)}</Text>
+                {selectedOption !== null &&
+                  !isCorrect &&
+                  opt !== questions[ques].correct_answer &&
+                  isIncorrectSelected &&
+                  selectedOption === opt && (
+                    <Text style={styles.incorrectIcon}>❌</Text>
+                  )}
+              </TouchableOpacity>
+            ))}
+          </View>
+          <View style={styles.bottom}>
+           
+            {ques === questions.length - 1 && selectedOption !== null && (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleShowResult}
+                disabled={selectedOption === null}
+              >
+                <Text style={styles.buttonText}>Finalizar</Text>
+              </TouchableOpacity>
+            )}
+            {ques < questions.length - 1 && selectedOption !== null && (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleNextPress}
+                disabled={selectedOption === null}
+              >
+                <Text style={styles.buttonText}>Siguiente</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+      ) : (
+        <View style={styles.noQuestionsContainer}>
+          <Text>No hay preguntas disponibles.</Text>
+        </View>
+      )}
     </View>
- );
+  );
 };
 
-const DiccionarioScreen = () => {
- return (
-    <ScrollView style={styles.container}>
-      {words.map((word, index) => (
-        <WordMeaningBox key={index} word={word.word} meaning={word.meaning} />
-      ))}
-    </ScrollView>
- );
-};
-
-const styles = StyleSheet.create({
- container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 50,
- },
- wordMeaningBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
- },
- wordBox: {
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
- },
- apple: {
-    borderColor: 'red',
- },
- grape: {
-    borderColor: 'purple',
- },
- meaningBox: {
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
- },
- banana: {
-    borderColor: 'yellow',
- },
- default: {
-    borderColor: 'black',
- },
- wordText: {
-    fontSize: 16,
- },
- meaningText: {
-    fontSize: 16,
- },
-});
-
-export default DiccionarioScreen;
+export default QuizScreen;

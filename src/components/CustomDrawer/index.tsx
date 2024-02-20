@@ -38,7 +38,11 @@ export default function CustomDrawer(props: any) {
                     onPress={handleLogout}>
                     <View style={styles.button}>
                         <Icon source={'logout'} size={22} />
+ 
+                        <Text style={{ marginLeft: 30 }}>Salir</Text>
+
                         <Text style={{ marginLeft: 30 }}>Cerrar sesión</Text>
+
                     </View>
                 </TouchableOpacity>
                 <Text style={{ fontSize: 12 }}>v. 1.0.0</Text>

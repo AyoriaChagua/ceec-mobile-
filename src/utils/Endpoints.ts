@@ -1,4 +1,4 @@
-const base_url = `http://192.168.0.11:4100`;
+const base_url = `https://ceec-web-api.onrender.com`;
 
 
 export const API_SOCKET_URL = `${base_url}`;

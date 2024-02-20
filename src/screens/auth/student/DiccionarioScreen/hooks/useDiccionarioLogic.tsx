@@ -1,10 +1,9 @@
-// useQuiz.tsx
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../../../../context/AuthContext';
-import { Question } from '../../../../../interfaces/EvaluationInterface';
+import { Diccionario } from '../../../../../interfaces/DiccionarioInterface';
 
-export const useQuiz = (evaluationId: number) => {
-  const [questions, setQuestions] = useState<Question[] | null>(null);
+export const useDiccionario = (moduleId: number) => {
+  const [questions, setQuestions] = useState<Diccionario[] | null>(null);
   const [ques, setQues] = useState<number>(0);
   const [options, setOptions] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
@@ -12,35 +11,33 @@ export const useQuiz = (evaluationId: number) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const { userToken } = useAuth();
-  const [totalScore, setTotalScore] = useState<number>(0); // estado para la puntuación total
-  const [totalQuestions, setTotalQuestions] = useState<number>(0); //cantidad total de preguntas
+  const [totalScore, setTotalScore] = useState<number>(0);
+  const [totalQuestions, setTotalQuestions] = useState<number>(0);
+  const [isIncorrectSelected, setIsIncorrectSelected] = useState<boolean>(false);
 
-// Función para obtener el cuestionario
-  const getQuiz = useCallback(async () => {
+  const getDiccionario = useCallback(async () => {
     setIsLoading(true);
-    const url = `https://ceec-web-api.onrender.com/api/quizzes/evaluacion/${evaluationId}`;
+    const url = `https://ceec-web-api.onrender.com/api/dictionary/by-module/${moduleId}`;
     try {
       const headers = {
         Authorization: userToken || '',
       };
       const res = await fetch(url, { headers });
       const data = await res.json();
-      console.log("QUIZ", data)
-       // Almacenar el cuestionario y generar opciones de respuesta
       setQuestions(data);
-      setTotalQuestions(data.length); // Establecer la cantidad total de preguntas
+      setTotalQuestions(data.length);
       setOptions(generateOptionsAndShuffle(data[0]));
     } catch (error) {
       console.error('Error fetching quiz:', error);
     } finally {
       setIsLoading(false);
     }
-  }, [userToken, evaluationId]);
+  }, [userToken, moduleId]);
 
   useEffect(() => {
-    getQuiz();
-  }, [getQuiz]);
- // Función para manejar el avance a la siguiente pregunta
+    getDiccionario();
+  }, [getDiccionario]);
+
   const handleNextPress = () => {
     if (questions && ques < questions.length - 1) {
       setQues(ques + 1);
@@ -49,8 +46,8 @@ export const useQuiz = (evaluationId: number) => {
       setIsCorrect(null);
     }
   };
- // Función para generar opciones de respuesta y mezclarlas
-  const generateOptionsAndShuffle = (_question: Question) => {
+
+  const generateOptionsAndShuffle = (_question: Diccionario) => {
     const options = [..._question.incorrect_answer];
     options.push(_question.correct_answer);
 
@@ -61,41 +58,42 @@ export const useQuiz = (evaluationId: number) => {
 
     return options;
   };
-  // Función para manejar la selección de una opción de respuesta
+
   const handlSelectedOption = (_option: string) => {
     setSelectedOption(_option);
     if (questions && questions[ques] && _option === questions[ques].correct_answer) {
-        setScore(score + questions[ques].points); // Sumar los puntos de la pregunta correcta
-        setIsCorrect(true);
-        setTotalScore(totalScore + questions[ques].points); // Actualizar la puntuación total
+      setScore(score + 1);
+      setIsCorrect(true);
+      setTotalScore(totalScore + questions[ques].points);
     } else {
+      setIsIncorrectSelected(true);
       setIsCorrect(false);
-// Mostrar la respuesta correcta después de un segundo
       setTimeout(() => {
         setSelectedOption((questions ?? [])[ques]?.correct_answer ?? null);
-        setIsCorrect(true); // Set isCorrect to true to highlight the correct answer in green
+        setIsCorrect(true);
       }, 1000);
     }
   };
-   // Función para calcular la efectividad en base a las preguntas respondidas
+
   const calculateEffectiveness = () => {
     if (totalQuestions === 0) {
-      return 0; // Evitar dividir por cero
+      return 0;
     }
     const effectiveness = (score / 20) * 100;
-    return Math.round(effectiveness); // Redondear el resultado
+    return Math.round(effectiveness);
   };
+
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   };
- // Retornar los estados y funciones necesarios para la pantalla del cuestionario
+
   return {
     questions,
     ques,
     options,
-    totalScore, 
+    totalScore,
     score,
     isLoading,
     selectedOption,
@@ -105,5 +103,8 @@ export const useQuiz = (evaluationId: number) => {
     formatTime,
     handleNextPress,
     handlSelectedOption,
+    setIsCorrect,
+    setSelectedOption,
+    isIncorrectSelected,
   };
 };

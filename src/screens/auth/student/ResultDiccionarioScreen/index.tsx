@@ -3,29 +3,20 @@ import { View, Text, StyleSheet, Image, TouchableOpacity ,ScrollView  } from 're
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentStack';
 
-type ResultScreenRouteProp = RouteProp<RootStackParamList, 'Result'>;
+type ResultDiccionarioScreenRouteProp = RouteProp<RootStackParamList, 'ResultDiccionario'>;
 
-const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
-  const route = useRoute< ResultScreenRouteProp>();
-  const { totalScore , elapsedTime , evaluationId , effectiveness} = route.params;
-  
+const   ResultDiccionarioScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
+  const route = useRoute< ResultDiccionarioScreenRouteProp>();
+  const { totalQuestions, correctAnswers } = route.params;
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   };
-  const handleRedirect  = () => {
-    navigation.navigate('Evaluacion', {
-      evaluationId : evaluationId
-    });
+  const handleGetPosition = () => {
+    navigation.navigate('Home');
   };
 
-  const handleGetPosition = () => {
-    navigation.navigate('Ranking', {
-      totalScore : totalScore ,  evaluationId : evaluationId
-      
-    });
-  };
 
   return (
     <View style={styles.container}>
@@ -36,23 +27,21 @@ const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
             source={require('./../../../../../assets/images/Star.png')}
             style={styles.starImage}
           />
-          <Text style={styles.points}>{totalScore} PUNTOS</Text>
+        
         </View>
         <View style={styles.circlesContainer}>
           <View style={styles.circle}>
-          <Text style={styles.circleText}>{formatTime(elapsedTime)}</Text>
-            <Text style={styles.circleText}>Duración</Text>
+          <Text style={styles.circleText}>{correctAnswers}</Text>
+            <Text style={styles.circleText}>Correctas</Text>
           </View>
           <View style={styles.circle}>
-            <Text style={styles.circleText}> {effectiveness}% </Text>
-            <Text style={styles.circleText}>Efectividad</Text>
+            <Text style={styles.circleText}> {totalQuestions} </Text>
+            <Text style={styles.circleText}>Preguntas</Text>
           </View>
         </View>
-        <TouchableOpacity onPress={handleRedirect}>
-          <Text style={styles.redirectText}>¿QUIERES MEJORAR TU RESULTADO?</Text>
-        </TouchableOpacity>
+        
         <TouchableOpacity onPress={handleGetPosition} style={styles.positionButton}>
-          <Text style={styles.positionButtonText}>TU POSICIÓN</Text>
+          <Text style={styles.positionButtonText}>REGRESAR</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -115,7 +104,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   circleText: {
-    fontSize: 19,
+    fontSize: 20,
     marginTop: 6,
     color: '#000000',
     fontWeight: 'bold',
@@ -140,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ResultScreen;
+export default ResultDiccionarioScreen;

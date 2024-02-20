@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import { styles } from './styles';
-import { CustomStepIndicator, FormCourse, FormEvaluation } from '../../../../components'; //AnimatedButton, FormEvaluation,
+import { CustomStepIndicator, FormCourse } from '../../../../components'; //AnimatedButton, FormEvaluation,
 import React, { useState } from 'react';
 import FormQuizz from '../../../../components/FormQuizz';
 
