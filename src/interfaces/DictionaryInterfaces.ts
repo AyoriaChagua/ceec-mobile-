@@ -1,6 +1,7 @@
 export interface DictionaryRequest {
     word: string | null;
-    meaning: string | null;
+    correct_answer: string[];
+    incorrect_answer: string[];
     module_id: number;
     quizztype_id: number;
 }

@@ -3,16 +3,17 @@ import React, { useEffect, useState } from 'react';
 import EvaluationResponseInput from '../EvaluationResponseInput';
 import { Icon } from 'react-native-paper';
 import CustomImagePicker from '../CustomImagePicker';
-import { QuizzRequest } from '../../interfaces/EvaluationInterface';
+import { QuizzEvaluationRequest, QuizzRequest } from '../../interfaces/EvaluationInterface';
 
 
 interface Props {
     readonly order: number
     readonly evaluation_id: number
     readonly sendQuestion: (question: QuizzRequest) => void
+    readonly typeQuizz: "evaluation" | "prequizz" | "dictionary"
 }
 
-export default function EvaluationQuestion({ order, evaluation_id, sendQuestion }: Props) {
+export default function EvaluationQuestion({ order, evaluation_id, sendQuestion, typeQuizz }: Props) {
     const [incorrectAnswers, setIncorrectAnswers] = useState(['']);
     const [selectedImage, setSelectedImage] = useState("");
 
@@ -28,7 +29,7 @@ export default function EvaluationQuestion({ order, evaluation_id, sendQuestion 
         setIncorrectAnswers(updatedAnswers);
     };
 
-    const [question, setQuestion] = useState<QuizzRequest>({
+    const [question, setQuestion] = useState<QuizzRequest | QuizzEvaluationRequest>({
         correct_answer: "",
         evaluation_id: evaluation_id,
         image_url: "",
@@ -38,7 +39,9 @@ export default function EvaluationQuestion({ order, evaluation_id, sendQuestion 
         quizz_type: 1
     });
 
-    const handleChangeInput = (name: keyof QuizzRequest, text: string | number | string[]) => {
+    type QuizzKeys = keyof (QuizzRequest & QuizzEvaluationRequest);
+
+    const handleChangeInput = (name: QuizzKeys, text: string | number | string[]) => {
         setQuestion((prevState) => ({
             ...prevState,
             image_url: selectedImage,
@@ -46,6 +49,8 @@ export default function EvaluationQuestion({ order, evaluation_id, sendQuestion 
             [name]: text,
         }));
     };
+
+
 
     const removeIncorrectAnswer = (indexToRemove: number) => {
         const updatedAnswers = [...incorrectAnswers];
@@ -55,8 +60,8 @@ export default function EvaluationQuestion({ order, evaluation_id, sendQuestion 
     };
 
     useEffect(() => {
-        sendQuestion({ ...question, order });
-    }, [question]);
+        sendQuestion({ ...question, incorrect_answer: incorrectAnswers, order });
+    }, [question, incorrectAnswers]);
 
     useEffect(() => {
         setIncorrectAnswers(['']);
@@ -73,15 +78,22 @@ export default function EvaluationQuestion({ order, evaluation_id, sendQuestion 
 
     return (
         <View>
-            <Text style={{ color: "#4951FF", }}> {`Pregunta ${order}`} </Text>
-            <EvaluationResponseInput
-                inputType='text'
-                label='Pregunta'
-                name={`question`}
-                answerType='question'
-                value={question?.question || ''}
-                onChangeText={(text) => handleChangeInput('question', text)}
-            />
+
+            {
+                typeQuizz === "evaluation" &&
+                <>
+                    <Text style={{ color: "#4951FF", }}> {`Pregunta ${order}`} </Text>
+                    <EvaluationResponseInput
+                        inputType='text'
+                        label='Pregunta'
+                        name={`question`}
+                        answerType='question'
+                        value={question?.question || ''}
+                        onChangeText={(text) => handleChangeInput('question', text)}
+                    />
+                </>
+            }
+
 
             <CustomImagePicker onImageSelected={handleImageSelected} image_type='course' />
 
@@ -120,15 +132,20 @@ export default function EvaluationQuestion({ order, evaluation_id, sendQuestion 
                     </Pressable>
                 </View>
             ))}
-            <Text style={{ color: "#4951FF", }}> Puntos de pregunta: </Text>
-            <EvaluationResponseInput
-                inputType='number'
-                label='Puntos'
-                name={`points`}
-                answerType='points'
-                value={question?.points}
-                onChangeText={(text) => handleChangeInput("points", text)}
-            />
+            {
+                typeQuizz === "evaluation" &&
+                <>
+                    <Text style={{ color: "#4951FF", }}> Puntos de pregunta: </Text>
+                    <EvaluationResponseInput
+                        inputType='number'
+                        label='Puntos'
+                        name={`points`}
+                        answerType='points'
+                        value={(question as QuizzEvaluationRequest)?.points}
+                        onChangeText={(text) => handleChangeInput("points", text)}
+                    />
+                </>
+            }
         </View>
     )
 }

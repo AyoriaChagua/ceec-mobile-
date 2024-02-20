@@ -3,9 +3,15 @@ import { Module } from '../../interfaces/CourseInterfaces';
 import { styles } from './styles';
 import { Icon } from 'react-native-paper';
 
+interface Props {
+    readonly name: string
+    readonly is_active: boolean
+    readonly contentName: number
+    readonly Evaluation: Module
+    readonly created_at: Date
+}
 
-
-export default function ModuleCardAdmin({ name, is_active, contentName, Evaluation, created_at }: Module) {
+export default function ModuleCardAdmin({ name, is_active, contentName, Evaluation, created_at }: Props) {
     return (
         <View style={styles.container}>
             <View style={styles.cardHeader}>
@@ -25,7 +31,7 @@ export default function ModuleCardAdmin({ name, is_active, contentName, Evaluati
                     <Icon source={"book"} size={20} color='#4951FF'></Icon>
                     <Text numberOfLines={3} style={styles.evaluation}>Evaluación</Text>
                 </View>
-                <Text style={styles.nameEvaluation}>{Evaluation?.name}</Text>
+                <Text style={styles.nameEvaluation}>{Evaluation?.contentName}</Text>
             </View>
             <TouchableOpacity style={styles.cardFooter} >
                 <Text style={styles.link}>VER MÁS DETALLES</Text>

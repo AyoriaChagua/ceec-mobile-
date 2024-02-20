@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import { styles } from './styles';
-import { CustomStepIndicator, FormCourse, FormEvaluation } from '../../../../components'; //AnimatedButton, FormEvaluation,
+import { CustomStepIndicator, FormCourse } from '../../../../components'; //AnimatedButton, FormEvaluation,
 import React, { useState } from 'react';
 import FormQuizz from '../../../../components/FormQuizz';
 
@@ -35,19 +35,20 @@ export default function CreateCourse() {
   const [currentStep, setCurrentStep] = useState<Step>('course');
   const [createdCourse, setCreatedCourse] = useState({
     created: false,
-    newCourseId: 0
+    newCourseId: 0,
+    name: ""
   });
 
 
   const [currentPosition, setCurrentPosition] = useState(0);
-  const handleCreatedCourse = (course_id: number) => {
+  const handleCreatedCourse = (course_id: number, course_name: string) => {
     if (course_id != 0) {
-      setCreatedCourse({ created: true, newCourseId: course_id });
+      setCreatedCourse({ created: true, newCourseId: course_id, name: course_name });
       setCurrentPosition(1);
-      setCurrentStep("prequizz")
+      setCurrentStep("prequizz");
     }
   };
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Creando nuevo <Text style={styles.b}>Curso</Text></Text>
@@ -61,9 +62,10 @@ export default function CreateCourse() {
         <FormQuizz
           itemId={createdCourse.newCourseId}
           step={currentStep}
-          onEvaluationCreated={()=>{}}
-          title='PREQUIZZ'
-          typeQuizz='dictionary'
+          onEvaluationCreated={() => { }}
+          title={createdCourse.name}
+          typeQuizz='prequizz'
+
         />
       )}
     </View>

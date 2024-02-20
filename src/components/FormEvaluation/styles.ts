@@ -41,4 +41,14 @@ export const styles = StyleSheet.create({
       margin: 0,
       padding: 0
     },
+    
+    scrollContainer: {
+      flex: 1,
+      width: windowWidth,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      backgroundColor: '#fff',
+      borderTopRightRadius: 20,
+      borderTopLeftRadius: 20,
+    }
   })

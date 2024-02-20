@@ -8,7 +8,7 @@ interface Props {
 }
 export default function HeaderDashboard({ nStudents = 0 }: Props) {
     const { profileInfo } = useAuth();
-    const first_name = profileInfo?.first_name;
+    const first_name = profileInfo?.first_name ;
     return (
         <View style={styles.container}>
             <View style={styles.containerHexagon}>

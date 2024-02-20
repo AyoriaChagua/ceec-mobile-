@@ -10,7 +10,6 @@ import { RootStackParamListAdmin } from '../interfaces/NavigationInterfaces';
 import ProfileScreen from '../screens/auth/profile/ProfileScreen';
 import { useAuth } from '../context/AuthContext';
 import CoursesScreen from '../screens/auth/admin/CoursesScreen';
-import CourseScreen from '../screens/auth/admin/CourseScreen';
 import UsersScreen from '../screens/auth/admin/UsersScreen';
 import CreateCourse from '../screens/auth/admin/CreateCourse';
 import CreateUser from '../screens/auth/admin/CreateUser';
@@ -33,7 +32,7 @@ const AdminDrawer = () => {
         fullname = `${profile.first_name} ${profile.last_name}`
         uri_picture = profile.profile_picture!
     }
-    return (
+     return (
         <Drawer.Navigator
             initialRouteName={defaultScreen}
             drawerContent={(props) => (
@@ -104,17 +103,6 @@ const AdminNav = () => (
             options={{
                 headerShown: true,
                 headerLeftLabelVisible: false,
-            }}
-        />
-        <Stack.Screen
-            name="Course"
-            component={CourseScreen}
-            initialParams={{ courseId: 1 }}
-            options={{
-                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
-                title: "",
-                headerLeftLabelVisible: false,
-                headerShown: true
             }}
         />
         <Stack.Screen

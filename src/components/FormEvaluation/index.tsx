@@ -13,6 +13,7 @@ import { EvaluationRequest, EvaluationResponse, QuizzRequest } from '../../inter
 import { postEvaluation } from '../../services/quizz.service';
 import { PostImage } from '../../services/image.service';
 import { styles } from './styles';
+import LoadIndicator from '../LoadIndicator';
 
 interface Props {
   readonly step: Step
@@ -24,6 +25,7 @@ export default function FormEvaluation({ newModuleId, onEvaluationCreated, step 
   const { userToken } = useAuth();
   const [module, setModule] = useState<null | Material>(null);
   const [nroQuestions, setNroQuestions] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState<QuizzRequest[]>([]);
   const [evaluationRequest, setEvaluationRequest] = useState<EvaluationRequest>({
     module_id: newModuleId,
@@ -134,6 +136,7 @@ export default function FormEvaluation({ newModuleId, onEvaluationCreated, step 
 
   const sendEvaluation = async () => {
     if (validateEvaluation()) {
+      setIsLoading(true);
       const updatedQuestions = await Promise.all(questions.map(async (question, index) => {
         const formData = new FormData();
         formData.append('image', {
@@ -150,14 +153,20 @@ export default function FormEvaluation({ newModuleId, onEvaluationCreated, step 
       }
       const response = await postEvaluation(evaluationWithQuestions, userToken!);
       if (response) {
+        setIsLoading(false);
         Alert.alert("Éxito", "Se ha creado la evaluación satisfactoriamente");
         navigateToCoursesScreen();
         setNewEvaluation(response);
       }
     } else {
+      setIsLoading(false);
       Alert.alert("Error", "Corrija los errores antes de enviar la evaluación")
     }
   };
+
+  if (isLoading) return <View style={styles.scrollContainer}>
+    <LoadIndicator animating size='large' />
+  </View>
 
   return (
     <KeyboardAvoidingView
@@ -194,13 +203,13 @@ export default function FormEvaluation({ newModuleId, onEvaluationCreated, step 
         </View>
         {errors.questions && <Text style={styles.dangerText}>Cree una pregunta como mínimo</Text>}
         {nroQuestions.map((_, index) => (
-          <View key={_+index.toString()} style={styles.cardQuestion}>
+          <View key={_ + index.toString()} style={styles.cardQuestion}>
             <View
               style={styles.questionContainer}
             >
               <CustomButton disabled={false} onPress={() => removeQuestion(index)} text='Eliminar pregunta' size='small' type='danger' />
             </View>
-            <EvaluationQuestion order={index + 1} evaluation_id={newEvaluation.evaluation_id} sendQuestion={showQuestion} />
+            <EvaluationQuestion order={index + 1} evaluation_id={newEvaluation.evaluation_id} sendQuestion={showQuestion} typeQuizz='evaluation' />
           </View>
         ))}
         <View style={{ marginTop: 15 }}>

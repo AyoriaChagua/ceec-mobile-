@@ -9,11 +9,15 @@ import CustomButton from '../CustomButton';
 import { useNavigation } from '@react-navigation/native'
 import EvaluationResponseInput from '../EvaluationResponseInput';
 import EvaluationQuestion from '../EvaluationQuestion';
-import { EvaluationRequest, EvaluationResponse, QuizzRequest } from '../../interfaces/EvaluationInterface';
+import { EvaluationRequest, EvaluationResponse, QuizzEvaluationRequest, QuizzRequest } from '../../interfaces/EvaluationInterface';
 import { postEvaluation, postPrequizz } from '../../services/quizz.service';
 import { PostImage } from '../../services/image.service';
 import { styles } from './styles';
 import { PrequizzRequest } from '../../interfaces/PrequizzInterface';
+import LoadIndicator from '../LoadIndicator';
+import { windowWidth } from '../../utils/Dimentions';
+import { DictionaryRequest } from '../../interfaces/DictionaryInterfaces';
+import { postDictionary } from '../../services/dictionary.service';
 
 interface Props {
     readonly step: Step
@@ -23,11 +27,12 @@ interface Props {
     readonly title: string
 }
 
-export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQuizz, title }: Props) {
+export default function FormQuizz({ itemId, onEvaluationCreated, step, typeQuizz, title }: Props) {
     const { userToken } = useAuth();
     const [module, setModule] = useState<null | Material>(null);
     const [nroQuestions, setNroQuestions] = useState<string[]>([]);
-    const [questions, setQuestions] = useState<QuizzRequest[]>([]);
+    const [questions, setQuestions] = useState<QuizzRequest[] | QuizzEvaluationRequest[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [evaluationRequest, setEvaluationRequest] = useState<EvaluationRequest>({
         module_id: itemId,
         name: "",
@@ -48,10 +53,12 @@ export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQu
             module_id: itemId,
             name: "",
         });
-        (async () => {
-            const module = await getModuleInfoById(itemId, userToken!);
-            setModule(module);
-        })();
+        if (typeQuizz === "evaluation") {
+            (async () => {
+                const module = await getModuleInfoById(itemId, userToken!);
+                setModule(module);
+            })();
+        }
     }, []);
 
     const addQuestion = () => {
@@ -124,9 +131,9 @@ export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQu
         return !hasErrors;
     };
 
-    const sendQuizz = async () => {
-        if (validateEvaluation()) {
-            const updatedQuestions = await Promise.all(questions.map(async (question, index) => {
+    const getUpdateData = async () => {
+        return await Promise.all(questions.map(async (question, index) => {
+            if (question.image_url) {
                 const formData = new FormData();
                 formData.append('image', {
                     uri: question.image_url,
@@ -134,9 +141,17 @@ export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQu
                     name: 'image.jpg'
                 } as any);
                 const response = await PostImage(formData);
-                return { ...question, image_url: response?.imageUrl, evaluation_id: itemId } as QuizzRequest
-            }));
+                return { ...question, image_url: response?.imageUrl, evaluation_id: itemId } as QuizzRequest | QuizzEvaluationRequest
+            } else {
+                return { ...question, image_url: "", evaluation_id: itemId } as QuizzRequest | QuizzEvaluationRequest
+            }
+        }));
+    }
+
+    const sendQuizz = async () => {
+        if (validateEvaluation()) {
             if (typeQuizz === "evaluation") {
+                const updatedQuestions = await getUpdateData();
                 const evaluationWithQuestions = {
                     evaluation: evaluationRequest,
                     questions: updatedQuestions
@@ -147,7 +162,7 @@ export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQu
                     navigateToCoursesScreen();
                     return;
                 }
-            } else if (typeQuizz === "prequizz") {
+            } else if (typeQuizz === "dictionary") {
                 const prequizzQuestions: PrequizzRequest[] = updatedQuestions.map(question => {
                     const questionFormat: PrequizzRequest = {
                         correct_answer: question.correct_answer,
@@ -160,9 +175,12 @@ export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQu
                 });
                 const response = await postPrequizz(prequizzQuestions, userToken!);
                 if (response) {
+                    setIsLoading(false);
                     Alert.alert("Éxito", "Se ha creado el prequizz satisfactoriamente");
                     navigateToCoursesScreen();
                     return;
+                } else {
+                    Alert.alert("Error", "No se pudo crear el prequizz, intente más tarde");
                 }
             }
 
@@ -171,6 +189,20 @@ export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQu
         }
     };
 
+
+    let quizzText;
+    if (typeQuizz === "prequizz") {
+        quizzText = "PREQUIZZ PARA EL CURSO:";
+    } else if (typeQuizz === "dictionary") {
+        quizzText = "DICCIONARIO PARA EL MÓDULO:";
+    } else {
+        quizzText = "EVALUACIóN PARA EL MÓDULO:";
+    }
+
+    if (isLoading) return <View style={styles.scrollContainer}>
+        <LoadIndicator animating size='large' />
+    </View>
+
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -178,12 +210,13 @@ export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQu
                 flex: 1,
                 justifyContent: 'center',
                 padding: 20,
-                display: step !== 'prequizz' ? "none" : "flex",
+                display: step === 'prequizz' || step === "dictionary" ? "flex" : "none",
             }}
         >
             <ScrollView style={[styles.container]} >
                 <View style={styles.header}>
-                    <Text style={{ color: "#4951FF", fontSize: 17 }}> {title}</Text>
+                    <Text style={{ color: "#4951FF", fontSize: 14, }}>{quizzText}</Text>
+                    <Text style={{ color: "#4951FF", fontSize: 17, fontWeight: 'bold', marginBottom: 35 }}>{title.toUpperCase()}</Text>
                 </View>
                 {typeQuizz === "evaluation" &&
                     <View style={{ marginTop: 15 }}>
@@ -200,7 +233,7 @@ export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQu
                 }
                 <View style={{ display: "flex", alignItems: "flex-end" }}>
                     <View style={{ width: "40%" }}>
-                        <CustomButton disabled={false} onPress={addQuestion} text='Agregar pregunta' size='small' />
+                        <CustomButton disabled={false} onPress={addQuestion} text={typeQuizz === "dictionary" ? "Agregar palabra" : "Agregar pregunta"} size='small' />
                     </View>
                 </View>
                 {errors.questions && <Text style={styles.dangerText}>Cree una pregunta como mínimo</Text>}
@@ -211,11 +244,11 @@ export default function FormPrequizz({ itemId, onEvaluationCreated, step, typeQu
                         >
                             <CustomButton disabled={false} onPress={() => removeQuestion(index)} text='Eliminar pregunta' size='small' type='danger' />
                         </View>
-                        <EvaluationQuestion order={index + 1} evaluation_id={0} sendQuestion={showQuestion} />
+                        <EvaluationQuestion order={index + 1} evaluation_id={0} sendQuestion={showQuestion} typeQuizz={typeQuizz} />
                     </View>
                 ))}
                 <View style={{ marginTop: 15 }}>
-                    <CustomButton disabled={false} onPress={sendQuizz} text='Crear evaluación' />
+                    <CustomButton disabled={false} onPress={sendQuizz} text={`Crear ${typeQuizz}`} />
                     <CustomButton disabled={false} onPress={() => navigateToCoursesScreen()} text='Crear más tarde' type={"seccondary"} />
                 </View>
             </ScrollView>

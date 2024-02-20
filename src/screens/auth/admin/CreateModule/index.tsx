@@ -2,8 +2,9 @@ import { Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamListAdmin } from '../../../../interfaces/NavigationInterfaces';
-import { CustomStepIndicator, FormCourse, FormDictionary, FormEvaluation, FormFlashCard, FormModule } from '../../../../components';
+import { CustomStepIndicator, FormEvaluation, FormFlashCard, FormModule } from '../../../../components';
 import { styles } from './styles'
+import FormQuizz from '../../../../components/FormQuizz';
 
 export type Step = 'module' | 'dictionary' | 'flash-card' | 'evaluation';
 
@@ -18,7 +19,8 @@ export default function CreateModule() {
 
     const [createdModule, setCreatedModule] = useState({
         created: false,
-        newModuleId: 0
+        newModuleId: 0,
+        name: ""
     });
     const [createdFlashCard, setCreatedFlashCard] = useState({
         created: false,
@@ -32,10 +34,10 @@ export default function CreateModule() {
     const [currentPosition, setCurrentPosition] = useState(0);
 
 
-    const handleCreatedModule = (module_id: number) => {
+    const handleCreatedModule = (module_id: number, name: string) => {
         if (module_id != 0) {
-            setCreatedModule({ created: true, newModuleId: module_id });
-            setCurrentPosition(2);
+            setCreatedModule({ created: true, newModuleId: module_id,  name});
+            setCurrentPosition(1);
             setCurrentStep("dictionary")
         }
     }
@@ -46,7 +48,7 @@ export default function CreateModule() {
                 created: true,
                 newModuleId: createdModule.newModuleId
             });
-            setCurrentPosition(3);
+            setCurrentPosition(2);
             setCurrentStep("flash-card")
         }
     }
@@ -57,14 +59,14 @@ export default function CreateModule() {
                 created: true,
                 newModuleId: createdModule.newModuleId
             });
-            setCurrentPosition(4);
+            setCurrentPosition(3);
 
             setCurrentStep("evaluation")
         }
     }
 
     const handleCreatedEvaluation = () => {
-        setCurrentPosition(5);
+        setCurrentPosition(4);
     }
 
     return (
@@ -75,11 +77,15 @@ export default function CreateModule() {
                 step={currentStep}
                 newCourseId={params.courseId}
                 onModuleCreated={handleCreatedModule} />
+
             {createdModule.created && (
-                <FormDictionary
+                <FormQuizz
+                    itemId={createdModule.newModuleId}
                     step={currentStep}
-                    newModuleId={createdModule.newModuleId}
-                    onDictionaryCreated={handleCreatedDictionary} />
+                    onEvaluationCreated={handleCreatedDictionary}
+                    title={createdModule.name}
+                    typeQuizz='dictionary'
+                />
             )}
 
             {createdDictionary.created && (

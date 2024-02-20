@@ -80,5 +80,3 @@ export const API_POST_IMAGE = `${base_url}/image-service/upload`;
 export const API_POST_COURSE = `${base_url}/courses/`
 
 export const API_DICTIONARY = `${base_url}/dictionaryquizz`
-
-
