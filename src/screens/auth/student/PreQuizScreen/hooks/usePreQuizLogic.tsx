@@ -14,7 +14,8 @@ export const usePreQuiz = (courseId: number) => {
   const { userToken } = useAuth();
   const [totalScore, setTotalScore] = useState<number>(0); // estado para la puntuación total
   const [totalQuestions, setTotalQuestions] = useState<number>(0); //cantidad total de preguntas
-
+// Agregar un estado para controlar si se debe mostrar el emoji de aplausos
+const [showHappyEmoji, setShowHappyEmoji] = useState<boolean>(false);
 // Función para obtener el cuestionario
   const getQuiz = useCallback(async () => {
     setIsLoading(true);
@@ -65,18 +66,20 @@ export const usePreQuiz = (courseId: number) => {
   const handlSelectedOption = (_option: string) => {
     setSelectedOption(_option);
     if (questions && questions[ques] && _option === questions[ques].correct_answer) {
-      setScore(score +1); // Sumar los puntos de la pregunta correcta
-        setIsCorrect(true);
-        setTotalScore(totalScore + questions[ques].points); // Actualizar la puntuación total
+      setScore(score +1);
+      setIsCorrect(true);
+      setTotalScore(totalScore + questions[ques].points);
+      setShowHappyEmoji(true); // Mostrar emoji de aplausos solo si la respuesta es correcta
     } else {
       setIsCorrect(false);
-// Mostrar la respuesta correcta después de un segundo
+      setShowHappyEmoji(false); // Ocultar emoji de aplausos si la respuesta es incorrecta
       setTimeout(() => {
         setSelectedOption((questions ?? [])[ques]?.correct_answer ?? null);
-        setIsCorrect(true); // Set isCorrect to true to highlight the correct answer in green
-      }, 1000);
+        setIsCorrect(true);
+      }, 1500);
     }
   };
+  
    // Función para calcular la efectividad en base a las preguntas respondidas
   const calculateEffectiveness = () => {
     if (totalQuestions === 0) {
@@ -91,19 +94,20 @@ export const usePreQuiz = (courseId: number) => {
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   };
  // Retornar los estados y funciones necesarios para la pantalla del cuestionario
-  return {
-    questions,
-    ques,
-    options,
-    totalScore, 
-    score,
-    isLoading,
-    selectedOption,
-    isCorrect,
-    totalQuestions,
-    calculateEffectiveness,
-    formatTime,
-    handleNextPress,
-    handlSelectedOption,
-  };
+ return {
+  questions,
+  ques,
+  options,
+  totalScore, 
+  score,
+  isLoading,
+  selectedOption,
+  isCorrect,
+  totalQuestions,
+  calculateEffectiveness,
+  formatTime,
+  handleNextPress,
+  handlSelectedOption,
+  showHappyEmoji, // Agregar showHappyEmoji al retorno
+};
 };

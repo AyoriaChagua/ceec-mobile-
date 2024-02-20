@@ -1,74 +1,44 @@
 import { Platform } from "react-native";
 
+const base_url = `https://ceec-web-api.onrender.com/api`;
 
+export const API_COURSES_URL = `${base_url}/custom/coursesuser` ;
 
-export const API_COURSES_URL = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/api/custom/coursesuser' :
-    'https://ceec-web-api.onrender.com/api/custom/coursesuser';
+export const API_COURSES_ID_URL = `${base_url}/courses`;
 
-export const API_COURSES_ID_URL = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/api/courses' :
-    'https://ceec-web-api.onrender.com/api/courses';
-
-export const API_MODULE_URL = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/api/custom' :
-    'https://ceec-web-api.onrender.com/api/custom';
+export const API_MODULE_URL = `${base_url}/custom` ;
 
 //obtener info del modulo por  su module_id: http://192.168.18.3:4100/api/modules/$module_id 
-export const API_MODULE_ID_URL = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/api/modules' :
-    'https://ceec-web-api.onrender.com/api/modules';
+export const API_MODULE_ID_URL = `${base_url}/modules`;
 
 
  //obtener las notas por el id_curso y id_usuario :    http://192.168.18.3:4100/api/evaluationresults/:curso_id/:user_id
- export const API_NOTAS_URL = Platform.OS === 'ios' ?
- 'https://ceec-web-api.onrender.com/api/evaluationresults/notas' :
- 'https://ceec-web-api.onrender.com/api/evaluationresults/notas';
+ export const API_NOTAS_URL = `${base_url}/evaluationresults/notas` ;
 
 //obtener info del falshcard por su module_id : http://192.168.18.3:4100/flashcard/module/1   
 
-export const API_FLASHCARD_URL = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/flashcard/module' :
-    'https://ceec-web-api.onrender.com/flashcard/module';
+export const API_FLASHCARD_URL = 'https://ceec-web-api.onrender.com/flashcard/module';
 
 //obtener info de la evaluacion por el module_id : http://192.168.18.3:4100/api/evaluation/1
 
-export const API_EVALUATION_MODULEID_URL = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/api/evaluation' :
-    'https://ceec-web-api.onrender.com/api/evaluation';
+export const API_EVALUATION_MODULEID_URL = `${base_url}/evaluation`;
 
 // OBTENER TODOS LOS RESULTADOS http://192.168.18.3:4100/api/evaluationresults/
 
-export const API_EVALUATIONS_RESULT_URL = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/api/evaluationresults' :
-    'https://ceec-web-api.onrender.com/api/evaluationresults';
+export const API_EVALUATIONS_RESULT_URL = `${base_url}/evaluationresults`;
 
 //obtener ranking por evaluacion : http://192.168.18.3:4100/api/evaluationresults/by-evaluation/:id-evaluacion
 
-export const API_EVALUATIONS_RANKING_URL = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/api/evaluationresults/by-evaluation' :
-    'https://ceec-web-api.onrender.com/api/evaluationresults/by-evaluation';
+export const API_EVALUATIONS_RANKING_URL = `${base_url}/evaluationresults/by-evaluation`;
 
 //Obtener todas los resultados por evaluationId : http://192.168.18.3:4100/api/evaluationresults/by-evaluation/:evaluationId
-export const API_EVALUATIONS_RESULT_EVAID = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/api/evaluationresults/by-evaluation' :
-    'https://ceec-web-api.onrender.com/api/evaluationresults/by-evaluation';
+export const API_EVALUATIONS_RESULT_EVAID = `${base_url}/evaluationresults/by-evaluation`;
 
-
-    //Obtener todas los resultados por eva_id y user :  http://192.168.18.3:4100/api/evaluationresults/by-user-evaluation/:userId/:evaluationId 
-    export const API_EVALUATIONS_EVAID_USER = Platform.OS === 'ios' ?
-    'https://ceec-web-api.onrender.com/api/evaluationresults/by-user-evaluation' :
-    'https://ceec-web-api.onrender.com/api/evaluationresults/by-user-evaluation';
+//Obtener todas los resultados por eva_id y user :  http://192.168.18.3:4100/api/evaluationresults/by-user-evaluation/:userId/:evaluationId 
+export const API_EVALUATIONS_EVAID_USER = `${base_url}/evaluationresults/by-user-evaluation`;
 
 
 
-
-
-
-
-
-
-const base_url = `https://ceec-web-api.onrender.com/api`;
 
 
 export const API_AUTH_URL = `https://ceec-web-api.onrender.com/api/auth/signin`;
