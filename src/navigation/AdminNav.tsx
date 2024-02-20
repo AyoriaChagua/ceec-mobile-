@@ -11,7 +11,12 @@ import ProfileScreen from '../screens/auth/profile/ProfileScreen';
 import { useAuth } from '../context/AuthContext';
 import CoursesScreen from '../screens/auth/admin/CoursesScreen';
 import CourseScreen from '../screens/auth/admin/CourseScreen';
-import UsersScreen from '../screens/auth/admin/UsersScreen/inde';
+import UsersScreen from '../screens/auth/admin/UsersScreen';
+import CreateCourse from '../screens/auth/admin/CreateCourse';
+import CreateUser from '../screens/auth/admin/CreateUser';
+import { Profile } from '../interfaces/UserInterfaces';
+import ShowProfile from '../screens/auth/profile/ShowProfile';
+import CreateModule from '../screens/auth/admin/CreateModule';
 
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
@@ -19,17 +24,20 @@ const Stack = createStackNavigator<RootStackParamListAdmin>();
 const AdminDrawer = () => {
     const { profileInfo, userInfo } = useAuth();
     const email = userInfo as { email: string };
-    let defaultScreen: 'Profile' | 'Dashboard' = 'Profile'
-    let fullname = 'Actualiza tu perfil '
+    let defaultScreen: 'Perfil' | 'Dashboard' = 'Perfil'
+    let fullname = 'Actualiza tu perfil ';
+    let uri_picture = ''
     if (profileInfo) {
+        const profile = profileInfo as Profile
         defaultScreen = 'Dashboard';
-        fullname = `${profileInfo.first_name} ${profileInfo.last_name}`
+        fullname = `${profile.first_name} ${profile.last_name}`
+        uri_picture = profile.profile_picture!
     }
     return (
         <Drawer.Navigator
             initialRouteName={defaultScreen}
             drawerContent={(props) => (
-                <CustomDrawer {...props} email={email.email} fullname={fullname} />
+                <CustomDrawer {...props} email={email.email} fullname={fullname} uri_picture={uri_picture} />
             )}
             screenOptions={{
                 drawerActiveBackgroundColor: '#2B32CE',
@@ -49,28 +57,28 @@ const AdminDrawer = () => {
                 }}
             />
             <Drawer.Screen
-                name="Courses"
+                name="Cursos"
                 component={CoursesScreen}
                 options={{
-                    headerTitle: '',
+                    headerTitle: 'Cursos',
                     drawerIcon: ({ color }) => (
                         <Icon source="book-open" color={color} size={22} />
                     ),
                 }}
             />
             <Drawer.Screen
-                name="Users"
+                name="Usuarios"
                 component={UsersScreen}
                 options={{
-                    headerTitle: 'account-group',
+                    headerTitle: '',
                     drawerIcon: ({ color }) => (
                         <Icon source="account-group" color={color} size={22} />
                     ),
                 }}
             />
             <Drawer.Screen
-                name="Profile"
-                component={ProfileScreen}
+                name="Perfil"
+                component={!profileInfo ? ProfileScreen : ShowProfile}
                 options={{
                     headerTitle: '',
                     drawerIcon: ({ color }) => (
@@ -94,17 +102,47 @@ const AdminNav = () => (
             component={DetailsTest}
             initialParams={{ itemId: 1 }}
             options={{
-                headerShown: true
+                headerShown: true,
+                headerLeftLabelVisible: false,
             }}
         />
         <Stack.Screen
             name="Course"
-            
             component={CourseScreen}
             initialParams={{ courseId: 1 }}
             options={{
                 headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
                 title: "",
+                headerLeftLabelVisible: false,
+                headerShown: true
+            }}
+        />
+        <Stack.Screen
+            name="CreateCourse"
+            component={CreateCourse}
+            options={{
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                title: "",
+                headerLeftLabelVisible: false,
+                headerShown: true
+            }}
+        />
+        <Stack.Screen
+            name='CreateUser'
+            component={CreateUser}
+            options={{
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                title: "",
+                headerLeftLabelVisible: false,
+                headerShown: true
+            }} />
+        <Stack.Screen
+            name="CreateModule"
+            component={CreateModule}
+            options={{
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                title: "",
+                headerLeftLabelVisible: false,
                 headerShown: true
             }}
         />

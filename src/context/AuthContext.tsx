@@ -3,8 +3,8 @@ import { AuthProps } from "../interfaces/ContextInterfaces";
 import * as SecureStore from 'expo-secure-store';
 import { loginService } from "../services/auth.service";
 import axios from "axios";
-import  jwtDecode  from "jwt-decode";
-import { LoginResponse, Profile } from "../interfaces/UserInterfaces";
+import jwtDecode from "jwt-decode";
+import { LoginResponse, Profile, UserInfo } from "../interfaces/UserInterfaces";
 import { io } from 'socket.io-client';
 import { API_SOCKET_URL } from '../utils/Endpoints';
 import { validateToken } from "../helpers/helper-token";
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: any) => {
         role: number,
         email: string
     } | string | null>(null);
-    const [profileInfo, setProfileInfo] = useState<Profile | null>(null);
+    const [profileInfo, setProfileInfo] = useState<Profile | UserInfo | null>(null);
 
     const login = async (email: string, password: string) => {
         setIsLoading(true);
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: any) => {
                     await SecureStore.setItemAsync('profileInfo', JSON.stringify(profile));
                 }
 
-                if (decodedToken.role === 1){
+                if (decodedToken.role === 1) {
                     socket.emit('login', { userToken: response.token });
                 }
             } else {
@@ -66,8 +66,7 @@ export const AuthProvider = ({ children }: any) => {
     const logout = async () => {
         const storedUserInfo = await SecureStore.getItemAsync('userInfo');
         const { role } = JSON.parse(storedUserInfo!);
-        if (role === 1)
-            socket.emit('logout');
+        if (role === 1) socket.emit('logout');
         setIsLoading(true);
         setUserToken(null);
         setUserInfo(null);

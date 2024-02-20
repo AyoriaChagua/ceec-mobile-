@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     },
     header: {
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 10,
         rowGap: 30
     },
     text: {
@@ -26,8 +26,8 @@ export const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: '600',
         color: "#4951FF",
-        marginTop: 10,
-        marginBottom: 50,
+        marginTop: 5,
+        marginBottom: 15,
         textAlign: 'center', 
     },
     form: {
@@ -38,4 +38,23 @@ export const styles = StyleSheet.create({
         top: 0, 
         right: 0, 
     },
+    image_container: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    email: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 5,
+        margin: 10,
+        columnGap: 20
+    },
+    email_text: {
+        fontSize: 15,
+        fontWeight: '400',
+        color: "#8689CD",
+        textAlign: 'center',
+    }
 });

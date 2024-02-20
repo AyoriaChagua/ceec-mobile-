@@ -7,13 +7,14 @@ export const useSessionStatistics = () => {
     const [sessionsPerWeek, setSessionsPerWeek] = useState<WeeklySessionInfo>();
     const [currentPage, setCurrentPage] = useState(0);
     const [averages, setAverages] = useState([0, 0, 0, 0, 0, 0, 0]);
-    const [weekRange, setWeekRange] = useState("second");
+    const [weekRange, setWeekRange] = useState("");
     const weekDays = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
     const weekDaysSimplify = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
     const loadSessionStatistics = useCallback(async (page: number) => {
         setIsLoading(true);
         try {
             const data = await GetSessionStatistics(page);
+            console.log(data);
             const updatedAverages = weekDays.map((weekDay, index) => {
                 const session = data.sessionsWithDay.find(session => session.day === weekDay);
                 return session ? (parseFloat(session.average_duration_seconds)/60) : averages[index];

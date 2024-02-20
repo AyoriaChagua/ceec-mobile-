@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Modal, Button, useWindowDimensions } from "react-native";
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentStack';
 import shuffle from './hooks/suffle'; // Importar la función shuffle desde el archivo shuffle.js
@@ -29,9 +29,24 @@ const FlashCardScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
   const [selectedIncorrectAnswers, setSelectedIncorrectAnswers] = useState<string[]>([]);
   const [gameFinished, setGameFinished] = useState(false);
   const [showRestartButton, setShowRestartButton] = useState(false);
-  
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
+  const windowWidth = useWindowDimensions().width;
+
+  // Calcular el tamaño de las imágenes en función del ancho de la ventana
+  const imageWidth = (windowWidth - 80) / 3; // 40 es el espacio total horizontal (padding)
+
+  // Calcular el conteo de respuestas correctas e incorrectas
+  const totalCorrectAnswers = flashcardData.correct_answer.length;
+  const totalIncorrectAnswers = flashcardData.incorrect_answer.length;
+
   useEffect(() => {
-    if (selectedCorrectAnswers.length === flashcardData.correct_answer.length) {
+    // Shuffle answers only when game starts or restarted
+    setShuffledAnswers(shuffle([...flashcardData.correct_answer, ...flashcardData.incorrect_answer]));
+  }, [gameFinished]);
+
+  useEffect(() => {
+    if (selectedCorrectAnswers.length === totalCorrectAnswers) {
       setGameFinished(true);
       setShowRestartButton(true);
     }
@@ -50,6 +65,11 @@ const FlashCardScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
     setSelectedIncorrectAnswers([]);
     setGameFinished(false);
     setShowRestartButton(false);
+    setShowErrorMessage(false); // Ocultar el mensaje de error al reiniciar
+
+    // Barajar las respuestas nuevamente
+    const shuffledAnswers = shuffle([...flashcardData.correct_answer, ...flashcardData.incorrect_answer]);
+    setShuffledAnswers(shuffledAnswers);
   };
 
   const handleImagePress = (url: string) => {
@@ -58,39 +78,36 @@ const FlashCardScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
       setSelectedCorrectAnswers(prevState => [...prevState, url]);
     } else if (flashcardData.incorrect_answer.includes(url)) {
       setSelectedIncorrectAnswers(prevState => [...prevState, url]);
+      setShowErrorMessage(true); // Mostrar el mensaje de error si se selecciona una incorrecta
     }
   };
-
-  // Revolver las imágenes de forma aleatoria
-  const shuffledCorrectAnswers = shuffle(flashcardData.correct_answer);
-  const shuffledIncorrectAnswers = shuffle(flashcardData.incorrect_answer);
-
-  // Combinar las listas de respuestas correctas e incorrectas
-  const combinedAnswers = [...shuffledCorrectAnswers, ...shuffledIncorrectAnswers];
-
-  // Mezclar la lista combinada para obtener un orden aleatorio
-  const shuffledCombinedAnswers = shuffle(combinedAnswers);
-
-  // Dividir la lista de respuestas en dos sublistas de tres imágenes cada una
-  const firstRow = shuffledCombinedAnswers.slice(0, 3);
-  const secondRow = shuffledCombinedAnswers.slice(3, 6);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{flashcardData.indication}</Text>
+      <Text style={styles.score}>{` ${selectedCorrectAnswers.length}/${totalCorrectAnswers}  `}</Text>
+      <Modal visible={showErrorMessage} animationType="slide" transparent={true}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalMessage}>¡VUELVE A INTENTARLO!</Text>
+            <Button title="Reiniciar" onPress={handleFinish} color="#4951FF" />
+          </View>
+        </View>
+      </Modal>
       <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
         <View style={styles.row}>
-          {/* Primer fila de imágenes */}
-          {firstRow.map((url: string, index: number) => (
+          {/* Renderizar las imágenes */}
+          {shuffledAnswers.slice(0, 3).map((url: string, index: number) => (
             <TouchableOpacity
               key={index}
-              onPress={() => !gameFinished && handleImagePress(url)}
+              onPress={() => handleImagePress(url)}
               disabled={gameFinished}
             >
               <Image
                 source={{ uri: url }}
                 style={[
                   styles.image,
+                  { width: imageWidth },
                   selectedCorrectAnswers.includes(url) && styles.selectedCorrectImage,
                   selectedIncorrectAnswers.includes(url) && styles.selectedIncorrectImage
                 ]}
@@ -100,17 +117,18 @@ const FlashCardScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
           ))}
         </View>
         <View style={styles.row}>
-          {/* Segunda fila de imágenes */}
-          {secondRow.map((url: string, index: number) => (
+          {/* Renderizar las imágenes */}
+          {shuffledAnswers.slice(3, 6).map((url: string, index: number) => (
             <TouchableOpacity
               key={index + 3}
-              onPress={() => !gameFinished && handleImagePress(url)}
+              onPress={() => handleImagePress(url)}
               disabled={gameFinished}
             >
               <Image
                 source={{ uri: url }}
                 style={[
                   styles.image,
+                  { width: imageWidth },
                   selectedCorrectAnswers.includes(url) && styles.selectedCorrectImage,
                   selectedIncorrectAnswers.includes(url) && styles.selectedIncorrectImage
                 ]}
@@ -138,20 +156,26 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#4951FF",
-    fontSize: 18,
+    fontSize: 23,
     fontWeight: "bold",
-    marginBottom: 35,
-    marginTop: 25,
+    marginBottom: 10,
     textAlign: "center",
+  },
+  score: {
+    color: "#4951FF",
+    fontSize: 20,
+    marginTop:20,
+    marginBottom: 30,
+    textAlign: "center",
+    fontWeight: "bold",
   },
   row: {
     flexDirection: "row",
     marginBottom: 15,
   },
   image: {
-    width: 320 / 3,
-    height: 650 / 3,
-    marginHorizontal: 10,
+    height: 200, // Height is not necessary as it's constrained by resizeMode
+    marginHorizontal: 9,
   },
   selectedCorrectImage: {
     borderWidth: 6,
@@ -174,6 +198,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalMessage: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: "#4951FF",
   },
 });
 

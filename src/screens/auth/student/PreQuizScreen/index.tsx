@@ -4,7 +4,7 @@ import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/PreQuizStack';
 import { quizScreenStyles as styles  } from './style'; 
 import { usePreQuiz } from './hooks/usePreQuizLogic';
-
+import  FloatingEmotion  from './../../../../components/FloatingEmotion'; 
 type PreQuizScreenRouteProp = RouteProp<RootStackParamList, 'PreQuiz'>;
 
 const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
@@ -99,6 +99,8 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
             <Text>No hay preguntas disponibles.</Text>
           </View>
         )}
+         {isCorrect === true && <FloatingEmotion type="happy" />}
+        {isCorrect === false && <FloatingEmotion type="sad" />}
       </View>
     </ScrollView>
   );

@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         height: 100,
       },
     rightContainer: {
-        width: "70%",
+        width: "50%",
         alignSelf: 'flex-start',
         alignItems: 'flex-start',
         justifyContent: 'space-between',

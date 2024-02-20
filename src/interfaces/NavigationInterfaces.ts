@@ -3,11 +3,15 @@ export type RootStackParamListAdmin = {
     Dashboard: undefined
     Details: { itemId: number }
     AdminDrawer: undefined
-    Profile: undefined
-    Courses: undefined
+    Perfil: undefined
+    Cursos: undefined
     Course: { courseId: number }
-    Users: undefined
+    Usuarios: undefined
     User: { userId: number }
+    CreateCourse: undefined
+    CreateUser: undefined
+    Users: undefined
+    CreateModule: { courseId: number }
 };
 
 
@@ -24,6 +28,5 @@ export type RootStackParamList= {
     Dashboard: undefined
     Details: { itemId: number }
     AdminDrawer: undefined
-
 };
 

@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function UsersScreen() {
+export default function FormPrequizz() {
   return (
     <View>
-      <Text>UsersScreen</Text>
+      <Text>FormPrequizz</Text>
     </View>
   )
 }

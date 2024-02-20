@@ -18,7 +18,7 @@ export const useQuiz = (evaluationId: number) => {
 // Función para obtener el cuestionario
   const getQuiz = useCallback(async () => {
     setIsLoading(true);
-    const url = `http://192.168.18.3:4100/api/quizzes/evaluacion/${evaluationId}`;
+    const url = `https://ceec-web-api.onrender.com/api/quizzes/evaluacion/${evaluationId}`;
     try {
       const headers = {
         Authorization: userToken || '',

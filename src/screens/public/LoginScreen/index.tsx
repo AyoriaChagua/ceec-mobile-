@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from 'react-native';
+import { View, Text, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../interfaces/NavigationInterfaces';
@@ -8,6 +8,8 @@ import Ebook from '../../../../assets/images/ebook.svg';
 import Logo from '../../../../assets/images/logo.svg';
 import { useAuth } from '../../../context/AuthContext';
 import { LoginRequest } from '../../../interfaces/UserInterfaces';
+import { ScrollView } from 'react-native-gesture-handler';
+import { windowWidth } from '../../../utils/Dimentions';
 
 export type Props = {
   readonly navigation: NavigationProp<RootStackParamList, 'Login'>;
@@ -27,27 +29,44 @@ const LoginScreen = () => {
     }
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Logo height={25} />
-        <Ebook height={200} style={styles.ebook} />
-      </View>
-      <View>
-        <Text style={styles.h1}>INICIA SESIÓN</Text>
-        <Text style={styles.text}>Centro de Excelencia en Experiencia del Cliente</Text>
-      </View>
-      <View style={styles.form}>
-        <AuthInput label="Email" isEmail control={control} name="email" />
-        <AuthInput label="Password" isSecure control={control} name="password" />
-        {error && <Text style={{ color: 'red', fontWeight: '400' }}>{error}</Text>}
-        <CustomButton
-          text="Ingresar"
-          onPress={handleSubmit(onLoginPressed)}
-          disabled={isLoading!}
-        />
-      </View>
-    </SafeAreaView>
+  return  (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+      }}
+    >
+      <ScrollView style={{
+        flex: 1,
+        width: windowWidth,
+        backgroundColor: '#fff',
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        paddingTop: Platform.OS === "ios" ? 40 : 0,
+      }}>
+        <View style={{paddingHorizontal: 20}}>
+        <View style={styles.header}>
+          <Logo height={25} />
+          <Ebook height={200} style={styles.ebook} />
+        </View>
+        <View>
+          <Text style={styles.h1}>INICIA SESIÓN</Text>
+          <Text style={styles.text}>Centro de Excelencia en Experiencia del Cliente</Text>
+        </View>
+        <View style={styles.form}>
+          <AuthInput label="Email" isEmail control={control} name="email" />
+          <AuthInput label="Password" isSecure control={control} name="password" />
+          {error && <Text style={{ color: 'red', fontWeight: '400' }}>{error}</Text>}
+          <CustomButton
+            text="Ingresar"
+            onPress={handleSubmit(onLoginPressed)}
+            disabled={isLoading!}
+          />
+        </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

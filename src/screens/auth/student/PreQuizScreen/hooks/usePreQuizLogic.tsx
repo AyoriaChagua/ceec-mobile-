@@ -18,7 +18,7 @@ export const usePreQuiz = (courseId: number) => {
 // Función para obtener el cuestionario
   const getQuiz = useCallback(async () => {
     setIsLoading(true);
-    const url = `http://192.168.18.3:4100/prequizz/by-course/${courseId}`;
+    const url = `https://ceec-web-api.onrender.com/api/prequizz/by-course/${courseId}`;
     try {
       const headers = {
         Authorization: userToken || '',

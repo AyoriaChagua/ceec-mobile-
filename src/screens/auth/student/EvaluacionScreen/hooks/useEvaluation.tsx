@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { getEvaluationModuleId } from '../../../../../services/evaluation.service';
+import { getEvaluationModuleId } from '../../../../../services/quizz.service';
 import { Evaluation} from '../../../../../interfaces/EvaluationInterface';
 import { useAuth } from '../../../../../context/AuthContext';
 

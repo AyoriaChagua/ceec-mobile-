@@ -8,5 +8,10 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 15,
         rowGap: 10,
         paddingBottom: 20,
-    }
+    },
+    bottomButton: {
+        padding: 15,
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+    },
 })

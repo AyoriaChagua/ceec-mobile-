@@ -1,20 +1,49 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Text, View, ScrollView } from 'react-native'
+import React, {useEffect} from 'react'
 import { RootStackParamListAdmin } from '../../../../interfaces/NavigationInterfaces';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import useCourse from './hooks/useCourse';
+import { LoadIndicator, ModuleCardAdmin } from '../../../../components';
+import { styles } from './styles';
 
-type DetailsTestScreenRouteProp = RouteProp<RootStackParamListAdmin, 'Details'>;
+type DetailsTestScreenRouteProp = RouteProp<RootStackParamListAdmin, 'Course'>;
 
 export default function CourseScreen() {
   const route = useRoute<DetailsTestScreenRouteProp>();
-  console.log(route);
   const { params } = route;
-  console.log(params);
+  const { course, loading, error } = useCourse(params.courseId);
+
+
+
+  if (loading || null) {
+    return <LoadIndicator animating={true} size='large' />
+  }
+
+
+  
+
   return (
-    <View>
-      <Text>CourseScreen</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <Text>Módulos</Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.scrollViewContent}
+      >
+        {
+          course?.modules.map((module, index) => (
+            <ModuleCardAdmin
+              name={module.name}
+              Evaluation={module.Evaluation}
+              contentName={(index+1).toString()}
+              is_active={module.is_active}
+              created_at={module.created_at}
+              key={module.name}
+            />
+          ))
+        }
+      </ScrollView>
+    </ScrollView>
   )
 }
 
-const styles = StyleSheet.create({})

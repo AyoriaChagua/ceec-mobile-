@@ -32,6 +32,7 @@ export interface Profile {
     document_number?: number;
     phone?: number;
     DocumentType?: DocumentType;
+    profile_picture?: string
 }
 
 export interface DailySession {
@@ -49,7 +50,7 @@ export interface StudentInfo {
 }
 
 export interface Course {
-    name:    string;
+    name: string;
     modules: Module[];
 }
 
@@ -69,4 +70,16 @@ export interface ProfileRequest {
     document_id: number;
     document_number: number;
     phone: number;
+    profile_picture?: string
+}
+
+export interface ProfileResponse {
+    document_id: number;
+    document_number: number;
+    first_name: string;
+    last_name: string;
+    phone: number;
+    profile_id: number;
+    profile_picture: string;
+    user_id: number;
 }

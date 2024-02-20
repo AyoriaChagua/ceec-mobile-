@@ -4,6 +4,24 @@ export interface BaseModule {
   module_id: number;
 }
 
+export interface CourseCardProps {
+  modules: Module[];
+  namemodulo: string;
+}
+
+
+export interface CourseWithModules {
+  course_id: number;
+  name: string;
+  description: string;
+  is_active: boolean;
+  created_at: Date;
+  updated_at: Date;
+  is_finish: boolean;
+  limit_date: Date;
+  image: string;
+  modules: Module[];
+}
 export interface Course {
   course_id: number;
   name: string;
@@ -20,8 +38,6 @@ export interface Course {
     is_approved: boolean;
   };
 }
-
-
 
 export interface ModuleService extends BaseModule {
   course_id: number;
@@ -40,4 +56,47 @@ export interface Module extends BaseModule {
 export  interface CourseCardProps {
   modules: Module[];
   namemodulo:string;
+}
+
+
+export interface Evaluation {
+  note: number;
+  name: string;
+  EvaluationResults: EvaluationResult[];
+}
+
+export interface EvaluationResult {
+  note: string;
+}
+
+
+export interface CourseRequest {
+  name: string
+  description: string
+  image: string
+}
+
+export interface CourseResponse {
+  message: string,
+  newCourse: {
+    name: string
+    description: string
+    image: string
+    course_id?: number
+  }
+}
+
+export interface ModuleRequest {
+  name: string
+  ppt_url: string
+  course_id: number
+}
+
+export interface ModuleResponse {
+  message: string,
+  newModule: {
+    name: string
+    ppt_url: string
+    module_id?: number
+  }
 }
