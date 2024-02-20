@@ -12,16 +12,9 @@ export default function CourseScreen() {
   const route = useRoute<DetailsTestScreenRouteProp>();
   const { params } = route;
   const { course, loading, error } = useCourse(params.courseId);
-
-
-
   if (loading || null) {
     return <LoadIndicator animating={true} size='large' />
   }
-
-
-  
-
   return (
     <ScrollView style={styles.container}>
       <Text>Módulos</Text>
@@ -30,18 +23,7 @@ export default function CourseScreen() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
       >
-        {
-          course?.modules.map((module, index) => (
-            <ModuleCardAdmin
-              name={module.name}
-              Evaluation={module.Evaluation}
-              contentName={(index+1).toString()}
-              is_active={module.is_active}
-              created_at={module.created_at}
-              key={module.name}
-            />
-          ))
-        }
+        
       </ScrollView>
     </ScrollView>
   )

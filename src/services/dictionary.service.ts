@@ -2,9 +2,13 @@ import axios, { AxiosError } from "axios";
 import { DictionaryRequest, DictionaryResponse } from "../interfaces/DictionaryInterfaces";
 import { API_DICTIONARY } from "../utils/Endpoints";
 
-export const PostDictionary = async (dictionary: DictionaryRequest[]) => {
+export const postDictionary = async (dictionary: DictionaryRequest[], userToken: string) => {
   try {
-    const response = await axios.post<DictionaryResponse>(API_DICTIONARY, { dictionary });
+    const response = await axios.post<DictionaryResponse>(API_DICTIONARY, { dictionary }, {
+      headers: {
+        Authorization: userToken,
+      },
+    });
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;

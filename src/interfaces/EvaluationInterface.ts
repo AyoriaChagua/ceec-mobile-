@@ -41,9 +41,12 @@ export interface QuizzRequest {
   question: string;
   correct_answer: string;
   incorrect_answer?: string[];
-  points: number;
   quizz_type?: number;
   order?: number;
+}
+
+export interface QuizzEvaluationRequest extends QuizzRequest {
+  points: number;
 }
 
 

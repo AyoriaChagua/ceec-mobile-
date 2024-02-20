@@ -60,6 +60,17 @@ export default function CoursesScreen({ navigation }: Props) {
     );
   };
 
+  const navigateToAddStudentsScreen = (courseId: number) => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'AddStudentsToCourse',
+        params: {
+          courseId
+        },
+      })
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView style={styles.container} >
@@ -71,7 +82,8 @@ export default function CoursesScreen({ navigation }: Props) {
             moduleCount={course.modules.length}
             courseName={course.name}
             createdAt={course.created_at}
-            navigateTo={navigateToCreateModuleScreen}
+            navigateToCreateModule={navigateToCreateModuleScreen}
+            navigateToAddStudents={navigateToAddStudentsScreen}
           />
         ))}
       </ScrollView>

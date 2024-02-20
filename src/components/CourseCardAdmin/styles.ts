@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
         overflow: "hidden",
     },
     leftContainer: {
-        width: "30%",
+        width: "50%",
         alignSelf: 'flex-start',
         alignItems: 'flex-end',
         justifyContent: 'space-between',

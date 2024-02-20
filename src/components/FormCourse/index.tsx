@@ -10,17 +10,19 @@ import { PostImage } from '../../services/image.service';
 import { PostNewCourse } from '../../services/courses.service';
 import { Step } from '../../screens/auth/admin/CreateCourse';
 import { rules } from '../../utils/Rules';
+import LoadIndicator from '../LoadIndicator';
 
 
 interface Props {
   readonly step: Step
-  readonly onCourseCreated: (course_id: number) => void
+  readonly onCourseCreated: (course_id: number, course_name: string) => void
 }
 
 export default function FormCourse({ onCourseCreated, step }: Props) {
   const { control, handleSubmit, setValue } = useForm<CourseRequest>();
   const [errorImageRequire, setErrorImageRequire] = useState<null | string>(null);
   const [selectedImage, setSelectedImage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleImageSelected = (image: string) => {
     setSelectedImage(image);
@@ -30,6 +32,7 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
   const createCourse: SubmitHandler<CourseRequest> = async (data) => {
     try {
       if (selectedImage !== "") {
+        setIsLoading(true);
         const formData = new FormData();
         formData.append('image', {
           uri: selectedImage,
@@ -40,8 +43,9 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
         if (response) {
           const newCourse: CourseRequest = { description: data.description, image: response.imageUrl, name: data.name }
           const responseCreatedCourse = await PostNewCourse(newCourse);
+          setIsLoading(false);
           Alert.alert("Éxito", `${responseCreatedCourse?.message}`);
-          onCourseCreated(responseCreatedCourse?.newCourse.course_id ?? 0);
+          onCourseCreated(responseCreatedCourse?.newCourse.course_id ?? 0, responseCreatedCourse?.newCourse.name ?? "");
         }
         setErrorImageRequire("");
       } else {
@@ -56,6 +60,8 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
     }
   };
 
+  if (isLoading) return <View style={styles.scrollContainer}><LoadIndicator animating size='large' /></View>
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -66,15 +72,7 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
         display: step !== 'course' ? "none" : "flex"
       }}
     >
-      <ScrollView style={{
-        flex: 1,
-        width: windowWidth,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        backgroundColor: '#fff',
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
-      }} >
+      <ScrollView style={styles.scrollContainer} >
         <View style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", margin: 15 }}>
           <Text style={{ color: "#4951FF", fontSize: 17, fontWeight: "600" }}>INFORMACIÓN BÁSICA</Text>
         </View>
@@ -87,6 +85,7 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
             rules={rules}
           />
           <CustomImagePicker
+            image_type='course'
             onImageSelected={handleImageSelected}
           />
           <Text style={styles.span}>
@@ -110,8 +109,14 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
+  scrollContainer: {
     flex: 1,
+    width: windowWidth,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
   },
   hidden: {
     display: "none"

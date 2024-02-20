@@ -23,7 +23,6 @@ export { default as FormEvaluation } from './FormEvaluation';
 export { default as AnimatedButton } from './AnimatedButton';
 export { default as CustomImagePicker } from './CustomImagePicker';
 export { default as CustomStepIndicator } from './CustomStepIndicator';
-export { default as FormDictionary } from "./FormDictionary";
 export { default as CardStudent } from "./StudentCard";
 export { default as EvaluationResponseInput } from "./EvaluationResponseInput";
 export { default as EvaluationQuestion } from "./EvaluationQuestion";

@@ -1,7 +1,5 @@
 import { Text, View } from 'react-native';
 import { styles } from './styles';
-import { Icon } from 'react-native-paper';
-import CustomButton from '../CustomButton';
 import CustomButtonGroup from '../CustomButtonGroup';
 
 interface Props {
@@ -10,10 +8,11 @@ interface Props {
     readonly createdAt: Date;
     readonly userCount: number;
     readonly courseId: number;
-    readonly navigateTo: (courseId: number) => void
+    readonly navigateToCreateModule: (courseId: number) => void
+    readonly navigateToAddStudents: (courseId: number) => void
 }
 
-export default function CourseCardAdmin({ moduleCount, courseName, createdAt, userCount, courseId, navigateTo }: Props) {
+export default function CourseCardAdmin({ moduleCount, courseName, createdAt, userCount, courseId, navigateToCreateModule, navigateToAddStudents }: Props) {
     const dateObject = new Date(createdAt);
 
     return (
@@ -28,14 +27,14 @@ export default function CourseCardAdmin({ moduleCount, courseName, createdAt, us
                     label={`${userCount} estudiante${userCount > 1 ? 's' : ''}`}
                     textButton='Agregar'
                     type='student'
-                    navigateTo={() => { }}
+                    navigateTo={navigateToAddStudents}
                 />
                 <CustomButtonGroup
                     courseId={courseId}
                     label={`${moduleCount} módulo${moduleCount > 1 ? 's' : ''}`}
                     textButton='Agregar'
                     type='module'
-                    navigateTo={navigateTo}
+                    navigateTo={navigateToCreateModule}
                 />
             </View>
         </View>

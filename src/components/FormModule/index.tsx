@@ -1,5 +1,5 @@
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { windowWidth } from '../../utils/Dimentions'
 import { ScrollView } from 'react-native-gesture-handler'
 import CourseInput from '../CourseInput'
@@ -9,9 +9,10 @@ import CustomButton from '../CustomButton'
 import { PostModule } from '../../services/module.service'
 import { Step } from '../../screens/auth/admin/CreateCourse'
 import { rules } from '../../utils/Rules'
+import LoadIndicator from '../LoadIndicator'
 interface Props {
   readonly newCourseId: number
-  readonly onModuleCreated: (moduel_id: number) => void
+  readonly onModuleCreated: (moduel_id: number, name: string) => void
   readonly step: Step
 }
 export default function FormModule({
@@ -20,8 +21,10 @@ export default function FormModule({
   step
 }: Props) {
   const { control, handleSubmit, setValue } = useForm<ModuleRequest>();
+  const [isLoading, setIsLoading] = useState(false);
   const createModule: SubmitHandler<ModuleRequest> = async (data) => {
     try {
+      setIsLoading(true);
       const { name, ppt_url } = data
       const response = await PostModule({
         name,
@@ -29,8 +32,9 @@ export default function FormModule({
         course_id: newCourseId
       });
       if (response) {
+        setIsLoading(false);
         Alert.alert("Éxito", `${response?.message}`);
-        onModuleCreated(response?.newModule.module_id ?? 0);
+        onModuleCreated(response?.newModule.module_id ?? 0, response.newModule.name);
         setValue("name", "");
         setValue("ppt_url", "");
         setValue("course_id", newCourseId);
@@ -43,7 +47,9 @@ export default function FormModule({
       console.error(error);
     }
   }
-
+  if (isLoading) return <View style={styles.scrollContainer}>
+    <LoadIndicator animating size='large' />
+  </View>
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -81,4 +87,14 @@ export default function FormModule({
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  scrollContainer: {
+    flex: 1,
+    width: windowWidth,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+  }
+})
