@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const quizScreenStyles = StyleSheet.create({
   incorrectSelected: {
-    backgroundColor: '#FF5733',
+    backgroundColor: '#FF6F6F',
   },
   incorrectIcon: {
     color: '#FF0F00',
@@ -83,6 +83,7 @@ export const quizScreenStyles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 30,
   },
+  
   buttonText: {
     fontSize: 18,
     fontWeight: '600',

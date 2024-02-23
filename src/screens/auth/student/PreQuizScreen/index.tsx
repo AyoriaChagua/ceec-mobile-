@@ -1,37 +1,28 @@
+// PreQuizScreen.tsx
+
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity , Image, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/PreQuizStack';
-import { quizScreenStyles as styles  } from './style'; 
+import { quizScreenStyles as styles } from './style';
 import { usePreQuiz } from './hooks/usePreQuizLogic';
-import  FloatingEmotion  from './../../../../components/FloatingEmotion'; 
+import FloatingEmotion from './../../../../components/FloatingEmotion';
+
 type PreQuizScreenRouteProp = RouteProp<RootStackParamList, 'PreQuiz'>;
 
 const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
-  const route = useRoute< PreQuizScreenRouteProp>();
+  const route = useRoute<PreQuizScreenRouteProp>();
   const { course_id } = route.params;
-  const {
-    questions,
-    ques,
-    options,
-    score,
-    isLoading,
-    selectedOption,
-    isCorrect,
-    totalScore,
-    formatTime,
-    handleNextPress,
-    handlSelectedOption,
-    totalQuestions,
-    calculateEffectiveness,
-  } = usePreQuiz(course_id);
+  const { questions, ques, options, score, isLoading, selectedOption, isCorrect, totalScore, formatTime, handleNextPress, handlSelectedOption, totalQuestions, calculateEffectiveness, showHappyEmoji } = usePreQuiz(course_id);
+
 
   const handleShowResult = () => {
     navigation.navigate('ResultPreQuiz', {
-      totalQuestions: totalQuestions, 
-      correctAnswers: score 
+      totalQuestions: totalQuestions,
+      correctAnswers: score
     });
   };
+
   const renderOptionText = (opt: string) => {
     const words = decodeURIComponent(opt).split(' ');
     return words.length > 2 ? (
@@ -40,7 +31,7 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
       <Text style={styles.optionTextCenter}>{decodeURIComponent(opt)}</Text>
     );
   };
-  
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
@@ -99,8 +90,8 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
             <Text>No hay preguntas disponibles.</Text>
           </View>
         )}
-         {isCorrect === true && <FloatingEmotion type="happy" />}
-        {isCorrect === false && <FloatingEmotion type="sad" />}
+       {isCorrect === false && selectedOption !== null && <FloatingEmotion type="sad" />}
+  {showHappyEmoji && selectedOption !== null && <FloatingEmotion type="happy" />}
       </View>
     </ScrollView>
   );

@@ -11,6 +11,7 @@ interface Props {
     name: string;
 }
 
+
 const AuthInput = ({ label, isSecure = false, isEmail = false, control, name }: Props) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(!isSecure);
 
@@ -32,7 +33,7 @@ const AuthInput = ({ label, isSecure = false, isEmail = false, control, name }: 
                         value={value}
                         onChangeText={onChange}
                         onBlur={onBlur}
-                        style={{ backgroundColor: '#fff', padding: 3 }}
+                        style={{ backgroundColor: '#fff' }}
                         underlineColor="#2B32CE"
                         selectionColor="#2B32CE"
                         secureTextEntry={isSecure && !isPasswordVisible}
@@ -40,7 +41,7 @@ const AuthInput = ({ label, isSecure = false, isEmail = false, control, name }: 
                         right={
                             <TextInput.Icon
                                 icon={getIconName()}
-                                color="#2B32CE"
+                                color="#3C63FF"
                                 onPress={() => setIsPasswordVisible(!isPasswordVisible)}
                             />
                         }

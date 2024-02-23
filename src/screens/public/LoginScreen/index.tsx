@@ -1,15 +1,17 @@
-import { View, Text, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, Image,  ImageBackground ,SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
+
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../interfaces/NavigationInterfaces';
 import { styles } from './styles';
 import { AuthInput, CustomButton } from '../../../components';
-import Ebook from '../../../../assets/images/ebook.svg';
-import Logo from '../../../../assets/images/logo.svg';
+import Ebook from '../../../../assets/images/login/user.png';
+import Logo from '../../../../assets/images/login/logo_blanco.png';
 import { useAuth } from '../../../context/AuthContext';
 import { LoginRequest } from '../../../interfaces/UserInterfaces';
 import { ScrollView } from 'react-native-gesture-handler';
 import { windowWidth } from '../../../utils/Dimentions';
+import backgroundImage from '../../../../assets/images/login/fondo.png'; 
 
 export type Props = {
   readonly navigation: NavigationProp<RootStackParamList, 'Login'>;
@@ -30,43 +32,42 @@ const LoginScreen = () => {
   };
 
   return  (
+    <SafeAreaView style={{ flex: 1 }}>
+    <ImageBackground
+    source={backgroundImage}
+    style={styles.backgroundImage}
+  >
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-      }}
     >
-      <ScrollView style={{
-        flex: 1,
-        width: windowWidth,
-        backgroundColor: '#fff',
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
-        paddingTop: Platform.OS === "ios" ? 40 : 0,
-      }}>
+     <ScrollView
+            contentContainerStyle={styles.scrollViewContent}
+          >
         <View style={{paddingHorizontal: 20}}>
         <View style={styles.header}>
-          <Logo height={25} />
-          <Ebook height={200} style={styles.ebook} />
+          <Image source={Logo}   style={styles.logo} />
+          <Text style={styles.h1}>Iniciar sesión</Text>
+          <Image source={Ebook} style={styles.ebook} />
         </View>
-        <View>
-          <Text style={styles.h1}>INICIA SESIÓN</Text>
-          <Text style={styles.text}>Centro de Excelencia en Experiencia del Cliente</Text>
-        </View>
+      
         <View style={styles.form}>
-          <AuthInput label="Email" isEmail control={control} name="email" />
-          <AuthInput label="Password" isSecure control={control} name="password" />
+          <AuthInput label="Usuario " isEmail control={control} name="email" />
+          <AuthInput label="Contraseña " isSecure control={control} name="password" />
           {error && <Text style={{ color: 'red', fontWeight: '400' }}>{error}</Text>}
+          <View style={{  marginTop: 70 }}>
           <CustomButton
             text="Ingresar"
             onPress={handleSubmit(onLoginPressed)}
             disabled={isLoading!}
+            
           />
+          </View>
         </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
+    </ImageBackground>
+    </SafeAreaView>
   );
 };
 

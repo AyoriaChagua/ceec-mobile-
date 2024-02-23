@@ -21,7 +21,7 @@ const FloatingEmotion: React.FC<FloatingEmotionProps> = ({ type }) => {
 
   return (
     <Animated.Text style={[styles.emoji, { transform: [{ translateY: position }] }]}>
-      {type === 'happy' ? '👏' : '🥺'}
+      {type === 'happy' ? '👏' : '😰'}
     </Animated.Text>
   );
 };

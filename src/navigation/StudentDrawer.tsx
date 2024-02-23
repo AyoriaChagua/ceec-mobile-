@@ -28,7 +28,7 @@ export default function StudentDrawer() {
                 <CustomDrawer {...props} email={email.email} fullname={fullname} />
             )}
             screenOptions={{
-                drawerActiveBackgroundColor: '#2B32CE',
+                drawerActiveBackgroundColor: '#3C63FF',
                 drawerActiveTintColor: '#fff',
                 headerTitleStyle: { fontSize: 18 },
                 headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,

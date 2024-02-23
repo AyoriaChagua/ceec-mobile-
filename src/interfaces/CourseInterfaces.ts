@@ -30,6 +30,7 @@ export interface Course {
   is_finish: boolean;
   limit_date: string;
   image: string;
+  background_color: string;
   CourseStudent: {
     id: number;
     course_id: number;
@@ -53,9 +54,9 @@ export interface Module extends BaseModule {
   icon: React.ReactElement<IconProps> | string | undefined;
 }
 
-export  interface CourseCardProps {
+export interface CourseCardProps {
   modules: Module[];
-  namemodulo:string;
+  namemodulo: string;
 }
 
 
