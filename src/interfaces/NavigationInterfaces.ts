@@ -12,6 +12,8 @@ export type RootStackParamListAdmin = {
     CreateUser: undefined
     Users: undefined
     CreateModule: { courseId: number }
+    AddStudentsToCourse: { courseId: number }
+    StudentsPerCourse: { courseId: number }
 };
 
 
@@ -23,7 +25,7 @@ export type RootStackParamStudent = {
 };
 
 
-export type RootStackParamList= {
+export type RootStackParamList = {
     Login: undefined
     Dashboard: undefined
     Details: { itemId: number }

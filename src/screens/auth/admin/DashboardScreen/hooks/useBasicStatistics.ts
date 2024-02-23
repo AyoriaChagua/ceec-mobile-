@@ -23,6 +23,7 @@ export const useActiveUsers = () => {
         GetBasicStatistics()
             .then((data) => {
                 setBasicStatistics(data);
+                console.log(data);
                 setActiveUsers((prevState) => ({
                     ...prevState,
                     total: data.totalStudents,

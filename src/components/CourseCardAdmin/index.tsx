@@ -10,9 +10,10 @@ interface Props {
     readonly courseId: number;
     readonly navigateToCreateModule: (courseId: number) => void
     readonly navigateToAddStudents: (courseId: number) => void
+    readonly navigateToStudentsPerCourse: (courseId: number) => void
 }
 
-export default function CourseCardAdmin({ moduleCount, courseName, createdAt, userCount, courseId, navigateToCreateModule, navigateToAddStudents }: Props) {
+export default function CourseCardAdmin({ moduleCount, courseName, createdAt, userCount, courseId, navigateToCreateModule, navigateToAddStudents, navigateToStudentsPerCourse }: Props) {
     const dateObject = new Date(createdAt);
 
     return (
@@ -27,14 +28,16 @@ export default function CourseCardAdmin({ moduleCount, courseName, createdAt, us
                     label={`${userCount} estudiante${userCount > 1 ? 's' : ''}`}
                     textButton='Agregar'
                     type='student'
-                    navigateTo={navigateToAddStudents}
+                    navigateToAdd={navigateToAddStudents}
+                    navigateToCheck={navigateToStudentsPerCourse}
                 />
                 <CustomButtonGroup
                     courseId={courseId}
                     label={`${moduleCount} módulo${moduleCount > 1 ? 's' : ''}`}
                     textButton='Agregar'
                     type='module'
-                    navigateTo={navigateToCreateModule}
+                    navigateToAdd={navigateToCreateModule}
+                    navigateToCheck={()=>{}}
                 />
             </View>
         </View>

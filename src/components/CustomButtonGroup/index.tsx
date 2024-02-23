@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { Icon } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
 
 interface Props {
     readonly label: string
@@ -10,19 +8,20 @@ interface Props {
     readonly disabled?: boolean
     readonly type: "module" | "student"
     readonly courseId: number
-    readonly navigateTo: (courseId: number) => void
+    readonly navigateToAdd: (courseId: number) => void
+    readonly navigateToCheck: (courseId: number) => void
 }
 
-export default function CustomButtonGroup({ label, textButton, type, disabled = false, courseId, navigateTo }: Props) {
+export default function CustomButtonGroup({ label, textButton, type, disabled = false, courseId, navigateToAdd, navigateToCheck }: Props) {
     return (
         <View style={styles.buttonContainer} >
-            <TouchableOpacity onPress={() => { }} disabled={disabled}>
+            <TouchableOpacity onPress={() => navigateToCheck(courseId)} disabled={disabled}>
                 <View style={[styles.left, { borderColor: type === "module" ? "#4951FF" : "#37B5B6" }]}>
                     <Text style={[styles.textLeft, { color: type === "module" ? "#4951FF" : "#37B5B6" }]}>{label}</Text>
                 </View>
 
             </TouchableOpacity>
-            <TouchableOpacity onPress={type === "module" ? () => navigateTo(courseId) : () => { }} disabled={disabled}>
+            <TouchableOpacity onPress={() => navigateToAdd(courseId)} disabled={disabled}>
                 <View style={[styles.right, { backgroundColor: type === "module" ? "#4951FF" : "#37B5B6" }]}>
                     <Text style={styles.textRight}>{textButton}</Text>
                 </View>

@@ -16,6 +16,8 @@ import CreateUser from '../screens/auth/admin/CreateUser';
 import { Profile } from '../interfaces/UserInterfaces';
 import ShowProfile from '../screens/auth/profile/ShowProfile';
 import CreateModule from '../screens/auth/admin/CreateModule';
+import StudentsPerCourse from '../screens/auth/admin/StudentsPerCourse';
+import AddStudentsToCourse from '../screens/auth/admin/AddStudentsToCourse';
 
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
@@ -127,6 +129,26 @@ const AdminNav = () => (
         <Stack.Screen
             name="CreateModule"
             component={CreateModule}
+            options={{
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                title: "",
+                headerLeftLabelVisible: false,
+                headerShown: true
+            }}
+        />
+        <Stack.Screen 
+            name='StudentsPerCourse'
+            component={StudentsPerCourse}
+            options={{
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                title: "",
+                headerLeftLabelVisible: false,
+                headerShown: true
+            }}
+        />
+        <Stack.Screen 
+            name='AddStudentsToCourse'
+            component={AddStudentsToCourse}
             options={{
                 headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
                 title: "",

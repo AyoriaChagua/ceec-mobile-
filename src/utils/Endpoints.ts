@@ -1,4 +1,5 @@
-const base_url = `https://ceec-web-api.onrender.com`;
+//const base_url = `https://ceec-web-api.onrender.com`;
+const base_url = `http://192.168.0.11:4100`;
 
 
 export const API_SOCKET_URL = `${base_url}`;
@@ -55,10 +56,16 @@ export const API_GET_COURSES_WITH_MODULES = `${base_url}/api/courses/modules/all
 
 export const API_GET_COURSES_BY_ID = `${base_url}/api/coursestudent/course`;
 
+export const API_GET_ALL_DATA_STUDENT_PER_COURSE = `${base_url}/api/coursestudent/all-data`
+
 export const API_POST_IMAGE = `${base_url}/api/image-service/upload`;
 
-export const API_POST_COURSE = `${base_url}/api/courses/`
+export const API_POST_COURSE = `${base_url}/api/courses/`;
 
-export const API_DICTIONARY = `${base_url}/api/dictionaryquizz`
+export const API_DICTIONARY = `${base_url}/api/dictionaryquizz`;
+
+export const API_GET_STUDENTS_FOR_COURSE = `${base_url}/api/users/students-for-course`;
+
+export const API_POST_STUDENTS_TO_COURSES = `${base_url}/api/coursestudent/many`
 
 

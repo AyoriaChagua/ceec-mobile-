@@ -30,17 +30,6 @@ export default function CoursesScreen({ navigation }: Props) {
     return <Text>Error: {error}</Text>;
   }
 
-  const navigateToDetailScreen = (courseId: number) => {
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: 'Course',
-        params: {
-          courseId
-        },
-      })
-    );
-  };
-
   const navigateToCreateCourse = () => {
     navigation.dispatch(
       CommonActions.navigate({
@@ -71,6 +60,17 @@ export default function CoursesScreen({ navigation }: Props) {
     );
   };
 
+  const navigateToStudentsPerCourseScreen = (courseId: number) => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'StudentsPerCourse',
+        params: {
+          courseId
+        },
+      })
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView style={styles.container} >
@@ -84,6 +84,7 @@ export default function CoursesScreen({ navigation }: Props) {
             createdAt={course.created_at}
             navigateToCreateModule={navigateToCreateModuleScreen}
             navigateToAddStudents={navigateToAddStudentsScreen}
+            navigateToStudentsPerCourse={navigateToStudentsPerCourseScreen}
           />
         ))}
       </ScrollView>
