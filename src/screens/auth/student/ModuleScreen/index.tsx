@@ -1,6 +1,6 @@
 import { ModuleCard } from '../../../../components';
 import React , { useState }from 'react';
-import { ScrollView, Text, View, Image   } from 'react-native';
+import { ScrollView, Text, View, Image  ,  ImageBackground  } from 'react-native';
 import { useRoute, RouteProp,  NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentStack';
 import { Icon } from '@rneui/themed';
@@ -73,29 +73,38 @@ const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
          {courseData ? (
        <View style={styles.containercourse}>
        <View style={styles.courseInfo}>
-         <Text style={styles.courseTitle}>{courseData.name}</Text>
-         <View style={styles.divider} />
-         <Image source={{ uri: courseData.image }} style={styles.courseImage} />
-       </View>
-
-       <View style={styles.courseInfo}>
-         <Text style={styles.subtitulo}>Sobre el Curso</Text>
+      
+         <View style={styles.courseImageContainer}>
+        
+           <Image source={{ uri: courseData.image }} style={styles.courseImage} />
+           <View style={styles.courseImageOverlay} />
+           <Text style={styles.courseTitle}>{courseData.name}</Text>
+         
          <Text style={styles.courseDescription}>{courseData.description}</Text>
+     
+         </View>
        </View>
+      
      </View>
+     
    ) : null}
 
 <Text style={styles.subtitulo}>Contenido del Curso</Text>
           {modules.map((module) => (
             <React.Fragment key={module.module_id}>
                
-               <ModuleCard modules={content_list} namemodulo={` ${module.name}`}   handleModuleClick={(moduleId, numbertype) =>
-              handleModuleClick(module.module_id, numbertype)
-            } />
+               <View style={{ paddingHorizontal: 25 }}>
+            <ModuleCard
+              modules={content_list}
+              namemodulo={` ${module.name}`}
+              handleModuleClick={(moduleId, numbertype) => handleModuleClick(module.module_id, numbertype)}
+            />
+          </View>
 
               <View style={styles.divider} />
             </React.Fragment>
           ))}
+          
         </ScrollView>
         
       );

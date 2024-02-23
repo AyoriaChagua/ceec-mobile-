@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image  , ImageBac
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Card, Icon } from '@rneui/themed';
+
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentStack';
 import { useCourse } from './hooks/useCourse';

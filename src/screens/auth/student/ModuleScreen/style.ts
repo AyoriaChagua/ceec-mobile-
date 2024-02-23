@@ -1,46 +1,74 @@
 // moduleScreenStyles.ts
 import { StyleSheet } from 'react-native';
+import { windowWidth , windowHeight } from '../../../../utils/Dimentions';
 
 export const moduleScreenStyles = StyleSheet.create({
   container: {
-    flex: 1, // Make sure the container takes the entire screen height
-    backgroundColor: '#F8F7FB', // Set background color to white
-    paddingHorizontal: 12, // Add horizontal padding
+    flex: 1,
+    backgroundColor: '#EEEEEE',
+    marginBottom: 0,
   },
   divider: {
     borderBottomWidth: 1,
     borderColor: '#EAEAED',
     marginBottom: 16,
-    marginTop: 8, // Adjust top margin for better spacing
+    marginTop: 5,
   },
   containercourse: {
-    padding: 17,
+    padding: 0,
+  },
+  courseImageContainer: {
+    width: '100%', 
+    position: 'relative',
+    overflow: 'hidden',
   },
   courseImage: {
-    width: '100%', // Adjust to take the full width
-    height: 200,
-    borderRadius: 10,
-    marginBottom: 16, // Add bottom margin for separation
+    marginTop: 15,
+    width: '100%', // La imagen ocupa todo el ancho de su contenedor
+    aspectRatio: 16 / 9, // Proporción de aspecto (puedes ajustar esto según la relación de aspecto deseada)
+  },
+  courseImageOverlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#920404', // Color de sombra
+    opacity: 0.7, // Opacidad de la sombra
   },
   courseInfo: {
-    marginTop: 13,
-    marginBottom: 8, // Add bottom margin for separation
+    marginBottom: 8,
   },
   courseTitle: {
-    color: '#4951FF', // Adjust text color
-    fontSize: 24, // Decrease font size
-    fontWeight: 'normal', // Set to normal font weight
+    position: 'absolute',
+    top: 0, // Posición en la parte superior del contenedor
+    left: 0,
+    right: 0,
     textAlign: 'center',
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
+    paddingTop: 25, // Añade un relleno superior para separar el título del borde superior
   },
   courseDescription: {
-    fontSize: 14, // Decrease font size
-    marginTop: 8,
-    color: '#333333', // Adjust text color
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 15,
+    paddingTop: 80, // Añade un relleno superior para separar el título del borde superior
   },
   subtitulo: {
+    textAlign: 'center',
+    color: '#3C63FF',
     fontWeight: 'bold',
-    fontSize: 16, // Decrease font size
-    marginBottom: 8, // Add bottom margin for separation
+    fontSize: 16,
+    marginBottom: 8,
   },
-  
+  bottomImage: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
 });
