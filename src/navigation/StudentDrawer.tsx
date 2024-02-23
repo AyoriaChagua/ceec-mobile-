@@ -38,11 +38,12 @@ export default function StudentDrawer() {
                 drawerActiveBackgroundColor: '#3C63FF',
                 drawerActiveTintColor: '#fff',
                 headerTitleStyle: { fontSize: 18 },
+                headerTintColor: 'white',
                 headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
                 headerStyle: { backgroundColor: '#3C63FF' }, 
             }}
         >
-            <Drawer.Screen name="Cursos" component={StudentStack}  />
+            <Drawer.Screen name="Cursos" component={StudentStack}   />
             <Drawer.Screen name=" Notas / Estado de curso " component={NotasStack} />
             <Drawer.Screen name="PreQuiz " component={PreQuizStack}/>
         </Drawer.Navigator>
