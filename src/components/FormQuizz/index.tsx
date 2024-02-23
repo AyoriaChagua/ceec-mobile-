@@ -163,6 +163,28 @@ export default function FormQuizz({ itemId, onEvaluationCreated, step, typeQuizz
                     return;
                 }
             } else if (typeQuizz === "dictionary") {
+                setIsLoading(true)
+                const updatedQuestions = await getUpdateData();
+                const dictionaryQuestions: DictionaryRequest[] = updatedQuestions.map(question => {
+                    const questionFormat: DictionaryRequest = {
+                        correct_answer: [question.correct_answer],
+                        incorrect_answer: question.incorrect_answer!,
+                        word: question.image_url,
+                        module_id: itemId,
+                        quizztype_id: 3
+                    }
+                    return questionFormat
+                });
+                const response = await postDictionary(dictionaryQuestions, userToken!);
+                if (response) {
+                    Alert.alert("Éxito", "Se ha creado el diccionario satisfactoriamente");
+                    setIsLoading(false);
+                    onEvaluationCreated(true);
+                    return;
+                }
+            } else if (typeQuizz === "prequizz") {
+                setIsLoading(true);
+                const updatedQuestions = await getUpdateData();
                 const prequizzQuestions: PrequizzRequest[] = updatedQuestions.map(question => {
                     const questionFormat: PrequizzRequest = {
                         correct_answer: question.correct_answer,

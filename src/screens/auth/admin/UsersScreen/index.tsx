@@ -29,7 +29,7 @@ export default function UsersScreen({ navigation }: Props) {
       <ScrollView style={{ display: "flex", backgroundColor: "#fff", padding: 20, height: windowHeight * 0.70 }}>
 
 
-        <CardStudent />
+        <CardStudent cardType='user'/>
         
       </ScrollView>
       <View style={{ padding:20,  display: "flex", backgroundColor: "#fff" }}>

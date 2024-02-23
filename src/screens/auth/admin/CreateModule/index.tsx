@@ -13,7 +13,6 @@ type CreateModuleScreenProps = RouteProp<RootStackParamListAdmin, 'CreateModule'
 export default function CreateModule() {
     const route = useRoute<CreateModuleScreenProps>();
     const { params } = route;
-    console.log(params.courseId);
 
     const [currentStep, setCurrentStep] = useState<Step>('module');
 

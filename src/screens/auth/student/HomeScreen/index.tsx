@@ -43,7 +43,7 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
               >
                 <Card
                   key={index}
-                  containerStyle={styles.cardContainer}
+                  containerStyle={[styles.cardContainer, {backgroundColor: course.background_color}]}
                 >
                   <View style={styles.cardContent}>
                     <View style={styles.imageContainer}>

@@ -32,4 +32,6 @@ export { default as EvaluationResponseInput } from "./EvaluationResponseInput";
 export { default as EvaluationQuestion } from "./EvaluationQuestion";
 export { default as FormPrequizz } from "./FormPrequizz";
 export { default as FloatingEmotion } from "./FloatingEmotion";
+export { default as CustomSearcher } from "./CustomSearcher";
+export { default as MiniCardStudent } from "./MiniCardStudent";
 

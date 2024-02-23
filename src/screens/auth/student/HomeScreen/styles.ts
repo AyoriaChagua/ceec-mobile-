@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
   },
   cardContainer: {
-    backgroundColor: '#C54040',
     borderRadius: 20,
     width: windowWidth * 0.92,
     height: 180,
