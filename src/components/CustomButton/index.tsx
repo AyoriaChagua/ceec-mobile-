@@ -7,6 +7,7 @@ interface Props {
     readonly disabled: boolean
     readonly size?: "large" | "small"
     readonly type?: "seccondary" | "primary" | "danger"
+    
 }
 
 export default function CustomButton({ text, onPress, disabled, size, type }: Props) {
@@ -19,7 +20,7 @@ export default function CustomButton({ text, onPress, disabled, size, type }: Pr
             buttonColor = "red";
             break;
         default:
-            buttonColor = "#2B32CE";
+            buttonColor = "#FAB416";
     }
     return (
         <View>
@@ -32,8 +33,8 @@ export default function CustomButton({ text, onPress, disabled, size, type }: Pr
                     marginBottom: type === "danger" || size === "small" ? 13 : 30,
                     alignItems: "center",
                     justifyContent: "center",
-                    width: "100%",
-
+                    width: size === "large" ? "80%" : "60%", 
+                    alignSelf: "center",
                 }}
                 disabled={disabled}
             >
