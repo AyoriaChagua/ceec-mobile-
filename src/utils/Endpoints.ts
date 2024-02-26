@@ -1,6 +1,7 @@
 
 //const base_url = `https://ceec-web-api.onrender.com/api`;
-const base_url = `https://ceec-web-api.onrender.com`;
+//const base_url = `https://ceec-web-api.onrender.com`;
+const base_url = `http://192.168.0.11:4100`;
 
 
 export const API_COURSES_URL = `${base_url}/api/custom/coursesuser` ;

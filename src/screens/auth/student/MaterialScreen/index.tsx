@@ -7,6 +7,7 @@ import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { useMaterial } from './hooks/useMaterial';
 import { extractDriveFileId } from './hooks/extractDriveFileId';
 import { materialScreenStyles as styles } from './styles';
+import { LoadIndicator } from '../../../../components';
 type MaterialScreenRouteProp = RouteProp<RootStackParamList, 'Material'>;
 
 const MaterialScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
@@ -20,7 +21,7 @@ const MaterialScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
   if (loading) {
     return (
       <View style={styles.container}>
-        <Text>CARGANDO...</Text>
+        <LoadIndicator animating size='large'/>
       </View>
     );
   }

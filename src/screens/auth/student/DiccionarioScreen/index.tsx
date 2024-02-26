@@ -4,6 +4,7 @@ import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { quizScreenStyles as styles } from './style';
 import { useDiccionario } from './hooks/useDiccionarioLogic';
+import { LoadIndicator } from '../../../../components';
 
 type QuizScreenRouteProp = RouteProp<RootStackParamList, 'Diccionario'>;
 
@@ -57,9 +58,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <View style={styles.loadingContainer}>
-          <Text style={styles.loadingText}>CARGANDO...</Text>
-        </View>
+        <LoadIndicator animating size='large'/>
       ) : questions && ques < questions.length ? (
         <View style={styles.parent}>
           <View style={styles.top}>

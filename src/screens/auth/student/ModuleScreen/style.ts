@@ -5,7 +5,7 @@ import { windowWidth , windowHeight } from '../../../../utils/Dimentions';
 export const moduleScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EEEEEE',
+    backgroundColor: '#F5F0FF',
     marginBottom: 0,
   },
   divider: {
