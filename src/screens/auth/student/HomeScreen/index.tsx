@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Card, Icon } from '@rneui/themed';
 
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { useCourse } from './hooks/useCourse';
 import { useAuth } from '../../../../context/AuthContext';
 import { windowWidth, windowHeight } from '../../../../utils/Dimentions'; // Importa las dimensiones
@@ -23,6 +23,7 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
   const filteredData = filterCourses(searchText);
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={[textStyles.headerText, { color: '#3C63FF', fontSize: 40 }]}>¡Hola {firstName}!</Text>

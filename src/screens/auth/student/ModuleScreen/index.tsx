@@ -2,7 +2,7 @@ import { ModuleCard } from '../../../../components';
 import React , { useState }from 'react';
 import { ScrollView, Text, View, Image  ,  ImageBackground  } from 'react-native';
 import { useRoute, RouteProp,  NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { Icon } from '@rneui/themed';
 import { useModuleScreen } from './hooks/useModule';
 import { moduleScreenStyles as styles  } from './style'; 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/PreQuizStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 
 type ResultPreQuizScreenRouteProp = RouteProp<RootStackParamList, 'ResultPreQuiz'>;
 

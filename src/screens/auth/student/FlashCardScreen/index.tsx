@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, TouchableOpacity, Modal, Button, useWindowDimensions } from "react-native";
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import shuffle from './hooks/suffle'; // Importar la función shuffle desde el archivo shuffle.js
 import { useFlashCard } from './hooks/useFlashCards';
 

@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/PreQuizStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { quizScreenStyles as styles } from './style';
 import { usePreQuiz } from './hooks/usePreQuizLogic';
 import FloatingEmotion from './../../../../components/FloatingEmotion';

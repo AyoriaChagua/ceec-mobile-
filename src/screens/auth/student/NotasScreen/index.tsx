@@ -2,7 +2,7 @@ import { StyleSheet, Text, View ,  ScrollView,  TouchableOpacity} from 'react-na
 import React  from 'react';
 import { Card, Icon } from '@rneui/themed';
 import { useRoute, RouteProp,  NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/NotasStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import {useCourse} from './../HomeScreen/hooks/useCourse';
 
 const NotasScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {

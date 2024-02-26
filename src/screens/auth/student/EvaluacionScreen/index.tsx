@@ -5,7 +5,7 @@ import { useEvaluation } from './hooks/useEvaluation';
 import { useRotation } from '../EvaluacionScreen/hooks/useRotation';
 import { Evaluation} from '../../../../interfaces/EvaluationInterface';
 import { useRoute, RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { NavigationProp } from '@react-navigation/native';
 
 type EvaluacionScreenRouteProp = RouteProp<RootStackParamList, 'Evaluacion'>;
