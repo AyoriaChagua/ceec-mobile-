@@ -1,53 +1,52 @@
 import { ModuleCard } from '../../../../components';
-import React , { useState }from 'react';
-import { ScrollView, Text, View, Image  ,  ImageBackground  } from 'react-native';
-import { useRoute, RouteProp,  NavigationProp } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { ScrollView, Text, View, Image, ImageBackground, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentDrawer';
-import { Icon } from '@rneui/themed';
+import { Card, Icon } from '@rneui/themed';
 import { useModuleScreen } from './hooks/useModule';
-import { moduleScreenStyles as styles  } from './style'; 
+import { moduleScreenStyles as styles } from './style';
 import { Module } from "../../../../interfaces/CourseInterfaces";
+import { Icon as IconRNP } from 'react-native-paper';
 
 type ModuleScreenRouteProp = RouteProp<RootStackParamList, 'Module'>;
 
-const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
+const ModuleScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<ModuleScreenRouteProp>();
   const { course_id } = route.params;
-  const { courseData, modules } = useModuleScreen(course_id);
- 
+  const { courseData, modules, isLoading } = useModuleScreen(course_id);
+
   const [selectedModule, setSelectedModuleId] = useState<number | null>(null);
 
-  
+
   const content_list: Module[] = [
-   {
-     numbertype:1,
+    {
+      numbertype: 1,
       module_id: selectedModule || 0, // Si selectedModule es null, asigna 0
       contentName: "Diccionario",
       icon: <Icon name="article" size={30} color="#4951FF" />,
-   },
-    {
-      numbertype:2,
-      module_id: selectedModule || 0,
-      contentName: "Material de clase",
-      icon: <Icon name="movie"  size={30} color="#4951FF" />,
     },
     {
-      numbertype:3,
+      numbertype: 2,
+      module_id: selectedModule || 0,
+      contentName: "Material de clase",
+      icon: <Icon name="movie" size={30} color="#4951FF" />,
+    },
+    {
+      numbertype: 3,
       module_id: selectedModule || 0,
       contentName: "FlashCard",
       icon: <Icon name="bookmarks" size={30} color="#4951FF" />,
     },
     {
-      numbertype:4,
+      numbertype: 4,
       module_id: selectedModule || 0,
       contentName: "Evaluación",
       icon: <Icon name="wysiwyg" size={30} color="#4951FF" />,
     },
   ];
-  const handleModuleClick = (moduleId: number , numbertype :number) => {
-    console.log('Clicked moduleId:', moduleId); // ModuleId seleccionado
+  const handleModuleClick = (moduleId: number, numbertype: number) => {
     setSelectedModuleId(moduleId);
-    console.log(selectedModule);
 
     switch (numbertype) {
       case 1:
@@ -67,33 +66,34 @@ const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
         break;
     }
   };
-    return (
-        <ScrollView style={styles.container}>
-         
-         {courseData ? (
-       <View style={styles.containercourse}>
-       <View style={styles.courseInfo}>
-      
-         <View style={styles.courseImageContainer}>
-        
-           <Image source={{ uri: courseData.image }} style={styles.courseImage} />
-           <View style={styles.courseImageOverlay} />
-           <Text style={styles.courseTitle}>{courseData.name}</Text>
-         
-         <Text style={styles.courseDescription}>{courseData.description}</Text>
-     
-         </View>
-       </View>
-      
-     </View>
-     
-   ) : null}
+  if (isLoading) return (
+    <View style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
+      <ActivityIndicator size="large" color="#4951FF" />
+    </View>
+  )
 
-<Text style={styles.subtitulo}>Contenido del Curso</Text>
-          {modules.map((module) => (
-            <React.Fragment key={module.module_id}>
-               
-               <View style={{ paddingHorizontal: 25 }}>
+  return (
+    <ScrollView style={styles.container}>
+
+      {courseData ? (
+        <View style={styles.containercourse}>
+          <View style={styles.courseInfo}>
+            <View style={styles.courseImageContainer}>
+              <Image source={{ uri: courseData.image }} style={styles.courseImage} />
+              <View style={styles.courseImageOverlay} />
+              <Text style={styles.courseTitle}>{courseData.name}</Text>
+              <Text style={styles.courseDescription}>{courseData.description}</Text>
+            </View>
+          </View>
+        </View>
+
+      ) : null}
+
+      <Text style={styles.subtitulo}>Contenido del Curso</Text>
+      {modules.map((module) => (
+        <React.Fragment key={module.module_id}>
+
+          <View style={{ paddingHorizontal: 15 }}>
             <ModuleCard
               modules={content_list}
               namemodulo={` ${module.name}`}
@@ -101,13 +101,36 @@ const  ModuleScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
             />
           </View>
 
-              <View style={styles.divider} />
-            </React.Fragment>
-          ))}
-          
-        </ScrollView>
-        
-      );
-    };
+          <View style={styles.divider} />
+        </React.Fragment>
+      ))}
+      <Card.Divider />
+      <View
+        style={{
+          paddingHorizontal: 15
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#FFD352", 
+            paddingHorizontal: 15,
+            paddingVertical: 20,
+            borderRadius: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            columnGap: 10
+          }}
+          onPress={() => navigation.navigate('PreQuiz', { course_id })}
+        >
+          <IconRNP size={30} source={"book-play"} />
+          <View style={{}}>
+            <Text style={{fontWeight: "bold"}}>PREQUIZZ</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
 
-  export default ModuleScreen;
+  );
+};
+
+export default ModuleScreen;

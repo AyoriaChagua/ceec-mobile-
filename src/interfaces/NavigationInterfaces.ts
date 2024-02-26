@@ -21,7 +21,12 @@ export type RootStackParamStudent = {
     Login: undefined
     Dashboard: undefined
     Details: { itemId: number }
-    AdminDrawer: undefined
+    StudentDrawer: undefined
+    Home: undefined
+    Perfil: undefined
+    Cursos: undefined
+    "Notas / Estado de curso": undefined
+    PreQuizz: undefined
 };
 
 

@@ -1,6 +1,6 @@
 // PreQuizScreen.tsx
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView, ActivityIndicator } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { quizScreenStyles as styles } from './style';
@@ -36,7 +36,7 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
       <View style={styles.container}>
         {isLoading ? (
           <View style={styles.loadingContainer}>
-            <Text style={styles.loadingText}>CARGANDO...</Text>
+            <ActivityIndicator />
           </View>
         ) : questions && ques < questions.length ? (
           <View style={styles.parent}>

@@ -82,6 +82,7 @@ export default function CoursesScreen({ navigation }: Props) {
             moduleCount={course.modules.length}
             courseName={course.name}
             createdAt={course.created_at}
+            background_color={course.background_color}
             navigateToCreateModule={navigateToCreateModuleScreen}
             navigateToAddStudents={navigateToAddStudentsScreen}
             navigateToStudentsPerCourse={navigateToStudentsPerCourseScreen}

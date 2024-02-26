@@ -11,6 +11,8 @@ import { PostNewCourse } from '../../services/courses.service';
 import { Step } from '../../screens/auth/admin/CreateCourse';
 import { rules } from '../../utils/Rules';
 import LoadIndicator from '../LoadIndicator';
+import ColorPicker from '../ColorPicker';
+import CustomDatePicker from '../CustomDatePicker';
 
 
 interface Props {
@@ -20,9 +22,13 @@ interface Props {
 
 export default function FormCourse({ onCourseCreated, step }: Props) {
   const { control, handleSubmit, setValue } = useForm<CourseRequest>();
+  const [courseColor, setCourseColor] = useState('#00C70F');
+  const [expiredDate, setExpiredDate] = useState<string | null>(null);
   const [errorImageRequire, setErrorImageRequire] = useState<null | string>(null);
   const [selectedImage, setSelectedImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+
 
   const handleImageSelected = (image: string) => {
     setSelectedImage(image);
@@ -41,7 +47,13 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
         } as any);
         const response = await PostImage(formData);
         if (response) {
-          const newCourse: CourseRequest = { description: data.description, image: response.imageUrl, name: data.name }
+          const newCourse: CourseRequest = {
+            description: data.description,
+            image: response.imageUrl,
+            name: data.name,
+            background_color: courseColor,
+            limit_date: expiredDate
+          };
           const responseCreatedCourse = await PostNewCourse(newCourse);
           setIsLoading(false);
           Alert.alert("Éxito", `${responseCreatedCourse?.message}`);
@@ -59,6 +71,7 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
       console.error(error);
     }
   };
+
 
   if (isLoading) return <View style={styles.scrollContainer}><LoadIndicator animating size='large' /></View>
 
@@ -98,6 +111,8 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
             name="description"
             rules={rules}
           />
+          <CustomDatePicker onDateChange={setExpiredDate} />
+          <ColorPicker onColorSelected={setCourseColor} />
         </View>
         <View style={{ display: "flex" }}>
           <CustomButton text='Crear curso' onPress={handleSubmit(createCourse)} disabled={false} />
