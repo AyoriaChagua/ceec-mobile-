@@ -8,7 +8,7 @@ import Account from '../../../assets/images/account.svg';
 import MailIcon from 'react-native-vector-icons/FontAwesome';
 
 export default function CustomDrawer(props: any) {
-    const { onLogout } = useAuth();
+    const { onLogout} = useAuth();
     const handleLogout = () => {
         onLogout!();
     };

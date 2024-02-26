@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { quizScreenStyles as styles } from './style';
 import { useDiccionario } from './hooks/useDiccionarioLogic';
 

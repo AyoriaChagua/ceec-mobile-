@@ -1,6 +1,6 @@
 
 //const base_url = `https://ceec-web-api.onrender.com/api`;
-const base_url = `http://192.168.0.11:4100`;
+const base_url = `https://ceec-web-api.onrender.com`;
 
 
 export const API_COURSES_URL = `${base_url}/api/custom/coursesuser` ;
@@ -67,7 +67,7 @@ export const API_GET_STUDENTS_FOR_COURSE = `${base_url}/api/users/students-for-c
 
 export const API_POST_STUDENTS_TO_COURSES = `${base_url}/api/coursestudent/many`
 //Obtener todas los resultados por eva_id y user :  http://192.168.18.3:4100/api/evaluationresults/by-user-evaluation/:userId/:evaluationId 
-export const API_EVALUATIONS_EVAID_USER = `${base_url}/evaluationresults/by-user-evaluation`;
+export const API_EVALUATIONS_EVAID_USER = `${base_url}/api/evaluationresults/by-user-evaluation`;
 
 
 
@@ -80,7 +80,7 @@ export const API_SOCKET_URL = `https://ceec-web-api.onrender.com`;
 
 
 
-export const API_EVALUATION = `${base_url}/evaluation`;
+export const API_EVALUATION = `${base_url}/api/evaluation`;
 
 export const API_PREQUIZZ = `${base_url}/prequizz`;
 

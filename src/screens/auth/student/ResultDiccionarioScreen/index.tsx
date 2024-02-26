@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity ,ScrollView  } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 
 type ResultDiccionarioScreenRouteProp = RouteProp<RootStackParamList, 'ResultDiccionario'>;
 

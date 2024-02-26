@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { useRankingEvaluation } from './hooks/useRankingEvaluation';
 
 type RankingScreenRouteProp = RouteProp<RootStackParamList, 'Ranking'>;

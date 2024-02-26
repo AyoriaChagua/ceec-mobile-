@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/PreQuizStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 
 type ResultPreQuizScreenRouteProp = RouteProp<RootStackParamList, 'ResultPreQuiz'>;
 
@@ -17,32 +17,16 @@ const ResultPreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ na
     navigation.navigate('CourseQuiz');
   };
 
-  const renderEmojis = () => {
-    if (correctAnswers < totalQuestions * 0.5) {
-      // Si menos de la mitad de las respuestas son correctas, mostrar caritas tristes
-      return (
-        <Image
-          source={require('./../../../../../assets/images/triste.gif')} // Ajusta la ruta de la imagen
-          style={styles.emojiImage}
-        />
-      );
-    } else {
-      // Si la mitad o más de las respuestas son correctas, mostrar confeti
-      return (
-        <Image
-          source={require('./../../../../../assets/images/confeti.gif')} // Ajusta la ruta de la imagen
-          style={styles.emojiImage}
-        />
-      );
-    }
-  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>RESULTADOS</Text>
+      <Text style={styles.title}> Score - CEEC </Text>
       <View style={styles.starContainer}>
         <View style={styles.starImageContainer}>
-          {renderEmojis()}
+        <Image
+          source={require('./../../../../../assets/images/prequizz_score/score_prequiz.png')} // Ajusta la ruta de la imagen
+          style={styles.emojiImage}
+        />
         </View>
         <View style={styles.circlesContainer}>
           <View style={styles.circle}>

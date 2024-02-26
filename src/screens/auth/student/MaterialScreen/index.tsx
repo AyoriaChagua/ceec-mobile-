@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { Video, ResizeMode } from 'expo-av';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/StudentStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { useMaterial } from './hooks/useMaterial';
 import { extractDriveFileId } from './hooks/extractDriveFileId';
 import { materialScreenStyles as styles } from './styles';

@@ -1,9 +1,8 @@
 // PreQuizScreen.tsx
-
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/PreQuizStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { quizScreenStyles as styles } from './style';
 import { usePreQuiz } from './hooks/usePreQuizLogic';
 import FloatingEmotion from './../../../../components/FloatingEmotion';
@@ -90,8 +89,9 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
             <Text>No hay preguntas disponibles.</Text>
           </View>
         )}
-       {isCorrect === false && selectedOption !== null && <FloatingEmotion type="sad" />}
-  {showHappyEmoji && selectedOption !== null && <FloatingEmotion type="happy" />}
+     {isCorrect === false && selectedOption !== null && <FloatingEmotion gifSource={require('../../../../../assets/images/prequizz/triste_2.gif')} />}
+{showHappyEmoji && selectedOption !== null && <FloatingEmotion gifSource={require('../../../../../assets/images/prequizz/feliz.gif')} />}
+
       </View>
     </ScrollView>
   );

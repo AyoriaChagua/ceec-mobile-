@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../navigation/NotasStack';
+import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { useModuleScreen } from './../ModuleScreen/hooks/useModule';
 import { useNotas} from './../NotasScreen/hooks/useNotas';
 
