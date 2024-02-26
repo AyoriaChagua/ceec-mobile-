@@ -75,6 +75,8 @@ export interface CourseRequest {
   name: string
   description: string
   image: string
+  background_color: string
+  limit_date?: string | null
 }
 
 export interface CourseResponse {

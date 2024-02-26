@@ -18,7 +18,8 @@ export interface Course {
 }
 
 export interface CoursesWithModules {
-    user_count: number,
+    user_count: number;
+    background_color: string;
     course_id: number;
     name: string;
     description: string;

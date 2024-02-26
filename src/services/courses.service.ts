@@ -118,12 +118,12 @@ export const GetCourseWithModules = async (id: number): Promise<CourseWithModule
 };
 
 
-export const PostNewCourse = async ({ description, image, name }: CourseRequest): Promise<CourseResponse | null> => {
+export const PostNewCourse = async (newCourse: CourseRequest): Promise<CourseResponse | null> => {
   try {
     const configObject = {
       method: 'POST',
       url: `${API_POST_COURSE}`,
-      data: { description, image, name },
+      data: newCourse,
       headers: {
         "Content-Type": "application/json",
       }

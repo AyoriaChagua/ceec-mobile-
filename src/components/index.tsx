@@ -34,4 +34,6 @@ export { default as FormPrequizz } from "./FormPrequizz";
 export { default as FloatingEmotion } from "./FloatingEmotion";
 export { default as CustomSearcher } from "./CustomSearcher";
 export { default as MiniCardStudent } from "./MiniCardStudent";
+export { default as ColorPicker } from "./ColorPicker";
+export { default as DatePicker } from "./CustomDatePicker";
 

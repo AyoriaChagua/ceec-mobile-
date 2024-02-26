@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         padding: 20,
         borderLeftWidth: 7,
-        borderLeftColor: "#4951FF",
         borderRadius: 7,
         overflow: "hidden",
     },

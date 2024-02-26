@@ -34,11 +34,16 @@ const AdminDrawer = () => {
         fullname = `${profile.first_name} ${profile.last_name}`
         uri_picture = profile.profile_picture!
     }
-     return (
+    return (
         <Drawer.Navigator
             initialRouteName={defaultScreen}
             drawerContent={(props) => (
-                <CustomDrawer {...props} email={email.email} fullname={fullname} uri_picture={uri_picture} />
+                <CustomDrawer
+                    {...props}
+                    email={email.email}
+                    fullname={fullname}
+                    uri_picture={uri_picture}
+                />
             )}
             screenOptions={{
                 drawerActiveBackgroundColor: '#2B32CE',
@@ -136,7 +141,7 @@ const AdminNav = () => (
                 headerShown: true
             }}
         />
-        <Stack.Screen 
+        <Stack.Screen
             name='StudentsPerCourse'
             component={StudentsPerCourse}
             options={{
@@ -146,7 +151,7 @@ const AdminNav = () => (
                 headerShown: true
             }}
         />
-        <Stack.Screen 
+        <Stack.Screen
             name='AddStudentsToCourse'
             component={AddStudentsToCourse}
             options={{

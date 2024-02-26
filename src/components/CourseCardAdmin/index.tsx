@@ -8,16 +8,17 @@ interface Props {
     readonly createdAt: Date;
     readonly userCount: number;
     readonly courseId: number;
+    readonly background_color: string;
     readonly navigateToCreateModule: (courseId: number) => void
     readonly navigateToAddStudents: (courseId: number) => void
     readonly navigateToStudentsPerCourse: (courseId: number) => void
 }
 
-export default function CourseCardAdmin({ moduleCount, courseName, createdAt, userCount, courseId, navigateToCreateModule, navigateToAddStudents, navigateToStudentsPerCourse }: Props) {
+export default function CourseCardAdmin({ moduleCount, courseName, createdAt, userCount, courseId, navigateToCreateModule, navigateToAddStudents, navigateToStudentsPerCourse, background_color }: Props) {
     const dateObject = new Date(createdAt);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { borderLeftColor: background_color ?? "#4951FF" }]}>
             <View style={styles.rightContainer}>
                 <Text numberOfLines={2} style={styles.name}>{courseName}</Text>
                 <Text style={styles.label}>{dateObject.toLocaleDateString()}</Text>
@@ -37,7 +38,7 @@ export default function CourseCardAdmin({ moduleCount, courseName, createdAt, us
                     textButton='Agregar'
                     type='module'
                     navigateToAdd={navigateToCreateModule}
-                    navigateToCheck={()=>{}}
+                    navigateToCheck={() => { }}
                 />
             </View>
         </View>
