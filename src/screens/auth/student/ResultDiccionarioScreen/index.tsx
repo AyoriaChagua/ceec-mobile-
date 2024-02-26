@@ -20,7 +20,7 @@ const   ResultDiccionarioScreen : React.FC<{ navigation: NavigationProp<any> }> 
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>RESULTADOS</Text>
+      <Text style={styles.title}>Score - CEEC </Text>
       <View style={styles.starContainer}>
         <View style={styles.starImageContainer}>
           <Image
@@ -29,16 +29,13 @@ const   ResultDiccionarioScreen : React.FC<{ navigation: NavigationProp<any> }> 
           />
         
         </View>
-        <View style={styles.circlesContainer}>
-          <View style={styles.circle}>
-          <Text style={styles.circleText}>{correctAnswers}</Text>
+        <Text style={styles.title}> Mensaje  </Text>
+
+          <Text style={styles.circleText}>{correctAnswers} / {totalQuestions} </Text>
             <Text style={styles.circleText}>Correctas</Text>
-          </View>
-          <View style={styles.circle}>
-            <Text style={styles.circleText}> {totalQuestions} </Text>
-            <Text style={styles.circleText}>Preguntas</Text>
-          </View>
-        </View>
+         
+         
+       
         
         <TouchableOpacity onPress={handleGetPosition} style={styles.positionButton}>
           <Text style={styles.positionButtonText}>REGRESAR</Text>
@@ -50,6 +47,7 @@ const   ResultDiccionarioScreen : React.FC<{ navigation: NavigationProp<any> }> 
 
 const styles = StyleSheet.create({
   container: {
+    color: '#fff',
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -86,27 +84,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
   },
-  circlesContainer: {
-    flexDirection: 'row',
-    marginTop: 40,
-    maxWidth: '100%', // Set maximum width to prevent overflow
-  },
-  circle: {
-    flex: 1, // Take up equal space
-    maxWidth: 200, // Adjust the width as needed
-    height: 200, // Adjust the height as needed
-    borderRadius: 100, // To make it a circle
-    backgroundColor: 'white',
-    borderColor: '#4951FF',
-    borderWidth: 15,
-    marginHorizontal: 10, // Adjust the spacing between circles
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   circleText: {
-    fontSize: 20,
-    marginTop: 6,
-    color: '#000000',
+    fontSize: 28,
+    marginTop: 25,
+    color: '#4951FF',
     fontWeight: 'bold',
     
   },

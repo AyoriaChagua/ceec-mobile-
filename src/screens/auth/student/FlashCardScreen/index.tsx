@@ -30,6 +30,7 @@ const FlashCardScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
   const [gameFinished, setGameFinished] = useState(false);
   const [showRestartButton, setShowRestartButton] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // Nuevo estado para la ventana modal
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const windowWidth = useWindowDimensions().width;
 
@@ -49,6 +50,7 @@ const FlashCardScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
     if (selectedCorrectAnswers.length === totalCorrectAnswers) {
       setGameFinished(true);
       setShowRestartButton(true);
+      setShowSuccessModal(true); // Mostrar la ventana modal cuando se completen las respuestas correctas
     }
   }, [selectedCorrectAnswers]);
 
@@ -66,6 +68,7 @@ const FlashCardScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
     setGameFinished(false);
     setShowRestartButton(false);
     setShowErrorMessage(false); // Ocultar el mensaje de error al reiniciar
+    setShowSuccessModal(false); // Ocultar la ventana modal al reiniciar
 
     // Barajar las respuestas nuevamente
     const shuffledAnswers = shuffle([...flashcardData.correct_answer, ...flashcardData.incorrect_answer]);
@@ -91,6 +94,14 @@ const FlashCardScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
           <View style={styles.modalContent}>
             <Text style={styles.modalMessage}>¡VUELVE A INTENTARLO!</Text>
             <Button title="Reiniciar" onPress={handleFinish} color="#4951FF" />
+          </View>
+        </View>
+      </Modal>
+      <Modal visible={showSuccessModal} animationType="slide" transparent={true}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalMessage}>¡Buen trabajo 🥳 !</Text>
+            <Button title="Cerrar" onPress={() => setShowSuccessModal(false)} color="#4951FF" />
           </View>
         </View>
       </Modal>
@@ -138,11 +149,7 @@ const FlashCardScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
           ))}
         </View>
       </ScrollView>
-      {showRestartButton && (
-        <TouchableOpacity style={styles.restartButton} onPress={handleFinish}>
-          <Text style={styles.restartButtonText}>Reiniciar</Text>
-        </TouchableOpacity>
-      )}
+     
     </View>
   );
 };

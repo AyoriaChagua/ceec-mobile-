@@ -27,7 +27,9 @@ const ResultPreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ na
           source={require('./../../../../../assets/images/prequizz_score/score_prequiz.png')} // Ajusta la ruta de la imagen
           style={styles.emojiImage}
         />
+        
         </View>
+        <Text style={styles.title}> ¡Eres realmente le rey del saber !</Text>
         <View style={styles.circlesContainer}>
           <View style={styles.circle}>
             <Text style={styles.circleText}>{correctAnswers}</Text>
@@ -38,9 +40,7 @@ const ResultPreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ na
             <Text style={styles.circleText}>Preguntas</Text>
           </View>
         </View>
-        <TouchableOpacity onPress={handleGetPosition} style={styles.positionButton}>
-          <Text style={styles.positionButtonText}>REGRESAR</Text>
-        </TouchableOpacity>
+       
       </View>
     </View>
   );
@@ -55,10 +55,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   title: {
+   marginTop:40,
     fontSize: 24,
     fontWeight: 'bold',
     color: '#4951FF',
-    marginBottom: 10,
+    marginBottom: 20,
+    textAlign: 'center'
   },
   starContainer: {
     position: 'relative',
