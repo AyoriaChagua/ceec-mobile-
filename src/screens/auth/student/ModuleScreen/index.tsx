@@ -8,15 +8,17 @@ import { useModuleScreen } from './hooks/useModule';
 import { moduleScreenStyles as styles } from './style';
 import { Module } from "../../../../interfaces/CourseInterfaces";
 import { Icon as IconRNP } from 'react-native-paper';
-
+import { CustomSearcher } from '../../../../components';
 type ModuleScreenRouteProp = RouteProp<RootStackParamList, 'Module'>;
 
 const ModuleScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<ModuleScreenRouteProp>();
   const { course_id } = route.params;
-  const { courseData, modules, isLoading } = useModuleScreen(course_id);
+
+  const { courseData, modules, isLoading, searchedText, setSearchedText } = useModuleScreen(course_id);
 
   const [selectedModule, setSelectedModuleId] = useState<number | null>(null);
+
 
 
   const content_list: Module[] = [
@@ -90,6 +92,9 @@ const ModuleScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigatio
       ) : null}
 
       <Text style={styles.subtitulo}>Contenido del Curso</Text>
+      <View style={styles.searcher} >
+        <CustomSearcher onSearch={setSearchedText}  backgroundColor="#FFFFFF" />
+      </View>
       {modules.map((module) => (
         <React.Fragment key={module.module_id}>
 
@@ -107,7 +112,8 @@ const ModuleScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigatio
       <Card.Divider />
       <View
         style={{
-          paddingHorizontal: 15
+          paddingHorizontal: 15,
+          marginBottom:20
         }}
       >
         <TouchableOpacity

@@ -29,7 +29,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
   } = useQuiz(evaluationId);
 
   const [elapsedTime, setElapsedTime] = useState<number>(0);
-  const { handleShowResult } = useResultEva(navigation, evaluationId , totalScore , calculateEffectiveness, elapsedTime);
+  const { handleShowResult } = useResultEva(navigation, evaluationId , totalScore , calculateEffectiveness, elapsedTime , totalQuestions);
 
   
   useEffect(() => {

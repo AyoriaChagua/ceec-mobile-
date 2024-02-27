@@ -35,7 +35,8 @@ export type RootStackParamList = {
     Evaluacion: { moduleId: number };
     Diccionario: { moduleId: number };
     Quiz: { evaluationId: number };
-    Result: { totalScore: number, elapsedTime: number, evaluationId: number, effectiveness: number };
+    Result: { totalScore: number, elapsedTime: number, evaluationId: number,
+     effectiveness: number , totalQuestions : number};
     ResultDiccionario: { totalQuestions: number, correctAnswers: number };
     Ranking: { totalScore: number, evaluationId: number };
     //Notas
@@ -44,7 +45,8 @@ export type RootStackParamList = {
     //PreQuiz
     CourseQuiz: undefined;
     PreQuiz: { course_id: number };
-    ResultPreQuiz: { totalQuestions: number, correctAnswers: number };
+    ResultPreQuiz: { totalQuestions: number, correctAnswers: number ,
+     tiempo : number ,effectiveness: number };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

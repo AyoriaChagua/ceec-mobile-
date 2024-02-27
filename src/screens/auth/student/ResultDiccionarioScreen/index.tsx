@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon } from '@rneui/themed';
 import { View, Text, StyleSheet, Image, TouchableOpacity ,ScrollView  } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentDrawer';
@@ -17,79 +18,123 @@ const   ResultDiccionarioScreen : React.FC<{ navigation: NavigationProp<any> }> 
     navigation.navigate('Home');
   };
 
+  const getMessageAndImage = () => {
+    let message = '';
+    let imageSource, estrella1 , estrella2 , estrella3 = null;
+    const necesitasRepasar = 'https://res.cloudinary.com/dk2red18f/image/upload/v1709006848/CEEC/PREQUIZZ/ow40gsipk4rpxspixvzm.png';
+    const puedesMejorarImage = 'https://res.cloudinary.com/dk2red18f/image/upload/v1709006864/CEEC/PREQUIZZ/drqdrqzjws2ltwqjccek.png';
+    const reySaberURL = 'https://res.cloudinary.com/dk2red18f/image/upload/v1709006952/CEEC/PREQUIZZ/yyhjjq12kstinufbzvmi.png';
+    const estrella_vacia = 'https://res.cloudinary.com/dk2red18f/image/upload/v1709006874/CEEC/PREQUIZZ/qvch55jhsig6tyyozvsg.png';
+    const estrella_llena = 'https://res.cloudinary.com/dk2red18f/image/upload/v1709006907/CEEC/PREQUIZZ/ccgewx1znph4pxibnmaz.png';
+  
+
+    if (correctAnswers < totalQuestions / 2) {
+      message = '¡Necesitas repasar la clase!';
+      imageSource = necesitasRepasar;
+      estrella1 = estrella_llena;
+      estrella2 = estrella_vacia;
+      estrella3 = estrella_vacia;
+    } else if (correctAnswers < totalQuestions) {
+      message = '¡Nada mal pero puedes mejorar!';
+      imageSource = puedesMejorarImage;
+      estrella1 = estrella_llena;
+      estrella2 = estrella_llena;
+      estrella3 = estrella_vacia;
+    } else {
+      message = '¡Eres realmente el rey del saber!';
+      imageSource = reySaberURL;
+      estrella1 = estrella_llena;
+      estrella2 = estrella_llena;
+      estrella3 = estrella_llena;
+    }
+
+    return { message, imageSource , estrella1, estrella2, estrella3 };
+  };
+  const { message, imageSource , estrella1, estrella2, estrella3} = getMessageAndImage();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Score - CEEC </Text>
       <View style={styles.starContainer}>
-        <View style={styles.starImageContainer}>
-          <Image
-            source={require('./../../../../../assets/images/Star.png')}
-            style={styles.starImage}
-          />
-        
+        <View style={styles.starImageRow}>
+        <Image source={{ uri: estrella1 }} style={styles.star1} />
+        <Image source={{ uri: estrella2 }} style={styles.star2} />
+        <Image source={{ uri: estrella3 }} style={styles.star3} />
         </View>
-        <Text style={styles.title}> Mensaje  </Text>
-
-          <Text style={styles.circleText}>{correctAnswers} / {totalQuestions} </Text>
-            <Text style={styles.circleText}>Correctas</Text>
-         
-         
-       
-        
-        <TouchableOpacity onPress={handleGetPosition} style={styles.positionButton}>
-          <Text style={styles.positionButtonText}>REGRESAR</Text>
-        </TouchableOpacity>
+        <Image source={{ uri: imageSource }} style={styles.starImage2} />
       </View>
+
+      <Text style={styles.mensaje}> {message} </Text>
+      <Text style={styles.circleText}>
+        {correctAnswers} / {totalQuestions}
+      </Text>
+      <Text style={styles.circleText}>Correctas</Text>
+
+      <TouchableOpacity onPress={handleGetPosition} style={styles.positionButton}>
+      <Icon name="arrow-left" size={28} color="white" /> 
+      </TouchableOpacity>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     color: '#fff',
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 70,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#4951FF',
-    marginBottom: 10,
+    marginBottom: 50,
+  },
+  mensaje: {
+    fontSize: 24,
+    color: '#4951FF',
+    marginBottom: 0,
+    marginTop: 30,
   },
   starContainer: {
-    position: 'relative',
     alignItems: 'center',
-    marginTop: 10,
+    top: -20, 
+ 
   },
-  starImageContainer: {
-    position: 'relative',
-    width: 200, // Adjust the width as needed
-    height: 200, // Adjust the height as needed
-  },
-  starImage: {
-    flex: 1,
-    width: undefined,
-    height: undefined,
+  star1: {
+    width: 60,
+    height: 60,
     resizeMode: 'contain',
-    tintColor: '#4951FF',
+   marginTop:20
   },
-  points: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: [{ translateX: -50 }, { translateY: -10 }],
-    fontSize: 18,
-    color: 'white',
+  star2: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+  
+  },
+  star3: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+      marginTop:20
+  },
+  starImageRow: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  starImage2: {
+    width: 180,
+    height: 180,
+    resizeMode: 'contain',
+ marginTop:-30
   },
   circleText: {
-    fontSize: 28,
-    marginTop: 25,
+    fontSize: 30,
+    marginBottom: 0,
     color: '#4951FF',
     fontWeight: 'bold',
-    
+    marginTop:25
   },
   redirectText: {
     marginTop: 30,
@@ -98,6 +143,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   positionButton: {
+    
     marginTop: 40,
     backgroundColor: '#4951FF',
     paddingVertical: 10,

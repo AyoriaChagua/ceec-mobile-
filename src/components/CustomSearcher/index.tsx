@@ -4,9 +4,10 @@ import { Searchbar } from 'react-native-paper'
 
 interface Props {
     readonly onSearch: (text: string) => void
+    readonly backgroundColor?: string 
 }
 
-export default function CustomSearcher({ onSearch }: Props) {
+export default function CustomSearcher({ onSearch , backgroundColor = '#EEECFF'}: Props) {
     const [searchQuery, setSearchQuery] = React.useState('');
     
     useEffect(() => {
@@ -15,11 +16,11 @@ export default function CustomSearcher({ onSearch }: Props) {
 
     return (
         <Searchbar
-            placeholder="Search"
+            placeholder="Buscar"
             onChangeText={setSearchQuery}
             value={searchQuery}
             iconColor='#4951FF'
-            style={{ backgroundColor: "#EEECFF", padding: 0, margin: 0 }}
+            style={{ backgroundColor: backgroundColor, padding: 0, margin: 0 }}
             theme={{ colors: { primary: '#4951FF' } }}
         />
     )

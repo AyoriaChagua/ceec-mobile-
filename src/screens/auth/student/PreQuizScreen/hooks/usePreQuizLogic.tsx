@@ -19,8 +19,8 @@ export const usePreQuiz = (courseId: number) => {
   // Función para obtener el cuestionario
   const getQuiz = useCallback(async () => {
     setIsLoading(true);
-    //const url = `https://ceec-web-api.onrender.com/api/prequizz/by-course/${courseId}`;
-    const url = `http://192.168.0.11:4100/api/prequizz/by-course/${courseId}`;
+    const url = `https://ceec-web-api.onrender.com/api/prequizz/by-course/${courseId}`;
+    //const url = `http://192.168.0.11:4100/api/prequizz/by-course/${courseId}`;
     console.log(url)
     try {
       const headers = {
@@ -87,7 +87,7 @@ export const usePreQuiz = (courseId: number) => {
     if (totalQuestions === 0) {
       return 0; // Evitar dividir por cero
     }
-    const effectiveness = (score / 20) * 100;
+    const effectiveness = (score / totalQuestions) * 100;
     return Math.round(effectiveness); // Redondear el resultado
   };
   const formatTime = (timeInSeconds: number) => {

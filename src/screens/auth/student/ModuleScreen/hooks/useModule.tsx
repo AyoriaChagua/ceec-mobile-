@@ -11,6 +11,7 @@ export const useModuleScreen = (courseId: number) => {
   const [modules, setModules] = useState<ModuleService[]>([]);
   const [courseData, setCourseData] = useState<Course | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchedText, setSearchedText] = useState('');
 
   useEffect(() => {
     const fetchModuleData = async () => {
@@ -35,5 +36,10 @@ export const useModuleScreen = (courseId: number) => {
     fetchModuleData();
   }, [courseId, userToken]);
 
-  return { courseData, modules, isLoading };
+ const filteredModules = modules.filter(module => {
+  const lowerCaseQuery = searchedText.toLowerCase();
+  return module.name.toLowerCase().includes(lowerCaseQuery);
+});
+
+return { courseData, modules: filteredModules, isLoading, searchedText, setSearchedText };
 };

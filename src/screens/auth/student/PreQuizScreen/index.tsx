@@ -7,18 +7,32 @@ import { quizScreenStyles as styles } from './style';
 import { usePreQuiz } from './hooks/usePreQuizLogic';
 import FloatingEmotion from './../../../../components/FloatingEmotion';
 
+
 type PreQuizScreenRouteProp = RouteProp<RootStackParamList, 'PreQuiz'>;
 
 const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<PreQuizScreenRouteProp>();
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  
   const { course_id } = route.params;
-  const { questions, ques, options, score, isLoading, selectedOption, isCorrect, totalScore, formatTime, handleNextPress, handlSelectedOption, totalQuestions, calculateEffectiveness, showHappyEmoji } = usePreQuiz(course_id);
+  const { questions, ques, options, score, isLoading, selectedOption, isCorrect, totalScore, formatTime, handleNextPress, handlSelectedOption, totalQuestions, calculateEffectiveness, showHappyEmoji , } = usePreQuiz(course_id);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsedTime((prevTime) => prevTime + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
 
+  
   const handleShowResult = () => {
     navigation.navigate('ResultPreQuiz', {
       totalQuestions: totalQuestions,
-      correctAnswers: score
+      correctAnswers: score,
+      tiempo: elapsedTime, 
+      effectiveness: calculateEffectiveness(),
     });
   };
 
@@ -34,6 +48,8 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
+
+      <Text style={styles.elapsedTimeText}>{`Tiempo: ${elapsedTime}`}</Text>
         {isLoading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator />

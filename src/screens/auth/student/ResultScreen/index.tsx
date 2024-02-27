@@ -7,7 +7,7 @@ type ResultScreenRouteProp = RouteProp<RootStackParamList, 'Result'>;
 
 const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute< ResultScreenRouteProp>();
-  const { totalScore , elapsedTime , evaluationId , effectiveness} = route.params;
+  const { totalScore , elapsedTime , evaluationId , effectiveness , totalQuestions} = route.params;
   
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
@@ -26,18 +26,51 @@ const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
       
     });
   };
+  const getMessageAndImage = () => {
+    let message = '';
+    let  estrella1 , estrella2 , estrella3 = null;
+    const estrella_vacia = 'https://res.cloudinary.com/dk2red18f/image/upload/v1709006874/CEEC/PREQUIZZ/qvch55jhsig6tyyozvsg.png';
+    const estrella_llena = 'https://res.cloudinary.com/dk2red18f/image/upload/v1709006907/CEEC/PREQUIZZ/ccgewx1znph4pxibnmaz.png';
+  
+
+    if (totalScore < 20 / 2) {
+      message = '¡Necesitas repasar la clase!';
+      estrella1 = estrella_llena;
+      estrella2 = estrella_vacia;
+      estrella3 = estrella_vacia;
+    } else if (totalScore < 20) {
+      message = '¡Nada mal pero puedes mejorar!';
+      estrella1 = estrella_llena;
+      estrella2 = estrella_llena;
+      estrella3 = estrella_vacia;
+    } else {
+      message = '¡Eres realmente el rey del saber!';
+      estrella1 = estrella_llena;
+      estrella2 = estrella_llena;
+      estrella3 = estrella_llena;
+    }
+
+    return { message, estrella1, estrella2, estrella3 };
+  };
+  const { message , estrella1, estrella2, estrella3} = getMessageAndImage();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>RESULTADOS</Text>
+      <Text style={styles.title}>Score - CEEC</Text>
       <View style={styles.starContainer}>
+      <View style={styles.starImageRow}>
+        <Image source={{ uri: estrella1 }} style={styles.star1} />
+        <Image source={{ uri: estrella2 }} style={styles.star2} />
+        <Image source={{ uri: estrella3 }} style={styles.star3} />
+        </View>
         <View style={styles.starImageContainer}>
           <Image
-            source={require('./../../../../../assets/images/Star.png')}
+            source={require('./../../../../../assets/images/prequizz_score/score_prequiz.png')}
             style={styles.starImage}
           />
           <Text style={styles.points}>{totalScore} PUNTOS</Text>
         </View>
+        <Text style={styles.message} >{message}</Text>
         <View style={styles.circlesContainer}>
           <View style={styles.circle}>
           <Text style={styles.circleText}>{formatTime(elapsedTime)}</Text>
@@ -60,11 +93,34 @@ const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
 };
 
 const styles = StyleSheet.create({
+  star1: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+   marginTop:40,
+  },
+  star2: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+  marginTop:20
+  },
+  star3: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+      marginTop:40
+  },
+  starImageRow: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 40,
+    color: '#fff',
   },
   title: {
     fontSize: 24,
@@ -75,7 +131,6 @@ const styles = StyleSheet.create({
   starContainer: {
     position: 'relative',
     alignItems: 'center',
-    marginTop: 10,
   },
   starImageContainer: {
     position: 'relative',
@@ -87,42 +142,43 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
     resizeMode: 'contain',
-    tintColor: '#4951FF',
+    marginTop:-40
   },
   points: {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: [{ translateX: -50 }, { translateY: -10 }],
-    fontSize: 18,
+    transform: [{ translateX: -70 }, { translateY: -40 }],
+    fontSize: 27,
     color: 'white',
+    fontWeight: 'bold'
   },
   circlesContainer: {
     flexDirection: 'row',
-    marginTop: 40,
     maxWidth: '100%', // Set maximum width to prevent overflow
   },
   circle: {
     flex: 1, // Take up equal space
-    maxWidth: 200, // Adjust the width as needed
-    height: 200, // Adjust the height as needed
-    borderRadius: 100, // To make it a circle
-    backgroundColor: 'white',
-    borderColor: '#4951FF',
-    borderWidth: 15,
+    height: 150, // Adjust the height as needed
     marginHorizontal: 10, // Adjust the spacing between circles
     justifyContent: 'center',
     alignItems: 'center',
   },
   circleText: {
-    fontSize: 19,
-    marginTop: 6,
-    color: '#000000',
+    fontSize: 23,
+    color: '#4951FF',
     fontWeight: 'bold',
     
   },
+  message:{
+    fontSize: 22,
+    marginTop: 15,
+    color: '#4951FF',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
   redirectText: {
-    marginTop: 30,
+    marginTop: 10,
     fontSize: 16,
     color: '#4951FF',
     textDecorationLine: 'underline',

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const quizScreenStyles = StyleSheet.create({
   container: {
     backgroundColor:'white',
-    paddingTop: 40,
+    paddingTop: 20,
     paddingHorizontal: 20,
     height: '100%',
   },
@@ -60,6 +60,12 @@ export const quizScreenStyles = StyleSheet.create({
   },
   incorrectOption: {
     backgroundColor: '#FF5733',
+  },
+  elapsedTimeText: {
+    fontSize: 18,
+    color: '#0B109F',
+    marginTop: 0,
+    marginBottom: 0,
   },
   bottom: {
     marginBottom: 12,
