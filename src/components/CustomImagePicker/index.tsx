@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Icon } from 'react-native-paper';
 import { windowWidth } from '../../utils/Dimentions';
 
-type ImageType = "profile" | "course" | "flashcard";
+type ImageType = "profile" | "course" | "flashcard" | "logo";
 
 interface Props {
   readonly onImageSelected: (uri: string, id?: number) => void;
@@ -16,7 +16,7 @@ interface ImageTypeConfig {
   width: number | "auto";
   height: number;
   borderRadius: number;
-  borderWidth?: number
+  borderWidth?: number;
 }
 
 const defaultImageConfig: ImageTypeConfig = {
@@ -44,6 +44,13 @@ const imageTypeConfig: { [key: string]: ImageTypeConfig } = {
     width: windowWidth * 0.35,
     height: 220,
     borderRadius: 5,
+    borderWidth: 1
+  },
+  logo: {
+    ...defaultImageConfig,
+    width: windowWidth * 0.25,
+    height: 105,
+    borderRadius: 1000,
     borderWidth: 1
   }
 };
@@ -82,7 +89,7 @@ export default function CustomImagePicker({ onImageSelected, image_type, image_u
   return (
     <View style={{ marginBottom: 20 }}>
       <View style={{ marginLeft: 20, marginBottom: 10, display: image_type === "profile" || image_type === "flashcard" ? "none" : "flex" }}>
-        <Text>Selecciona una imagen</Text>
+        <Text>{image_type === "logo" ? "Selecciona un logo" : "Selecciona una imagen"}</Text>
       </View>
       {image ? (
         <Pressable onPress={pickImage}>

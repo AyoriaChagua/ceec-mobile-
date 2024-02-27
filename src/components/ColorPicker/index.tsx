@@ -45,7 +45,7 @@ const ColorPicker = ({ onColorSelected }: Props) => {
                         ))}
 
                     </View>
-                    <TouchableOpacity onPress={() => setModalVisible(false)}>
+                    <TouchableOpacity onPress={() => setModalVisible(false)} style={{backgroundColor: "#fff"}}>
                         <Text style={styles.closeButton}>Cerrar</Text>
                     </TouchableOpacity>
                 </View>
@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1,
         marginLeft: 20,
-        marginBottom: 20
+        marginBottom: 20,
+        backgroundColor: "#fff"
     },
     colorBox: {
         width: 50,

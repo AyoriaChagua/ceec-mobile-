@@ -13,6 +13,7 @@ import { rules } from '../../utils/Rules';
 import LoadIndicator from '../LoadIndicator';
 import ColorPicker from '../ColorPicker';
 import CustomDatePicker from '../CustomDatePicker';
+import { uploadImage } from '../../utils/Images';
 
 
 interface Props {
@@ -26,6 +27,7 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
   const [expiredDate, setExpiredDate] = useState<string | null>(null);
   const [errorImageRequire, setErrorImageRequire] = useState<null | string>(null);
   const [selectedImage, setSelectedImage] = useState("");
+  const [selectedLogo, setSelectedLogo] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -35,24 +37,25 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
     setValue("image", image);
   }
 
+  const handleLogoSelected = (image: string) => {
+    setSelectedLogo(image);
+    setValue("logo", image);
+  }
+
   const createCourse: SubmitHandler<CourseRequest> = async (data) => {
     try {
       if (selectedImage !== "") {
         setIsLoading(true);
-        const formData = new FormData();
-        formData.append('image', {
-          uri: selectedImage,
-          type: 'image/jpeg',
-          name: 'image.jpg'
-        } as any);
-        const response = await PostImage(formData);
-        if (response) {
+        const imageResponse = await uploadImage(selectedImage);
+        const logoResponse = await uploadImage(selectedLogo);
+        if (imageResponse) {
           const newCourse: CourseRequest = {
             description: data.description,
-            image: response.imageUrl,
+            image: imageResponse,
             name: data.name,
             background_color: courseColor,
-            limit_date: expiredDate
+            limit_date: expiredDate,
+            logo: logoResponse
           };
           const responseCreatedCourse = await PostNewCourse(newCourse);
           setIsLoading(false);
@@ -101,6 +104,7 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
             image_type='course'
             onImageSelected={handleImageSelected}
           />
+
           <Text style={styles.span}>
             {errorImageRequire && errorImageRequire}
           </Text>
@@ -113,6 +117,10 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
           />
           <CustomDatePicker onDateChange={setExpiredDate} />
           <ColorPicker onColorSelected={setCourseColor} />
+          <CustomImagePicker
+            image_type='logo'
+            onImageSelected={handleLogoSelected}
+          />
         </View>
         <View style={{ display: "flex" }}>
           <CustomButton text='Crear curso' onPress={handleSubmit(createCourse)} disabled={false} />
