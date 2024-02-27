@@ -2,6 +2,9 @@
 import { StyleSheet } from 'react-native';
 
 export const quizScreenStyles = StyleSheet.create({
+  scrollViewContent: {
+    flexGrow: 1,
+  },
     container: {
         paddingTop: 40,
         paddingHorizontal: 20,

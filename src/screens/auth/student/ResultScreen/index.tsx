@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity ,ScrollView  } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentDrawer';
-
+import { Icon } from '@rneui/themed';
 type ResultScreenRouteProp = RouteProp<RootStackParamList, 'Result'>;
 
 const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute< ResultScreenRouteProp>();
-  const { totalScore , elapsedTime , evaluationId , effectiveness , totalQuestions} = route.params;
+  const { totalScore , elapsedTime , evaluationId , effectiveness , totalQuestions , course_id } = route.params;
   
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
@@ -19,6 +19,13 @@ const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
       evaluationId : evaluationId
     });
   };
+
+  const handleGetPositio = () => {
+    navigation.navigate('Module', {
+      course_id : course_id
+    });
+  };
+
 
   const handleGetPosition = () => {
     navigation.navigate('Ranking', {
@@ -87,6 +94,10 @@ const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
         <TouchableOpacity onPress={handleGetPosition} style={styles.positionButton}>
           <Text style={styles.positionButtonText}>TU POSICIÓN</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleGetPositio} style={styles.positionButton2}>
+      <Icon name="arrow-left" size={28} color="white" /> 
+      </TouchableOpacity>
       </View>
     </View>
   );
@@ -178,17 +189,23 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   redirectText: {
-    marginTop: 10,
     fontSize: 16,
     color: '#4951FF',
     textDecorationLine: 'underline',
   },
-  positionButton: {
-    marginTop: 40,
+  positionButton2: {
+    marginTop: 20,
     backgroundColor: '#4951FF',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
+    borderRadius: 25,
+  },
+  positionButton: {
+    marginTop: 20,
+    backgroundColor: '#4951FF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
   },
   positionButtonText: {
     color: 'white',

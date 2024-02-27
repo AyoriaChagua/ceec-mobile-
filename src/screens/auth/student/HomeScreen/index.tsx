@@ -52,7 +52,12 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
                     </View>
                     <View style={styles.contentContainer}>
                       <Text style={textStyles.courseTitle}>{course.name}</Text>
+                      {course.logo ? (
+                      <View style={styles.logoContainer}>
+                      <Image source={{ uri: course.logo }} style={styles.logo} />
                     </View>
+                        ) : null}
+                      </View>
                   </View>
                 </Card>
               </TouchableOpacity>

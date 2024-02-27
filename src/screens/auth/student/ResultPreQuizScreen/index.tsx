@@ -7,14 +7,16 @@ type ResultPreQuizScreenRouteProp = RouteProp<RootStackParamList, 'ResultPreQuiz
 
 const ResultPreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<ResultPreQuizScreenRouteProp>();
-  const { totalQuestions, correctAnswers , tiempo , effectiveness } = route.params;
+  const { totalQuestions, correctAnswers , tiempo , effectiveness , course_id} = route.params;
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   };
   const handleGetPosition = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Module', {
+      course_id : course_id
+    });
   };
 
   const getMessageAndImage = () => {
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4951FF',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
+    borderRadius: 20,
   },
   positionButtonText: {
     color: 'white',

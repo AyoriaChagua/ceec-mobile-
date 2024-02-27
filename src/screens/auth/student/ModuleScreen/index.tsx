@@ -61,7 +61,7 @@ const ModuleScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigatio
         navigation.navigate('FlashCard', { moduleId });
         break;
       case 4:
-        navigation.navigate('Evaluacion', { moduleId });
+        navigation.navigate('Evaluacion', { moduleId , course_id});
         break;
       default:
         // Manejo para casos adicionales

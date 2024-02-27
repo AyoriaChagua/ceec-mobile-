@@ -44,6 +44,20 @@ export const styles = StyleSheet.create({
     borderRadius: 65,
     overflow: 'hidden',
   },
+  logoContainer: {
+    marginTop:10,
+    marginLeft:80,
+    width: 68, 
+    height: 25, 
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  logo: {
+    width: '100%', // Asegura que la imagen del logo se ajuste completamente al contenedor
+    height: '100%',
+  },
+  
   cardImage: {
     width: '100%',
     height: '100%',
@@ -67,7 +81,7 @@ export const textStyles = StyleSheet.create({
     marginBottom: 10,
   },
   courseTitle: {
-    fontSize: 22,
+    fontSize: 24,
     color: '#fff',
     fontWeight: 'bold',
     marginBottom: 0,

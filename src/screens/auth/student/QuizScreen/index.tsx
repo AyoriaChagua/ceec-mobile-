@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity , Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity , Image , ScrollView} from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { quizScreenStyles as styles  } from './style'; 
@@ -11,7 +11,7 @@ type QuizScreenRouteProp = RouteProp<RootStackParamList, 'Quiz'>;
 
 const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute< QuizScreenRouteProp>();
-  const { evaluationId } = route.params;
+  const { evaluationId , course_id } = route.params;
   const {
     questions,
     ques,
@@ -28,8 +28,9 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     calculateEffectiveness,
   } = useQuiz(evaluationId);
 
+
   const [elapsedTime, setElapsedTime] = useState<number>(0);
-  const { handleShowResult } = useResultEva(navigation, evaluationId , totalScore , calculateEffectiveness, elapsedTime , totalQuestions);
+  const { handleShowResult } = useResultEva(navigation, evaluationId , totalScore , calculateEffectiveness, elapsedTime , totalQuestions , course_id);
 
   
   useEffect(() => {
@@ -42,6 +43,8 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
 
   
   return (
+    
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
     <View style={styles.container}>
       {isLoading ? (
         <View style={styles.loadingContainer}>
@@ -61,7 +64,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
   </View>
 </View>
 
-          <View style={styles.options}>
+          <ScrollView style={styles.options}>
             {options.map((opt, index) => (
               <TouchableOpacity
                 key={index}
@@ -75,7 +78,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
                 <Text style={styles.optionText}>{decodeURIComponent(opt)}</Text>
               </TouchableOpacity>
             ))}
-          </View>
+          </ScrollView>
           <View style={styles.bottom}>
             {ques === questions.length - 1 && selectedOption !== null && (
               <TouchableOpacity
@@ -99,6 +102,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
         </View>
       )}
     </View>
+    </ScrollView>
   );
 };
 export default QuizScreen;

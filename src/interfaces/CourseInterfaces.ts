@@ -31,6 +31,7 @@ export interface Course {
   limit_date: string;
   image: string;
   background_color: string;
+  logo: string ;
   CourseStudent: {
     id: number;
     course_id: number;

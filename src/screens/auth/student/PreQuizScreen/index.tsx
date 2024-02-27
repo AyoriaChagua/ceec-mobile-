@@ -24,8 +24,6 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
 
     return () => clearInterval(interval);
   }, []);
-
-
   
   const handleShowResult = () => {
     navigation.navigate('ResultPreQuiz', {
@@ -33,6 +31,7 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
       correctAnswers: score,
       tiempo: elapsedTime, 
       effectiveness: calculateEffectiveness(),
+      course_id: course_id
     });
   };
 

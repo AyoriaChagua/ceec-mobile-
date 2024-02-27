@@ -7,7 +7,7 @@ import { sendQuizResult  , getEvaluationUser , updateQuizResult} from '../../../
 
 
 
-export const useResultEva = (navigation: NavigationProp<any>, evaluationId: number , totalScore :number ,calculateEffectiveness: () => number , elapsedTime : number , totalQuestions : number ) => {
+export const useResultEva = (navigation: NavigationProp<any>, evaluationId: number , totalScore :number ,calculateEffectiveness: () => number , elapsedTime : number , totalQuestions : number , course_id : number) => {
   const { userToken, userInfo } = useAuth();
  
   const handleShowResult = async () => {
@@ -42,7 +42,7 @@ export const useResultEva = (navigation: NavigationProp<any>, evaluationId: numb
           elapsedTime,
           evaluationId,
           effectiveness: calculateEffectiveness(),
-          totalQuestions,
+          totalQuestions, course_id
         });
       } else {
         console.error('User info is null or invalid.');

@@ -12,7 +12,7 @@ type EvaluacionScreenRouteProp = RouteProp<RootStackParamList, 'Evaluacion'>;
 
 const EvaluacionScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<EvaluacionScreenRouteProp>();
-  const { moduleId } = route.params;
+  const { moduleId , course_id} = route.params;
   const { evaluations, loading } = useEvaluation(moduleId);
   const [rotate, setRotate] = useState(true);
   const rotation = useRotation(rotate);
@@ -47,7 +47,7 @@ const EvaluacionScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navig
         key={index}
         onPress={() => {
           console.log('evaluation.evaluation_id:', evaluation.Evaluation?.evaluation_id);
-          navigation.navigate('Quiz', { evaluationId: evaluation.Evaluation?.evaluation_id });
+          navigation.navigate('Quiz', { evaluationId: evaluation.Evaluation?.evaluation_id  , course_id});
         }}
         style={styles.button}
       >

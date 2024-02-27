@@ -30,13 +30,13 @@ export type RootStackParamList = {
     StudentDrawer: undefined
     Home: undefined;
     Module: { course_id: number };
-    Material: { moduleId: number };
+    Material: { moduleId: number  };
     FlashCard: { moduleId: number };
-    Evaluacion: { moduleId: number };
+    Evaluacion: { moduleId: number , course_id :number};
     Diccionario: { moduleId: number };
-    Quiz: { evaluationId: number };
+    Quiz: { evaluationId: number , course_id :number};
     Result: { totalScore: number, elapsedTime: number, evaluationId: number,
-     effectiveness: number , totalQuestions : number};
+     effectiveness: number , totalQuestions : number , course_id: number};
     ResultDiccionario: { totalQuestions: number, correctAnswers: number };
     Ranking: { totalScore: number, evaluationId: number };
     //Notas
@@ -46,7 +46,7 @@ export type RootStackParamList = {
     CourseQuiz: undefined;
     PreQuiz: { course_id: number };
     ResultPreQuiz: { totalQuestions: number, correctAnswers: number ,
-     tiempo : number ,effectiveness: number };
+     tiempo : number ,effectiveness: number , course_id :number};
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
