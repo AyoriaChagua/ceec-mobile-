@@ -15,6 +15,7 @@ export const useQuiz = (evaluationId: number) => {
   const [totalScore, setTotalScore] = useState<number>(0); // estado para la puntuación total
   const [totalQuestions, setTotalQuestions] = useState<number>(0); //cantidad total de preguntas
   const [showHappyEmoji, setShowHappyEmoji] = useState<boolean>(false); // 
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false); // Estado para mostrar la respuesta correcta
 // Función para obtener el cuestionario
   const getQuiz = useCallback(async () => {
     setIsLoading(true);
@@ -47,6 +48,7 @@ export const useQuiz = (evaluationId: number) => {
       setOptions(generateOptionsAndShuffle(questions[ques + 1]));
       setSelectedOption(null);
       setIsCorrect(null);
+      setShowCorrectAnswer(false); 
     }
   };
  // Función para generar opciones de respuesta y mezclarlas
@@ -71,6 +73,7 @@ export const useQuiz = (evaluationId: number) => {
         setShowHappyEmoji(true);
     } else {
       setIsCorrect(false);
+      setShowCorrectAnswer(true); 
       setShowHappyEmoji(false);
     }
   };
@@ -102,6 +105,7 @@ export const useQuiz = (evaluationId: number) => {
     formatTime,
     handleNextPress,
     handlSelectedOption,
-    showHappyEmoji 
+    showHappyEmoji ,
+    showCorrectAnswer,
   };
 };

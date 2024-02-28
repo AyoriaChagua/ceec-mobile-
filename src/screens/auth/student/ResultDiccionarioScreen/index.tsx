@@ -16,7 +16,7 @@ const   ResultDiccionarioScreen : React.FC<{ navigation: NavigationProp<any> }> 
   };
   const handleGetPosition = () => {
     navigation.navigate('Module' , {
-      courde_id: course_id
+      course_id: course_id
     });
   };
 

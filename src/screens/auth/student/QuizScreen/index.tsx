@@ -26,7 +26,8 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     handlSelectedOption,
     totalQuestions,
     calculateEffectiveness,
-    showHappyEmoji 
+    showHappyEmoji ,
+    showCorrectAnswer
   } = useQuiz(evaluationId);
 
 
@@ -73,7 +74,14 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
                 key={index}
                 style={[
                   styles.optionButton,
+                  // Aplicar el estilo para la opción seleccionada
                   selectedOption === opt && (isCorrect ? styles.correctOption : styles.incorrectOption),
+                  // Aplicar el estilo para la opción no seleccionada si se está mostrando la respuesta correcta
+                  selectedOption !== opt && showCorrectAnswer && questions[ques].correct_answer !== opt && styles.incorrectOption,
+                  // Mostrar respuesta correcta en verde si no fue seleccionada por el usuario
+                  selectedOption !== opt && showCorrectAnswer && questions[ques].correct_answer === opt && styles.correctOption,
+                   // Aplicar el estilo para las opciones incorrectas si se ha seleccionado la respuesta correcta
+       isCorrect && questions[ques].correct_answer !== opt && styles.incorrectOption,
                 ]}
                 onPress={() => handlSelectedOption(opt)}
                 disabled={selectedOption !== null}

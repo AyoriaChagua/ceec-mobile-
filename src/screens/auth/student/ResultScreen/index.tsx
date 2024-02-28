@@ -5,6 +5,7 @@ import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { Icon } from '@rneui/themed';
 type ResultScreenRouteProp = RouteProp<RootStackParamList, 'Result'>;
 
+import { CommonActions } from '@react-navigation/native';
 const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute< ResultScreenRouteProp>();
   const { totalScore , elapsedTime , evaluationId , effectiveness , totalQuestions , course_id } = route.params;
@@ -21,11 +22,16 @@ const   ResultScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ naviga
   };
 
   const handleGetPositio = () => {
-    navigation.navigate('Module', {
-      course_id : course_id
-    });
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          { name: 'StudentDrawer' }, // Asegúrate de reemplazar 'StudentDrawer' con el nombre correcto de tu pantalla de módulos
+          { name: 'Module', params: { course_id: course_id } }
+        ],
+      })
+    );
   };
-
 
   const handleGetPosition = () => {
     navigation.navigate('Ranking', {

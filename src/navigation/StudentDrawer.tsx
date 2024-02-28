@@ -160,14 +160,17 @@ const StudentNav = () => (
             headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
             headerStyle: { backgroundColor: '#3C63FF' },
             headerLeftLabelVisible: false,
-            headerShown: true
-        }} />
+            headerShown: true,
+            
+        }} 
+        />
         <Stack.Screen name="Result" component={ResultScreen} options={{
             headerTintColor: 'white',
             headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
             headerStyle: { backgroundColor: '#3C63FF' },
             headerLeftLabelVisible: false,
-            headerShown: true
+            headerShown: true,
+            headerBackTitle: 'Módulos', 
         }} />
         <Stack.Screen name="Ranking" component={RankingScreen} options={{
             headerTintColor: 'white',

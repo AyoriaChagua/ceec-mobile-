@@ -76,6 +76,7 @@ export const useDiccionario = (moduleId: number) => {
 
   // Función para manejar la selección de una opción de respuesta
   const handlSelectedOption = (_option: string) => {
+    
     setSelectedOption(_option); // Establecer la opción seleccionada por el usuario
     if (questions && questions[ques] && _option === questions[ques].correct_answer) {
       // Verificar si la opción seleccionada es la respuesta correcta
