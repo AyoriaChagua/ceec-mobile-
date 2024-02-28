@@ -270,8 +270,8 @@ export default function FormQuizz({ itemId, onEvaluationCreated, step, typeQuizz
                     </View>
                 ))}
                 <View style={{ marginTop: 15 }}>
-                    <CustomButton disabled={false} onPress={sendQuizz} text={`Crear ${typeQuizz}`} />
-                    <CustomButton disabled={false} onPress={() => navigateToCoursesScreen()} text='Crear más tarde' type={"seccondary"} />
+                    <CustomButton disabled={isLoading} onPress={sendQuizz} text={`Crear ${typeQuizz}`} />
+                    <CustomButton disabled={isLoading} onPress={() => navigateToCoursesScreen()} text='Crear más tarde' type={"seccondary"} />
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>

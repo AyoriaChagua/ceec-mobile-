@@ -213,8 +213,8 @@ export default function FormEvaluation({ newModuleId, onEvaluationCreated, step 
           </View>
         ))}
         <View style={{ marginTop: 15 }}>
-          <CustomButton disabled={false} onPress={sendEvaluation} text='Crear evaluación' />
-          <CustomButton disabled={false} onPress={() => navigateToCoursesScreen()} text='Crear más tarde' type={"seccondary"} />
+          <CustomButton disabled={isLoading} onPress={sendEvaluation} text='Crear evaluación' />
+          <CustomButton disabled={isLoading} onPress={() => navigateToCoursesScreen()} text='Crear más tarde' type={"seccondary"} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

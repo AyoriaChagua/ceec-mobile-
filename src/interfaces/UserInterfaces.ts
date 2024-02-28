@@ -83,3 +83,10 @@ export interface ProfileResponse {
     profile_picture: string;
     user_id: number;
 }
+
+
+export interface UserRequest {
+    email: string;
+    password: string;
+    role_id: number;
+}

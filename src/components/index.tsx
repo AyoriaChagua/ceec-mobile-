@@ -36,4 +36,4 @@ export { default as CustomSearcher } from "./CustomSearcher";
 export { default as MiniCardStudent } from "./MiniCardStudent";
 export { default as ColorPicker } from "./ColorPicker";
 export { default as DatePicker } from "./CustomDatePicker";
-
+export { default as CourseInput } from "./CourseInput";

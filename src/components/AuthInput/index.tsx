@@ -36,7 +36,8 @@ const AuthInput = ({ label, isSecure = false, isEmail = false, control, name }: 
                         style={{ backgroundColor: '#fff' }}
                         underlineColor="#2B32CE"
                         selectionColor="#2B32CE"
-                        secureTextEntry={isSecure && !isPasswordVisible}
+                        secureTextEntry={isSecure ?? !isPasswordVisible}
+                        keyboardType={isSecure ? "visible-password" : "email-address"}
                         activeUnderlineColor="#2B32CE"
                         right={
                             <TextInput.Icon

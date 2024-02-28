@@ -203,7 +203,7 @@ export default function FormFlashCard({ newModuleId, onFlashCardCreated, step }:
           </View>
         </View>
         <View>
-          <CustomButton disabled={false} text='Guardar flash cards' onPress={handleSubmit(saveFlashCards)} />
+          <CustomButton disabled={isLoading} text='Guardar flash cards' onPress={handleSubmit(saveFlashCards)} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
