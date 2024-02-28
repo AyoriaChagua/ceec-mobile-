@@ -1,7 +1,7 @@
 
 //const base_url = `https://ceec-web-api.onrender.com/api`;
-const base_url = `https://ceec-web-api.onrender.com`;
-//const base_url = `http://192.168.0.11:4100`;
+//const base_url = `https://ceec-web-api.onrender.com`;
+const base_url = `http://192.168.0.11:4100`;
 
 
 export const API_COURSES_URL = `${base_url}/api/custom/coursesuser` ;
@@ -38,7 +38,7 @@ export const API_EVALUATIONS_RESULT_EVAID = `${base_url}/api/evaluationresults/b
 
 export const API_COURSES_WITH_USERS = `${base_url}/api/custom/coursesuser`;
 
-export const API_GET_ALL_USERS = `${base_url}/api/users/users`;
+export const API_GET_ALL_USERS = `${base_url}/api/users/all`;
 
 export const API_GET_PROFILE = `${base_url}/api/profiles/alldata`;
 
@@ -83,7 +83,8 @@ export const API_SOCKET_URL = `https://ceec-web-api.onrender.com`;
 
 export const API_EVALUATION = `${base_url}/api/evaluation`;
 
-export const API_PREQUIZZ = `${base_url}/prequizz`;
+export const API_PREQUIZZ = `${base_url}/api/prequizz`;
 
-export const API_EVALUATION_ADMIN = `${base_url}/evaluations`;
+export const API_EVALUATION_ADMIN = `${base_url}/api/evaluations`;
 
+export const API_USER_ADMIN = `${base_url}/api/users/new`;

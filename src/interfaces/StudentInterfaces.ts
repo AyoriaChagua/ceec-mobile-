@@ -22,6 +22,14 @@ export interface Student {
     Profile?: ProfileStudent | null;
 }
 
+export interface UserWithRole {
+    email: string;
+    role_id: number;
+    user_id: number;
+    Profile?: ProfileStudent | null;
+    Role: { description: string }
+}
+
 export interface ProfileStudent {
     first_name?: string;
     last_name?: string;

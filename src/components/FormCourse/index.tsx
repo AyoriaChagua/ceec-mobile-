@@ -123,7 +123,7 @@ export default function FormCourse({ onCourseCreated, step }: Props) {
           />
         </View>
         <View style={{ display: "flex" }}>
-          <CustomButton text='Crear curso' onPress={handleSubmit(createCourse)} disabled={false} />
+          <CustomButton text='Crear curso' onPress={handleSubmit(createCourse)} disabled={isLoading} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

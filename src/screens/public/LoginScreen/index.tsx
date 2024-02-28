@@ -10,7 +10,6 @@ import Logo from '../../../../assets/images/login/logo_blanco.png';
 import { useAuth } from '../../../context/AuthContext';
 import { LoginRequest } from '../../../interfaces/UserInterfaces';
 import { ScrollView } from 'react-native-gesture-handler';
-import { windowWidth } from '../../../utils/Dimentions';
 import backgroundImage from '../../../../assets/images/login/fondo.png';
 
 export type Props = {
@@ -59,7 +58,6 @@ const LoginScreen = () => {
                     text="Ingresar"
                     onPress={handleSubmit(onLoginPressed)}
                     disabled={isLoading!}
-
                   />
                 </View>
               </View>

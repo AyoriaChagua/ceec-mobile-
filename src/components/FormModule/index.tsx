@@ -78,7 +78,7 @@ export default function FormModule({
           <CourseInput inputType='text' name='name' control={control} label='Nombre del módulo' rules={rules} />
           <CourseInput inputType='text' name='ppt_url' control={control} label='URL del material de la clase' rules={rules} />
           <View style={{ display: "flex" }}>
-            <CustomButton text='Crear módulo' onPress={handleSubmit(createModule)} disabled={false} />
+            <CustomButton text='Crear módulo' onPress={handleSubmit(createModule)} disabled={isLoading} />
           </View>
         </View>
       </ScrollView>

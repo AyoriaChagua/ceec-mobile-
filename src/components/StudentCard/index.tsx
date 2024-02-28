@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
-import { Student } from '../../interfaces/StudentInterfaces';
+import { Student, UserWithRole } from '../../interfaces/StudentInterfaces';
 import { Icon } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-type CardStudentType = "course" | "user" | "add-to-course";
+type CardStudentType = "course" | "user" | "add-to-course" | "users";
 
 interface Props {
     readonly cardType: CardStudentType;
-    readonly student: Student;
+    readonly student: Student | UserWithRole;
     readonly addStudent?: (student: Student) => boolean;
 }
 
@@ -38,7 +38,7 @@ export default function CardStudent({ cardType, student, addStudent }: Props) {
     }
     return (
         <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 15, }}>
-            <View style={{ width: 55, height: 55, borderRadius: 100 / 2, marginRight: 10 }}>
+            <View style={{ width: cardType === "users" ? 65 : 55, height:  cardType === "users" ? 65 : 55, borderRadius: 100 / 2, marginRight: 10 }}>
                 <Image
                     source={imageSource}
                     style={{ width: '100%', height: '100%', borderRadius: 100 / 2 }}
@@ -47,7 +47,11 @@ export default function CardStudent({ cardType, student, addStudent }: Props) {
             <View style={{ flex: 1, paddingRight: 10, rowGap: 5, overflow: "hidden" }}>
                 <Text style={{ fontWeight: '500', fontSize: 15 }}>{fullName}</Text>
                 <Text style={{ fontSize: 15, color: '#A4A4A4', }}>{student.email}</Text>
+                {cardType === "users" &&
+                    <Text style={{ fontSize: 13, color: '#A4A4A4', }}>{(student as UserWithRole).Role.description}</Text>
+                }
             </View>
+
             <View style={{}}>{action()}</View>
         </View>
     );
