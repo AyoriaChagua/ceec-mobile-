@@ -93,6 +93,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
            </TouchableOpacity>
             ))}
           </ScrollView>
+          
           <View style={styles.bottom}>
             {ques === questions.length - 1 && selectedOption !== null && (
               <TouchableOpacity

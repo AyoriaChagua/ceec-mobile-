@@ -87,7 +87,7 @@ export const quizScreenStyles = StyleSheet.create({
     flexDirection: 'row',
   },
   button: {
-    backgroundColor: '#7849FF',
+    backgroundColor: '#4557F8',
     padding: 12,
     width: 150,
     paddingHorizontal: 16,
