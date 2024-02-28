@@ -71,10 +71,10 @@ export const useQuiz = (evaluationId: number) => {
     } else {
       setIsCorrect(false);
 // Mostrar la respuesta correcta después de un segundo
-      setTimeout(() => {
-        setSelectedOption((questions ?? [])[ques]?.correct_answer ?? null);
-        setIsCorrect(true); // Set isCorrect to true to highlight the correct answer in green
-      }, 1000);
+     // setTimeout(() => {
+       // setSelectedOption((questions ?? [])[ques]?.correct_answer ?? null);
+       // setIsCorrect(true); // Set isCorrect to true to highlight the correct answer in green
+     // }, 1000);
     }
   };
    // Función para calcular la efectividad en base a las preguntas respondidas

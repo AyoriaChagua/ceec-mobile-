@@ -1,84 +1,92 @@
 // useQuiz.tsx
-import { useEffect, useState, useCallback } from 'react';
-import { useAuth } from '../../../../../context/AuthContext';
-import { Question } from '../../../../../interfaces/EvaluationInterface';
 
+import { useEffect, useState, useCallback } from 'react';
+import { useAuth } from '../../../../../context/AuthContext'; // Importar el hook useAuth del contexto de autenticación
+import { Question } from '../../../../../interfaces/EvaluationInterface'; // Importar el tipo de datos Question desde la interfaz de Evaluación
+
+// Definir el hook usePreQuiz
 export const usePreQuiz = (courseId: number) => {
-  const [questions, setQuestions] = useState<Question[] | null>(null);
-  const [ques, setQues] = useState<number>(0);
-  const [options, setOptions] = useState<string[]>([]);
-  const [score, setScore] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const { userToken } = useAuth();
-  const [totalScore, setTotalScore] = useState<number>(0); // estado para la puntuación total
-  const [totalQuestions, setTotalQuestions] = useState<number>(0); //cantidad total de preguntas
-  // Agregar un estado para controlar si se debe mostrar el emoji de aplausos
-  const [showHappyEmoji, setShowHappyEmoji] = useState<boolean>(false);
-  // Función para obtener el cuestionario
+  const [questions, setQuestions] = useState<Question[] | null>(null); // Estado para almacenar las preguntas del cuestionario
+  const [ques, setQues] = useState<number>(0); // Estado para rastrear la pregunta actual
+  const [options, setOptions] = useState<string[]>([]); // Estado para almacenar las opciones de respuesta
+  const [score, setScore] = useState<number>(0); // Estado para almacenar la puntuación actual del usuario
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Estado para controlar si se está cargando el cuestionario
+  const [selectedOption, setSelectedOption] = useState<string | null>(null); // Estado para almacenar la opción seleccionada por el usuario
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null); // Estado para indicar si la respuesta seleccionada es correcta o no
+  const { userToken } = useAuth(); // Obtener el token de autenticación del contexto de autenticación
+  const [totalScore, setTotalScore] = useState<number>(0); // Estado para almacenar la puntuación total del usuario
+  const [totalQuestions, setTotalQuestions] = useState<number>(0); // Estado para almacenar la cantidad total de preguntas en el cuestionario
+  const [showHappyEmoji, setShowHappyEmoji] = useState<boolean>(false); // Estado para controlar si se debe mostrar el emoji de aplausos
+
+  // Función para obtener el cuestionario del servidor
   const getQuiz = useCallback(async () => {
-    setIsLoading(true);
-    //const url = `https://ceec-web-api.onrender.com/api/prequizz/by-course/${courseId}`;
-    const url = `http://192.168.0.11:4100/api/prequizz/by-course/${courseId}`;
-    console.log(url)
+    setIsLoading(true); // Establecer isLoading en true mientras se carga el cuestionario
+    const url = `https://ceec-web-api.onrender.com/api/prequizz/by-course/${courseId}`; // URL para obtener el cuestionario del curso
+    //const url = `http://192.168.0.11:4100/api/prequizz/by-course/${courseId}`;
+    console.log(url); // Imprimir la URL en la consola
     try {
       const headers = {
-        Authorization: userToken || '',
+        Authorization: userToken || '', // Establecer el token de autenticación en las cabeceras de la solicitud
       };
-      const res = await fetch(url, { headers });
-      const data = await res.json();
-      console.log("QUIZ", data)
-      // Almacenar el cuestionario y generar opciones de respuesta
-      setQuestions(data);
-      setTotalQuestions(data.length); // Establecer la cantidad total de preguntas
-      setOptions(generateOptionsAndShuffle(data[0]));
+      const res = await fetch(url, { headers }); // Realizar la solicitud para obtener el cuestionario
+      const data = await res.json(); // Convertir la respuesta en formato JSON
+      console.log("QUIZ", data); // Imprimir el cuestionario en la consola
+      // Almacenar el cuestionario y generar las opciones de respuesta
+      setQuestions(data); // Establecer las preguntas en el estado questions
+      setTotalQuestions(data.length); // Establecer la cantidad total de preguntas en el estado totalQuestions
+      setOptions(generateOptionsAndShuffle(data[0])); // Generar y mezclar las opciones de respuesta para la primera pregunta
     } catch (error) {
-      console.error('Error fetching quiz:', error);
+      console.error('Error fetching quiz:', error); // Manejar cualquier error ocurrido durante la obtención del cuestionario
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Establecer isLoading en false después de completar la carga del cuestionario
     }
-  }, [userToken, courseId]);
+  }, [userToken, courseId]); // Dependencias de la función getQuiz
 
   useEffect(() => {
-    getQuiz();
+    getQuiz(); // Llamar a la función getQuiz al montar el componente o cuando cambie el courseId
   }, [getQuiz]);
+
   // Función para manejar el avance a la siguiente pregunta
   const handleNextPress = () => {
     if (questions && ques < questions.length - 1) {
-      setQues(ques + 1);
-      setOptions(generateOptionsAndShuffle(questions[ques + 1]));
-      setSelectedOption(null);
-      setIsCorrect(null);
+      // Avanzar a la siguiente pregunta si no es la última pregunta del cuestionario
+      setQues(ques + 1); // Incrementar el índice de la pregunta actual
+      setOptions(generateOptionsAndShuffle(questions[ques + 1])); // Generar y mezclar las opciones de respuesta para la siguiente pregunta
+      setSelectedOption(null); // Reiniciar la opción seleccionada por el usuario
+      setIsCorrect(null); // Reiniciar el estado de corrección de la respuesta
     }
   };
+
   // Función para generar opciones de respuesta y mezclarlas
   const generateOptionsAndShuffle = (_question: Question) => {
-    const options = [..._question.incorrect_answer];
-    options.push(_question.correct_answer);
+    const options = [..._question.incorrect_answer]; // Copiar las respuestas incorrectas
+    options.push(_question.correct_answer); // Agregar la respuesta correcta al arreglo de opciones
 
+    // Mezclar las opciones de respuesta utilizando el algoritmo de Fisher-Yates
     for (let i = options.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [options[i], options[j]] = [options[j], options[i]];
     }
 
-    return options;
+    return options; // Devolver las opciones de respuesta mezcladas
   };
+
   // Función para manejar la selección de una opción de respuesta
   const handlSelectedOption = (_option: string) => {
-    setSelectedOption(_option);
+    setSelectedOption(_option); // Establecer la opción seleccionada por el usuario
     if (questions && questions[ques] && _option === questions[ques].correct_answer) {
-      setScore(score + 1);
-      setIsCorrect(true);
-      setTotalScore(totalScore + questions[ques].points);
-      setShowHappyEmoji(true); // Mostrar emoji de aplausos solo si la respuesta es correcta
+      // Verificar si la opción seleccionada es la respuesta correcta
+      setScore(score + 1); // Incrementar la puntuación del usuario
+      setIsCorrect(true); // Establecer que la respuesta es correcta
+      setTotalScore(totalScore + questions[ques].points); // Actualizar la puntuación total del usuario
+      setShowHappyEmoji(true); // Mostrar el emoji de aplausos
     } else {
-      setIsCorrect(false);
-      setShowHappyEmoji(false); // Ocultar emoji de aplausos si la respuesta es incorrecta
-      setTimeout(() => {
-        setSelectedOption((questions ?? [])[ques]?.correct_answer ?? null);
-        setIsCorrect(true);
-      }, 1500);
+      setIsCorrect(false); // Establecer que la respuesta es incorrecta
+      setShowHappyEmoji(false); // Ocultar el emoji de aplausos
+     // setTimeout(() => {
+       // setSelectedOption((questions ?? [])[ques]?.correct_answer ?? null); // Mostrar la respuesta correcta después de un breve retraso
+       // setIsCorrect(true); // Establecer que la respuesta es correcta
+     // }, 1000); // Retraso de 1.5 segundos
     }
   };
 
@@ -87,14 +95,17 @@ export const usePreQuiz = (courseId: number) => {
     if (totalQuestions === 0) {
       return 0; // Evitar dividir por cero
     }
-    const effectiveness = (score / 20) * 100;
+    const effectiveness = (score / totalQuestions) * 100; // Calcular la efectividad como un porcentaje
     return Math.round(effectiveness); // Redondear el resultado
   };
+
+  // Función para formatear el tiempo en formato de minutos:segundos
   const formatTime = (timeInSeconds: number) => {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
-    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+    const minutes = Math.floor(timeInSeconds / 60); // Calcular los minutos
+    const seconds = timeInSeconds % 60; // Calcular los segundos restantes
+    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`; // Devolver el tiempo formateado
   };
+
   // Retornar los estados y funciones necesarios para la pantalla del cuestionario
   return {
     questions,

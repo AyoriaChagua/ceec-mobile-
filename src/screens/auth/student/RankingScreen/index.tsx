@@ -3,13 +3,34 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { useRankingEvaluation } from './hooks/useRankingEvaluation';
-
+import { styles } from './styles';
 type RankingScreenRouteProp = RouteProp<RootStackParamList, 'Ranking'>;
-
 const RankingScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<RankingScreenRouteProp>();
   const { totalScore, evaluationId } = route.params;
   const { ranking, loading } = useRankingEvaluation(evaluationId);
+
+  const sortedRanking = ranking.sort((a, b) => {
+    const scoreA = parseFloat(a.total_score);
+    const scoreB = parseFloat(b.total_score);
+  
+    if (!isNaN(scoreA) && !isNaN(scoreB)) {
+      if (scoreA !== scoreB) {
+        return scoreB - scoreA; // Orden descendente
+      } else {
+        return a.User.Profile.first_name.localeCompare(b.User.Profile.first_name);
+      }
+    } else {
+      console.error("Error: total_score no es un número válido");
+      return 0;
+    }
+  });
+  
+  //  ranking en tres grupos
+  const firstPlace = sortedRanking[0];
+  const secondPlace = sortedRanking[1];
+  const thirdPlace = sortedRanking[2];
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>RANKING DE</Text>
@@ -19,17 +40,34 @@ const RankingScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
           <Text>Loading...</Text>
         ) : (
           <>
-            {ranking.map((student, index) => (
-              <View key={index} style={index === 0 ? styles.topCircleContainer : styles.bottomCircleContainer}>
-                <View style={styles.circleContainer}>
-                  <Image source={require('./../../../../../assets/images/perfil.jpg')} style={styles.circleImage} />
-                  <Text style={styles.circleText}>{student.User.Profile.first_name}</Text>
-                  <View style={styles.pointsContainer}>
-                    <Text style={styles.pointsText}>{student.total_score} puntos</Text>
-                  </View>
+            {/* Primer lugar */}
+            <View style={styles.topCircleContainer}>
+              <View style={styles.circleContainer}>
+                <Image source={{ uri: firstPlace.User.Profile?.profile_picture || 'https://res.cloudinary.com/dk2red18f/image/upload/v1709030685/CEEC/RANKING/uy7xmqjehhtvtddqbbjv.png'}} style={styles.circleImage} />
+                <Text style={styles.circleText}>{firstPlace.User.Profile?.first_name || 'Usuario'} {firstPlace.User.Profile?.last_name || ''}</Text>
+                <View style={styles.pointsContainer}>
+                  <Text style={styles.pointsText}>{firstPlace.total_score} puntos</Text>
                 </View>
               </View>
-            ))}
+            </View>
+            {/* Segundo lugar */}
+            <View style={styles.bottomCircleContainer}>
+              <View style={[styles.circleContainer, styles.leftCircle]}>
+                <Image source={{ uri: secondPlace.User.Profile?.profile_picture || 'https://res.cloudinary.com/dk2red18f/image/upload/v1709030685/CEEC/RANKING/uy7xmqjehhtvtddqbbjv.png'}} style={styles.circleImage} />
+                <Text style={styles.circleText}>{secondPlace.User.Profile?.first_name || 'Usuario'} {secondPlace.User.Profile?.last_name || ''}</Text>
+                <View style={styles.pointsContainer}>
+                  <Text style={styles.pointsText}>{secondPlace.total_score} puntos</Text>
+                </View>
+              </View>
+              {/* Tercer lugar */}
+              <View style={[styles.circleContainer, styles.rightCircle]}>
+                <Image source={{ uri: thirdPlace.User.Profile?.profile_picture || 'https://res.cloudinary.com/dk2red18f/image/upload/v1709030685/CEEC/RANKING/uy7xmqjehhtvtddqbbjv.png'}} style={styles.circleImage} />
+                <Text style={styles.circleText}>{thirdPlace.User.Profile?.first_name || 'Usuario'} {thirdPlace.User.Profile?.last_name || ''}</Text>
+                <View style={styles.pointsContainer}>
+                  <Text style={styles.pointsText}>{thirdPlace.total_score} puntos</Text>
+                </View>
+              </View>
+            </View>
           </>
         )}
       </View>
@@ -42,96 +80,5 @@ const RankingScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
 };
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#4951FF',
-    marginTop: 20,
-  },
-  subtitle: {
-    marginTop: 5,
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#4951FF',
-  },
-  rectangle: {
-    width: '90%',
-    height: 450,
-    backgroundColor: '#D5D7FF',
-    marginTop: 25,
-    borderRadius: 20,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  extraRectangle: {
-    width: '90%',
-    height: 150,
-    backgroundColor: '#88D4FF',
-    margin: 15,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  extraText1: {
-    fontSize: 40,
-    color: 'white',
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  extraText2: {
-   fontWeight: 'bold',
-    fontSize: 16,
-    color: 'white',
-    textAlign: 'center',
-  },
-  topCircleContainer: {
-    alignItems: 'center',
-  },
-  bottomCircleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  circleContainer: {
-    alignItems: 'center',
-  },
-  leftCircle: {
-    marginRight: 22,
-  },
-  rightCircle: {
-    marginLeft: 22,
-  },
-  circleImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
-  },
-  circleText: {
-    fontSize: 14,
-    color: '#000000',
-    fontWeight: 'bold',
-  },
-  pointsContainer: {
-    backgroundColor: '#4951FF',
-    borderRadius: 5,
-    marginTop: 9,
-    width: 120,
-    padding: 5,
-  },
-  pointsText: {
-    fontSize: 14,
-    color: 'white',
-    textAlign: 'center',
-  },
-});
 
 export default RankingScreen;

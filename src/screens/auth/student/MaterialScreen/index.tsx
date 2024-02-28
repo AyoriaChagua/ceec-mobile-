@@ -5,9 +5,10 @@ import { Video, ResizeMode } from 'expo-av';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { useMaterial } from './hooks/useMaterial';
-import { extractDriveFileId } from './hooks/extractDriveFileId';
+import { extractVideoSource } from './hooks/extractDriveFileId'; // Renombrada para generalizar el propósito
 import { materialScreenStyles as styles } from './styles';
 import { LoadIndicator } from '../../../../components';
+
 type MaterialScreenRouteProp = RouteProp<RootStackParamList, 'Material'>;
 
 const MaterialScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
@@ -25,6 +26,7 @@ const MaterialScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
       </View>
     );
   }
+
   return (
     <View style={styles.container}>
       {material.length > 0 ? (
@@ -33,24 +35,26 @@ const MaterialScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
             {isVideoLoading && (
               <ActivityIndicator style={styles.videoLoadingIndicator} size="large" color="#0000ff" />
             )}
-            <Video
-              ref={video}
-              style={styles.video}
-              source={{
-                uri: `https://drive.google.com/uc?id=${extractDriveFileId(item.ppt_url)}`,
-              }}
-              useNativeControls
-              resizeMode={ResizeMode.CONTAIN}
-              isLooping
-              onPlaybackStatusUpdate={(status) => {
-                setStatus(() => status);
-                if (!status.isLoaded) {
-                  setIsVideoLoading(true);
-                } else {
-                  setIsVideoLoading(false);
-                }
-              }}
-            />
+            {item.ppt_url && (
+              <Video
+                ref={video}
+                style={styles.video}
+                source={{
+                  uri: (item.ppt_url),
+                }}
+                useNativeControls
+                resizeMode={ResizeMode.CONTAIN}
+                isLooping
+                onPlaybackStatusUpdate={(status) => {
+                  setStatus(() => status);
+                  if (!status.isLoaded) {
+                    setIsVideoLoading(true);
+                  } else {
+                    setIsVideoLoading(false);
+                  }
+                }}
+              />
+            )}
           </View>
         ))
       ) : (
@@ -59,6 +63,5 @@ const MaterialScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
     </View>
   );
 };
-
 
 export default MaterialScreen;

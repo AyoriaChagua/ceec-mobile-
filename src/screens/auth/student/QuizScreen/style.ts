@@ -2,6 +2,9 @@
 import { StyleSheet } from 'react-native';
 
 export const quizScreenStyles = StyleSheet.create({
+  scrollViewContent: {
+    flexGrow: 1,
+  },
     container: {
         paddingTop: 40,
         paddingHorizontal: 20,
@@ -42,13 +45,14 @@ export const quizScreenStyles = StyleSheet.create({
       options: {
         marginVertical: 16,
         flex: 1,
+      
       },
       optionButton: {
         paddingVertical: 12,
         marginVertical: 6,
         paddingHorizontal: 12,
         borderRadius: 12,
-        backgroundColor: '#D9D9D9',
+        backgroundColor: '#7849FF',
         alignItems: 'flex-start', 
       },
       correctOption: {
@@ -60,7 +64,7 @@ export const quizScreenStyles = StyleSheet.create({
       optionText: {
         fontSize: 16,
         fontWeight: '500',
-        color: '#000000',
+        color: '#fff',
         textAlign: 'left', // alinear el texto a la izquierda
       },
       bottom: {

@@ -19,7 +19,7 @@ export const API_MODULE_ID_URL = `${base_url}/api/modules`;
 
 //obtener info del falshcard por su module_id : http://192.168.18.3:4100/flashcard/module/1   
 
-export const API_FLASHCARD_URL = 'https://ceec-web-api.onrender.com/flashcard/module';
+export const API_FLASHCARD_URL = `${base_url}/api/flashcard`;
 
 //obtener info de la evaluacion por el module_id : http://192.168.18.3:4100/api/evaluation/1
 

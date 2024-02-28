@@ -33,7 +33,10 @@ export const moduleScreenStyles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#920404', // Color de sombra
     opacity: 0.7, // Opacidad de la sombra
-  },
+  }, 
+  searcher: {
+    margin: 16 
+},
   courseInfo: {
     marginBottom: 8,
   },
@@ -63,7 +66,8 @@ export const moduleScreenStyles = StyleSheet.create({
     color: '#3C63FF',
     fontWeight: 'bold',
     fontSize: 16,
-    marginBottom: 8,
+
+    marginTop:12
   },
   bottomImage: {
     position: 'absolute',

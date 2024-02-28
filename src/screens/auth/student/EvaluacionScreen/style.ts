@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 
+
 export const styles = StyleSheet.create({
+  
   banner: {
     height: 350,
     width: 350,
