@@ -1,11 +1,23 @@
 import { StyleSheet } from 'react-native';
 
 export const quizScreenStyles = StyleSheet.create({
+  
+  answersContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  answerText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 5,
+    color: 'white',
+  },
   incorrectSelected: {
     backgroundColor: '#FF6F6F',
   },
   incorrectIcon: {
-    color: '#FF0F00',
+    color: '#FF73F9',
     position: 'absolute',
     right: 10,
     fontSize: 24,
@@ -66,7 +78,7 @@ export const quizScreenStyles = StyleSheet.create({
     backgroundColor: '#4CAF50',
   },
   incorrectOption: {
-    backgroundColor: '#FF5733',
+    backgroundColor: '#FF6F6F',
   },
   bottom: {
     marginBottom: 12,

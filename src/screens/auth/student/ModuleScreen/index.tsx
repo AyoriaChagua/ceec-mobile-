@@ -52,7 +52,7 @@ const ModuleScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigatio
 
     switch (numbertype) {
       case 1:
-        navigation.navigate('Diccionario', { moduleId });
+        navigation.navigate('Diccionario', { moduleId , course_id});
         break;
       case 2:
         navigation.navigate('Material', { moduleId });

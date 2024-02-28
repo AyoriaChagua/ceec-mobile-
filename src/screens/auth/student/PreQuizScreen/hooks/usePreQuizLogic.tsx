@@ -17,7 +17,7 @@ export const usePreQuiz = (courseId: number) => {
   const [totalScore, setTotalScore] = useState<number>(0); // Estado para almacenar la puntuación total del usuario
   const [totalQuestions, setTotalQuestions] = useState<number>(0); // Estado para almacenar la cantidad total de preguntas en el cuestionario
   const [showHappyEmoji, setShowHappyEmoji] = useState<boolean>(false); // Estado para controlar si se debe mostrar el emoji de aplausos
-
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false); // Estado para mostrar la respuesta correcta
   // Función para obtener el cuestionario del servidor
   const getQuiz = useCallback(async () => {
     setIsLoading(true); // Establecer isLoading en true mientras se carga el cuestionario
@@ -49,11 +49,11 @@ export const usePreQuiz = (courseId: number) => {
   // Función para manejar el avance a la siguiente pregunta
   const handleNextPress = () => {
     if (questions && ques < questions.length - 1) {
-      // Avanzar a la siguiente pregunta si no es la última pregunta del cuestionario
-      setQues(ques + 1); // Incrementar el índice de la pregunta actual
-      setOptions(generateOptionsAndShuffle(questions[ques + 1])); // Generar y mezclar las opciones de respuesta para la siguiente pregunta
+      setQues(ques + 1); // Incrementar el índice de la palabra actual
+      setOptions(generateOptionsAndShuffle(questions[ques + 1])); // Generar y mezclar las opciones de respuesta para la siguiente palabra
       setSelectedOption(null); // Reiniciar la opción seleccionada por el usuario
       setIsCorrect(null); // Reiniciar el estado de corrección de la respuesta
+      setShowCorrectAnswer(false); // Reiniciar el estado para mostrar la respuesta correcta
     }
   };
 
@@ -81,12 +81,9 @@ export const usePreQuiz = (courseId: number) => {
       setTotalScore(totalScore + questions[ques].points); // Actualizar la puntuación total del usuario
       setShowHappyEmoji(true); // Mostrar el emoji de aplausos
     } else {
-      setIsCorrect(false); // Establecer que la respuesta es incorrecta
-      setShowHappyEmoji(false); // Ocultar el emoji de aplausos
-     // setTimeout(() => {
-       // setSelectedOption((questions ?? [])[ques]?.correct_answer ?? null); // Mostrar la respuesta correcta después de un breve retraso
-       // setIsCorrect(true); // Establecer que la respuesta es correcta
-     // }, 1000); // Retraso de 1.5 segundos
+      setIsCorrect(false);
+      setShowCorrectAnswer(true); // Mostrar la respuesta correcta si la opción seleccionada es incorrecta
+      setShowHappyEmoji(false);
     }
   };
 
@@ -106,6 +103,7 @@ export const usePreQuiz = (courseId: number) => {
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`; // Devolver el tiempo formateado
   };
 
+  
   // Retornar los estados y funciones necesarios para la pantalla del cuestionario
   return {
     questions,
@@ -122,5 +120,6 @@ export const usePreQuiz = (courseId: number) => {
     handleNextPress,
     handlSelectedOption,
     showHappyEmoji, // Agregar showHappyEmoji al retorno
+    showCorrectAnswer
   };
 };

@@ -33,11 +33,11 @@ export type RootStackParamList = {
     Material: { moduleId: number  };
     FlashCard: { moduleId: number };
     Evaluacion: { moduleId: number , course_id :number};
-    Diccionario: { moduleId: number };
+    Diccionario: { moduleId: number , course_id :number};
     Quiz: { evaluationId: number , course_id :number};
     Result: { totalScore: number, elapsedTime: number, evaluationId: number,
      effectiveness: number , totalQuestions : number , course_id: number};
-    ResultDiccionario: { totalQuestions: number, correctAnswers: number };
+    ResultDiccionario: { totalQuestions: number, correctAnswers: number , course_id :number };
     Ranking: { totalScore: number, evaluationId: number };
     //Notas
     Notas: undefined;

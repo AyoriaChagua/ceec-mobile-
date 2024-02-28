@@ -2,11 +2,18 @@
 import { StyleSheet } from 'react-native';
 
 export const quizScreenStyles = StyleSheet.create({
+  incorrectIcon: {
+    color: '#FF73F9',
+    position: 'absolute',
+    right: 10,
+    fontSize: 24,
+  },
   scrollViewContent: {
     flexGrow: 1,
+    backgroundColor: '#fff',
   },
     container: {
-        paddingTop: 40,
+        paddingTop: 20,
         paddingHorizontal: 20,
         height: '100%',
       },
@@ -21,12 +28,13 @@ export const quizScreenStyles = StyleSheet.create({
         backgroundColor: '#7849FF',
         borderRadius: 12,
         padding: 10,
+        marginBottom:20,
         position: 'relative', // Agregar posición relativa
       },
       elapsedTimeText: {
         fontSize: 14,
-        color: 'white',
         marginTop: 5,
+        color: '#0B109F',
       },
             
     
@@ -80,7 +88,7 @@ export const quizScreenStyles = StyleSheet.create({
         paddingHorizontal: 16,
         borderRadius: 10,
         alignItems: 'center', 
-        marginBottom: 30,
+        marginBottom: 20,
       },
       buttonText: {
         fontSize: 18,
@@ -88,10 +96,11 @@ export const quizScreenStyles = StyleSheet.create({
         color: 'white',
       },
       question: {
-        fontSize: 18,
-        color:'white',
-        margin:10,
-        fontWeight: 'bold'
+        fontSize: 17,
+        margin:5,
+        fontWeight: 'bold',
+        color:'#7849FF',
+        textAlign : 'center'
       },
       parent: {
         height: '100%',

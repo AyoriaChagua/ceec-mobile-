@@ -14,7 +14,7 @@ export const useQuiz = (evaluationId: number) => {
   const { userToken } = useAuth();
   const [totalScore, setTotalScore] = useState<number>(0); // estado para la puntuación total
   const [totalQuestions, setTotalQuestions] = useState<number>(0); //cantidad total de preguntas
-
+  const [showHappyEmoji, setShowHappyEmoji] = useState<boolean>(false); // 
 // Función para obtener el cuestionario
   const getQuiz = useCallback(async () => {
     setIsLoading(true);
@@ -68,13 +68,10 @@ export const useQuiz = (evaluationId: number) => {
         setScore(score + questions[ques].points); // Sumar los puntos de la pregunta correcta
         setIsCorrect(true);
         setTotalScore(totalScore + questions[ques].points); // Actualizar la puntuación total
+        setShowHappyEmoji(true);
     } else {
       setIsCorrect(false);
-// Mostrar la respuesta correcta después de un segundo
-     // setTimeout(() => {
-       // setSelectedOption((questions ?? [])[ques]?.correct_answer ?? null);
-       // setIsCorrect(true); // Set isCorrect to true to highlight the correct answer in green
-     // }, 1000);
+      setShowHappyEmoji(false);
     }
   };
    // Función para calcular la efectividad en base a las preguntas respondidas
@@ -105,5 +102,6 @@ export const useQuiz = (evaluationId: number) => {
     formatTime,
     handleNextPress,
     handlSelectedOption,
+    showHappyEmoji 
   };
 };

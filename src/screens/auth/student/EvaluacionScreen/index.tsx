@@ -36,6 +36,7 @@ const EvaluacionScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navig
             }}
             style={[styles.banner, { transform: [{ rotate: `${rotation}deg` }] }]}
             resizeMode="contain"
+            
           />
         </View>
         {loading ? (

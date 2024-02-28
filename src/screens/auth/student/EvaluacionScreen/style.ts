@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   container3: {
+    color:'#fff',
     paddingTop: 40,
     paddingHorizontal: 16,
     height: '92%',

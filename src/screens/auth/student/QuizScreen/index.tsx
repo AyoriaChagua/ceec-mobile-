@@ -6,7 +6,7 @@ import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { quizScreenStyles as styles  } from './style'; 
 import { useQuiz } from './hooks/useQuizLogic';
 import { useResultEva } from './hooks/useResultEva'; 
-
+import FloatingEmotion from './../../../../components/FloatingEmotion';
 type QuizScreenRouteProp = RouteProp<RootStackParamList, 'Quiz'>;
 
 const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
@@ -26,6 +26,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     handlSelectedOption,
     totalQuestions,
     calculateEffectiveness,
+    showHappyEmoji 
   } = useQuiz(evaluationId);
 
 
@@ -46,6 +47,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
     <View style={styles.container}>
+    <Text style={styles.elapsedTimeText}>{`Tiempo: ${formatTime(elapsedTime)}`}</Text>
       {isLoading ? (
         <View style={styles.loadingContainer}>
           <Text style={styles.loadingText}>CARGANDO...</Text>
@@ -59,9 +61,10 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
       source={{ uri: questions[ques].image_url }}
       style={styles.questionImage}
     />
-    <Text style={styles.question}>{decodeURIComponent(questions[ques].question)}</Text>
-    <Text style={styles.elapsedTimeText}>{`Tiempo: ${formatTime(elapsedTime)}`}</Text>
+    
+ 
   </View>
+  <Text style={styles.question}>{decodeURIComponent(questions[ques].question)}</Text>
 </View>
 
           <ScrollView style={styles.options}>
@@ -75,7 +78,12 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
                 onPress={() => handlSelectedOption(opt)}
                 disabled={selectedOption !== null}
               >
+
                 <Text style={styles.optionText}>{decodeURIComponent(opt)}</Text>
+
+                {selectedOption === opt && isCorrect !== null && ( // Mostrar el emoji si la opción está seleccionada y se ha determinado si es correcta o no
+               <Text style={styles.incorrectIcon}>{isCorrect ? '✅' : '❌'}</Text>
+             )}
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -95,12 +103,16 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
               </TouchableOpacity>
             )}
           </View>
+
         </View>
       ) : (
         <View style={styles.noQuestionsContainer}>
           <Text>No hay preguntas disponibles.</Text>
         </View>
       )}
+   {isCorrect === false && selectedOption !== null && <FloatingEmotion gifSource={require('../../../../../assets/images/prequizz/triste_2.gif')} />}
+{showHappyEmoji && selectedOption !== null && <FloatingEmotion gifSource={require('../../../../../assets/images/prequizz/feliz.gif')} />}
+
     </View>
     </ScrollView>
   );

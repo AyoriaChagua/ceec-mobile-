@@ -105,5 +105,16 @@ export const quizScreenStyles = StyleSheet.create({
   },
   scrollViewContent: {
     flexGrow: 1,
+  }
+  , optionText: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: 'white',
+  },
+  incorrectIcon: {
+    color: '#FF73F9',
+    position: 'absolute',
+    right: 10,
+    fontSize: 24,
   },
 });

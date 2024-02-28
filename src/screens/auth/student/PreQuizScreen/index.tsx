@@ -15,8 +15,9 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   
   const { course_id } = route.params;
-  const { questions, ques, options, score, isLoading, selectedOption, isCorrect, totalScore, formatTime, handleNextPress, handlSelectedOption, totalQuestions, calculateEffectiveness, showHappyEmoji , } = usePreQuiz(course_id);
+  const { questions, ques, options, score, isLoading, selectedOption, isCorrect, totalScore, formatTime, handleNextPress, handlSelectedOption, totalQuestions, calculateEffectiveness, showHappyEmoji , showCorrectAnswer} = usePreQuiz(course_id);
 
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setElapsedTime((prevTime) => prevTime + 1);
@@ -72,11 +73,23 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
                   key={index}
                   style={[
                     styles.optionButton,
+                    // Aplicar el estilo para la opción seleccionada
                     selectedOption === opt && (isCorrect ? styles.correctOption : styles.incorrectOption),
+                    // Aplicar el estilo para la opción no seleccionada si se está mostrando la respuesta correcta
+                    selectedOption !== opt && showCorrectAnswer && questions[ques].correct_answer !== opt && styles.incorrectOption,
+                    // Mostrar respuesta correcta en verde si no fue seleccionada por el usuario
+                    selectedOption !== opt && showCorrectAnswer && questions[ques].correct_answer === opt && styles.correctOption,
+                     // Aplicar el estilo para las opciones incorrectas si se ha seleccionado la respuesta correcta
+         isCorrect && questions[ques].correct_answer !== opt && styles.incorrectOption,
                   ]}
                   onPress={() => handlSelectedOption(opt)}
                   disabled={selectedOption !== null}
                 >
+                  
+             {selectedOption === opt && isCorrect !== null && ( // Mostrar el emoji si la opción está seleccionada y se ha determinado si es correcta o no
+               <Text style={styles.incorrectIcon}>{isCorrect ? '✅' : '❌'}</Text>
+             )}
+
                   {renderOptionText(opt)}
                 </TouchableOpacity>
               ))}

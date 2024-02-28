@@ -8,14 +8,16 @@ type ResultDiccionarioScreenRouteProp = RouteProp<RootStackParamList, 'ResultDic
 
 const   ResultDiccionarioScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute< ResultDiccionarioScreenRouteProp>();
-  const { totalQuestions, correctAnswers } = route.params;
+  const { totalQuestions, correctAnswers , course_id } = route.params;
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   };
   const handleGetPosition = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Module' , {
+      courde_id: course_id
+    });
   };
 
   const getMessageAndImage = () => {

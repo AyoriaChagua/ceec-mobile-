@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation/StudentDrawer';
 import { quizScreenStyles as styles } from './style';
 import { useDiccionario } from './hooks/useDiccionarioLogic';
 import { LoadIndicator } from '../../../../components';
-
+import FloatingEmotion from './../../../../components/FloatingEmotion';
 type QuizScreenRouteProp = RouteProp<RootStackParamList, 'Diccionario'>;
 
 const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<QuizScreenRouteProp>();
-  const { moduleId } = route.params;
+  const { moduleId , course_id } = route.params;
   const {
     questions,
     ques,
@@ -19,6 +19,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     isLoading,
     selectedOption,
     isCorrect,
+ showCorrectAnswer,
     totalScore,
     isIncorrectSelected,
     formatTime,
@@ -26,6 +27,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     handlSelectedOption,
     totalQuestions,
     calculateEffectiveness,
+    showHappyEmoji 
   } = useDiccionario(moduleId);
 
   const [elapsedTime, setElapsedTime] = useState<number>(0);
@@ -40,7 +42,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
   }, []);
 
   useEffect(() => {
-    if (isCorrect) {
+    if (isCorrect !== null) {
       setShowClap(true);
       setTimeout(() => {
         setShowClap(false);
@@ -52,6 +54,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     navigation.navigate('ResultDiccionario', {
       totalQuestions: totalQuestions,
       correctAnswers: score,
+      courde_id: course_id
     });
   };
 
@@ -62,43 +65,35 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
       ) : questions && ques < questions.length ? (
         <View style={styles.parent}>
           <View style={styles.top}>
-            <Text style={styles.elapsedTimeText}>{`Tiempo: ${elapsedTime}`}</Text>
+            <Text style={styles.elapsedTimeText}>{`Tiempo: ${formatTime(elapsedTime)}`}</Text>
             <Image source={{ uri: questions[ques].word }} style={styles.questionImage} />
           </View>
-          <View style={styles.options}>
+          <ScrollView style={styles.options}>
             {options.map((opt, index) => (
-              <TouchableOpacity
-                key={index}
-                style={[
-                  styles.optionButton,
-                  selectedOption !== null && !isCorrect && opt !== questions[ques].correct_answer
-                    ? styles.incorrectOption
-                    : null,
-                  selectedOption !== null &&
-                  !isCorrect &&
-                  opt !== questions[ques].correct_answer &&
-                  isIncorrectSelected &&
-                  selectedOption === opt
-                    ? styles.incorrectSelected
-                    : null,
-                  selectedOption === opt && isCorrect ? styles.correctOption : null,
-                ]}
-                onPress={() => handlSelectedOption(opt)}
-                disabled={selectedOption !== null}
-              >
-                <Text style={styles.optionText}>{decodeURIComponent(opt)}</Text>
-                {selectedOption !== null &&
-                  !isCorrect &&
-                  opt !== questions[ques].correct_answer &&
-                  isIncorrectSelected &&
-                  selectedOption === opt && (
-                    <Text style={styles.incorrectIcon}>❌</Text>
-                  )}
-              </TouchableOpacity>
+             <TouchableOpacity
+             key={index}
+             style={[
+               styles.optionButton,
+               // Aplicar el estilo para la opción seleccionada
+               selectedOption === opt && (isCorrect ? styles.correctOption : styles.incorrectOption),
+               // Aplicar el estilo para la opción no seleccionada si se está mostrando la respuesta correcta
+               selectedOption !== opt && showCorrectAnswer && questions[ques].correct_answer !== opt && styles.incorrectOption,
+               // Mostrar respuesta correcta en verde si no fue seleccionada por el usuario
+               selectedOption !== opt && showCorrectAnswer && questions[ques].correct_answer === opt && styles.correctOption,
+                // Aplicar el estilo para las opciones incorrectas si se ha seleccionado la respuesta correcta
+    isCorrect && questions[ques].correct_answer !== opt && styles.incorrectOption,
+             ]}
+             onPress={() => handlSelectedOption(opt)}
+             disabled={selectedOption !== null}
+           >
+             <Text style={styles.optionText}>{decodeURIComponent(opt)}</Text>
+             {selectedOption === opt && isCorrect !== null && ( // Mostrar el emoji si la opción está seleccionada y se ha determinado si es correcta o no
+               <Text style={styles.incorrectIcon}>{isCorrect ? '✅' : '❌'}</Text>
+             )}
+           </TouchableOpacity>
             ))}
-          </View>
+          </ScrollView>
           <View style={styles.bottom}>
-           
             {ques === questions.length - 1 && selectedOption !== null && (
               <TouchableOpacity
                 style={styles.button}
@@ -124,6 +119,9 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
           <Text>No hay preguntas disponibles.</Text>
         </View>
       )}
+   {isCorrect === false && selectedOption !== null && <FloatingEmotion gifSource={require('../../../../../assets/images/prequizz/triste_2.gif')} />}
+{showHappyEmoji && selectedOption !== null && <FloatingEmotion gifSource={require('../../../../../assets/images/prequizz/feliz.gif')} />}
+
     </View>
   );
 };
