@@ -7,7 +7,6 @@ import { quizScreenStyles as styles } from './style';
 import { usePreQuiz } from './hooks/usePreQuizLogic';
 import FloatingEmotion from './../../../../components/FloatingEmotion';
 
-
 type PreQuizScreenRouteProp = RouteProp<RootStackParamList, 'PreQuiz'>;
 
 const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
@@ -102,7 +101,7 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
                   onPress={handleShowResult}
                   disabled={selectedOption === null}
                 >
-                  <Text style={styles.buttonText}>Finalizar</Text>
+                  <Text style={styles.buttonText } >Finalizar</Text>
                 </TouchableOpacity>
               )}
               {ques < questions.length - 1 && selectedOption !== null && (
@@ -119,7 +118,6 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
         )}
      {isCorrect === false && selectedOption !== null && <FloatingEmotion gifSource={require('../../../../../assets/images/prequizz/triste_2.gif')} />}
 {showHappyEmoji && selectedOption !== null && <FloatingEmotion gifSource={require('../../../../../assets/images/prequizz/feliz.gif')} />}
-
       </View>
     </ScrollView>
   );

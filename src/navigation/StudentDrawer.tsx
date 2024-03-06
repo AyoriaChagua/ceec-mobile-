@@ -20,7 +20,6 @@ import DetailNotasScreen from '../screens/auth/student/DetailNotasScreen';
 import NotasScreen from '../screens/auth/student/NotasScreen';
 import PreQuizScreen from '../screens/auth/student/PreQuizScreen';
 import ResultPreQuizScreen from '../screens/auth/student/ResultPreQuizScreen';
-
 import { useAuth } from '../context/AuthContext';
 import { Profile } from '../interfaces/UserInterfaces';
 import { createStackNavigator } from '@react-navigation/stack';

@@ -29,8 +29,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
     showHappyEmoji ,
     showCorrectAnswer
   } = useQuiz(evaluationId);
-
-
+  
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const { handleShowResult } = useResultEva(navigation, evaluationId , totalScore , calculateEffectiveness, elapsedTime , totalQuestions , course_id);
 
@@ -95,6 +94,7 @@ const QuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
               </TouchableOpacity>
             ))}
           </ScrollView>
+
           <View style={styles.bottom}>
             {ques === questions.length - 1 && selectedOption !== null && (
               <TouchableOpacity

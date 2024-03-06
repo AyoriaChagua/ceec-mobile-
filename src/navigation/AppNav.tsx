@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { LoadIndicator } from '../components';
 import AdminNav from './AdminNav';
 import StudentDrawer from './StudentDrawer';
+import UserAdminNav from './UserAdminNav';
 import { useEffect, useState } from 'react';
 import NetInfo from '@react-native-community/netinfo';
 import NoSignalScreen from '../screens/public/NoSignalScreen';
@@ -43,6 +44,9 @@ export default function AppNav() {
             case 2:
                 role = 'admin'
                 break;
+            case 3:
+                role = 'useradmin'
+                break;
             default:
                 break;
         }
@@ -54,7 +58,7 @@ export default function AppNav() {
     let drawerComponent;
 
     if (userToken !== null) {
-        drawerComponent = role === 'admin' ? <AdminNav /> : <StudentDrawer />;
+            drawerComponent = role === 'admin' ? <AdminNav /> : (role === 'useradmin' ? <UserAdminNav /> : <StudentDrawer />);
     } else {
         drawerComponent = <AuthStack />;
     }

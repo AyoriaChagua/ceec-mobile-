@@ -77,7 +77,8 @@ export const useQuiz = (evaluationId: number) => {
       setShowHappyEmoji(false);
     }
   };
-   // Función para calcular la efectividad en base a las preguntas respondidas
+  
+  // Función para calcular la efectividad en base a las preguntas respondidas
   const calculateEffectiveness = () => {
     if (totalQuestions === 0) {
       return 0; // Evitar dividir por cero
