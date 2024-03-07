@@ -1,5 +1,6 @@
 export type RootStackParamListAdmin = {
     Login: undefined
+    NotasResumen: undefined
     Dashboard: undefined
     Details: { itemId: number }
     AdminDrawer: undefined
@@ -31,6 +32,7 @@ export type RootStackParamStudent = {
 
 
 export type RootStackParamList = {
+    NotasResumen: undefined
     Login: undefined
     Dashboard: undefined
     Details: { itemId: number }

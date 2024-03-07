@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../../../../context/AuthContext';
 import { Question } from '../../../../../interfaces/EvaluationInterface';
 
+
 export const useQuiz = (evaluationId: number) => {
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [ques, setQues] = useState<number>(0);

@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import NetInfo from '@react-native-community/netinfo';
 import NoSignalScreen from '../screens/public/NoSignalScreen';
 
-
 export default function AppNav() {
     const { userToken, isLoading, userInfo } = useAuth();
     const [isConnected, setIsConnected] = useState<boolean | null>(true);

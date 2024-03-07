@@ -27,7 +27,7 @@ export interface Evaluation {
     correct_answer: string;
     incorrect_answer: string[];
   }
-
+  
 export interface Result {
     evaluation_id: number,
     user_id: number,

@@ -2,7 +2,6 @@
 import { NavigationProp } from '@react-navigation/native';
 import { useQuiz } from './useQuizLogic';
 import { useAuth } from '../../../../../context/AuthContext';
-
 import { sendQuizResult  , getEvaluationUser , updateQuizResult} from '../../../../../services/evaluation.service';
 
 export const useResultEva = (navigation: NavigationProp<any>, evaluationId: number , totalScore :number ,calculateEffectiveness: () => number , elapsedTime : number , totalQuestions : number , course_id : number) => {

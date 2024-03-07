@@ -1,6 +1,7 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DashboardScreen from '../screens/auth/admin/DashboardScreen';
+import NotasResumenScreen from '../screens/auth/adminuser/NotasResumenScreen';
 import CustomDrawer from '../components/CustomDrawer';
 import Logo from '../../assets/images/logo.svg';
 import { Icon } from 'react-native-paper';
@@ -63,6 +64,19 @@ const AdminDrawer = () => {
                 }}
             />
            
+
+           <Drawer.Screen
+                name="NotasResumen"
+                component={NotasResumenScreen}
+                options={{
+                    headerTitle: '',
+                    drawerIcon: ({ color }) => (
+                        <Icon source="collage" color={color} size={22} />
+                    ),
+                }}
+            />
+
+
             <Drawer.Screen
                 name="Usuarios"
                 component={UsersScreen}

@@ -70,8 +70,14 @@ export const API_POST_STUDENTS_TO_COURSES = `${base_url}/api/coursestudent/many`
 //Obtener todas los resultados por eva_id y user :  http://192.168.18.3:4100/api/evaluationresults/by-user-evaluation/:userId/:evaluationId 
 export const API_EVALUATIONS_EVAID_USER = `${base_url}/api/evaluationresults/by-user-evaluation`;
 
+//obtener ranking por evaluacion : http://192.168.18.3:4100/api/evaluationresults/by-evaluation/:id-evaluacion
+
+export const API_PREQUIZZ_RESULT = `${base_url}/api/evaluationresults/by-evaluation`;
 
 
+//obtEner resultados de prequizz por curso
+
+export const API_PREQUIZZ_RESULT_BY_COURSE = `${base_url}/api/prequizzresult`;
 
 
 export const API_AUTH_URL = `https://ceec-web-api.onrender.com/api/auth/signin`;

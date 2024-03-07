@@ -1,10 +1,10 @@
 import axios, { AxiosError } from 'axios';
-import { Evaluation , Result , GetResult} from "../interfaces/EvaluationInterface";
-import { API_EVALUATION_MODULEID_URL , API_EVALUATIONS_RESULT_URL , API_EVALUATIONS_EVAID_USER} from "../utils/Endpoints";
+import { PrequizzResult , PrequizzResultCourse} from "../interfaces/PrequizzResultInterface";
+import { API_PREQUIZZ_RESULT , API_PREQUIZZ_RESULT_BY_COURSE} from "../utils/Endpoints";
 
-export const getEvaluationModuleId  = async (module_id: number, userToken: string): Promise<Evaluation[]> => {
+export const getPrequizzCourseId  = async (course_id: number, userToken: string): Promise<PrequizzResultCourse[]> => {
     try {
-      const response = await axios.get(`${API_EVALUATION_MODULEID_URL}/${module_id}`, {
+      const response = await axios.get(`${API_PREQUIZZ_RESULT_BY_COURSE}/${course_id}`, {
         headers: {
           Authorization: userToken,
         },
@@ -19,16 +19,16 @@ export const getEvaluationModuleId  = async (module_id: number, userToken: strin
         }
         throw error; 
       }
-  };
+};
 
-  export const sendQuizResult = async (Result: Result, userToken: string): Promise<void> => {
+export const sendPreQuizResult = async (Result: PrequizzResult, userToken: string): Promise<void> => {
     try {
-      const response = await axios.post(API_EVALUATIONS_RESULT_URL, Result, {
+      const response = await axios.post(API_PREQUIZZ_RESULT , Result, {
         headers: {
           Authorization: userToken,
           'Content-Type': 'application/json',
         },
-      });  
+      }); 
       // Log or handle the response if needed
       console.log('Quiz result sent successfully:', response.data);
     } catch (error) {
@@ -42,9 +42,10 @@ export const getEvaluationModuleId  = async (module_id: number, userToken: strin
     }
   };
 
+  
   export const updateQuizResult = async (resultId: number, totalScore: number, userToken: string): Promise<void> => {
     try {
-      const response = await axios.put(`${API_EVALUATIONS_RESULT_URL}/${resultId}`, { total_score: totalScore }, {
+      const response = await axios.put(`${API_PREQUIZZ_RESULT}/${resultId}`, { puntaje: totalScore }, {
         headers: {
           Authorization: userToken,
           'Content-Type': 'application/json',
@@ -62,23 +63,4 @@ export const getEvaluationModuleId  = async (module_id: number, userToken: strin
       }
       throw error;
     }
-  };
-
-  export const getEvaluationUser  = async (user_id: number,  evaluation_id: number, userToken: string): Promise<GetResult[]> => {
-    try {
-      const response = await axios.get(`${API_EVALUATIONS_EVAID_USER}/${user_id}/${evaluation_id}`, {
-        headers: {
-          Authorization: userToken,
-        },
-      });
-      return response.data;
-    } catch (error) {
-        const axiosError = error as AxiosError; 
-        if (axiosError.response?.status === 403) {
-          console.error('Permission Denied: You do not have access to this resource.');
-        } else {
-          console.error('Error while fetching course data:', error);
-        }
-        throw error; 
-      }
   };

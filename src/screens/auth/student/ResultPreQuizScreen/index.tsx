@@ -83,6 +83,7 @@ const ResultPreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ na
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
