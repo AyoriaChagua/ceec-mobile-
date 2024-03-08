@@ -72,12 +72,15 @@ export const API_EVALUATIONS_EVAID_USER = `${base_url}/api/evaluationresults/by-
 
 //obtener ranking por evaluacion : http://192.168.18.3:4100/api/evaluationresults/by-evaluation/:id-evaluacion
 
-export const API_PREQUIZZ_RESULT = `${base_url}/api/evaluationresults/by-evaluation`;
+export const API_PREQUIZZ_RESULT = `${base_url}/api/evaluationresults`;
 
 
 //obtEner resultados de prequizz por curso
 
 export const API_PREQUIZZ_RESULT_BY_COURSE = `${base_url}/api/prequizzresult`;
+
+
+export const API_PREQUIZZ_RESULT_BY_COURSEANDUSER = `${base_url}/api/prequizzresult/usercourse`;
 
 
 export const API_AUTH_URL = `https://ceec-web-api.onrender.com/api/auth/signin`;

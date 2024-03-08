@@ -1,8 +1,9 @@
 
 export interface PrequizzResult {
-    evaluation_id: number,
+   course_id: number,
     user_id: number,
-    total_score: number;
+    puntaje: number;
+    efectividad : number;
   }
 
   export interface PrequizzResultCourse {
@@ -25,3 +26,24 @@ export interface PrequizzResult {
       }; 
   }
   
+
+  interface User {
+    user_id: number;
+    email: string;
+    password: string;
+    role_id: number;
+    failed_login_attempts: number;
+    last_failed_login: string | null;
+    is_blocked: string | null;
+    created_at: string;
+    updated_at: string;
+  }
+  
+ export  interface PrequizzResultUserCourse {
+    pre_result_id: number;
+    course_id: number;
+    user_id: number;
+    puntaje: string;
+    efectividad: string;
+    User: User;
+  }

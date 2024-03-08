@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
@@ -18,6 +19,9 @@ const ResultPreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ na
       course_id : course_id
     });
   };
+console.log(course_id)
+console.log(tiempo)
+console.log(correctAnswers)
 
   const getMessageAndImage = () => {
     let message = '';
