@@ -44,13 +44,11 @@ export type RootStackParamList = {
     //PreQuiz
     CourseQuiz: undefined;
     PreQuiz: { course_id: number };
-    ResultPreQuiz: { totalQuestions: number, correctAnswers: number ,
+    ResultPreQuiz: {totalScore: number ,  totalQuestions: number, 
      tiempo : number ,effectiveness: number , course_id :number};
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
-
-
 
 const StudentDrawer = () => {
     const { profileInfo, userInfo } = useAuth();

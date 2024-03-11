@@ -4,9 +4,9 @@ import { usePreQuiz } from './usePreQuizLogic';
 import { useAuth } from '../../../../../context/AuthContext';
 import {sendPreQuizResult , updatePreQuizResult , getPrequizzUserCourse} from '../../../../../services/prequizzresult.service';
 
-export const usePreQuizEva = (navigation: NavigationProp<any>, totalScore :number ,calculateEffectiveness: () => number , elapsedTime : number , totalQuestions : number , course_id : number) => {
+export const usePreQuizEva = (navigation: NavigationProp<any>, score :number ,calculateEffectiveness: () => number , elapsedTime : number , totalQuestions : number , course_id : number) => {
   const { userToken, userInfo } = useAuth();
- 
+ console.log("TOTAL_SCORE",score)
   const handleShowResult = async () => {
     try {
       if (userInfo && typeof userInfo !== 'string') {
@@ -18,16 +18,15 @@ export const usePreQuizEva = (navigation: NavigationProp<any>, totalScore :numbe
           // Si existen resultados, actualizar el resultado existente
           const resultId = existingResults[0].pre_result_id;
           console.log(resultId);
-          await updatePreQuizResult(resultId, calculateEffectiveness() , totalScore, userToken || ''); // Use an empty string as a default value
+          await updatePreQuizResult(resultId, score, calculateEffectiveness() ,  userToken || ''); // Use an empty string as a default value
         } else {
-          
-            console.log(totalScore)
+            console.log(score)
             console.log(calculateEffectiveness())
           // Si no existen resultados, enviar un nuevo resultado
           const quizResult = {
             course_id: course_id,
             user_id: user.id,
-            puntaje: totalScore,
+            puntaje: score,
             efectividad : calculateEffectiveness()
           };
 
@@ -40,11 +39,11 @@ export const usePreQuizEva = (navigation: NavigationProp<any>, totalScore :numbe
         }
 
         navigation.navigate('ResultPreQuiz', {
-          totalScore,
-          elapsedTime,
-          course_id,
+          totalScore : score,
+          totalQuestions : totalQuestions , 
+          tiempo  : elapsedTime ,
+          course_id :course_id ,
           effectiveness: calculateEffectiveness(),
-          totalQuestions, 
         });
       } else {
         console.error('User info is null or invalid.');

@@ -8,7 +8,7 @@ type ResultPreQuizScreenRouteProp = RouteProp<RootStackParamList, 'ResultPreQuiz
 
 const ResultPreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<ResultPreQuizScreenRouteProp>();
-  const { totalQuestions, correctAnswers , tiempo , effectiveness , course_id} = route.params;
+  const { totalQuestions, totalScore, tiempo , effectiveness , course_id} = route.params;
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
@@ -19,23 +19,22 @@ const ResultPreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ na
       course_id : course_id
     });
   };
-console.log(course_id)
-console.log(tiempo)
-console.log(correctAnswers)
-
+console.log("CURSO:", course_id)
+console.log("TIEMPO:",tiempo)
+console.log("CORRECT_ASNWERS:",totalScore)
+console.log("CORRECT_ASNWERS:", totalQuestions)
   const getMessageAndImage = () => {
     let message = '';
     let  estrella1 , estrella2 , estrella3 = null;
     const estrella_vacia = 'https://res.cloudinary.com/dk2red18f/image/upload/v1709006874/CEEC/PREQUIZZ/qvch55jhsig6tyyozvsg.png';
     const estrella_llena = 'https://res.cloudinary.com/dk2red18f/image/upload/v1709006907/CEEC/PREQUIZZ/ccgewx1znph4pxibnmaz.png';
-  
 
-    if (correctAnswers < totalQuestions / 2) {
+    if (totalScore < totalQuestions / 2) {
       message = '¡Necesitas repasar la clase!';
       estrella1 = estrella_llena;
       estrella2 = estrella_vacia;
       estrella3 = estrella_vacia;
-    } else if (correctAnswers < totalQuestions) {
+    } else if (totalScore < totalQuestions) {
       message = '¡Nada mal pero puedes mejorar!';
       estrella1 = estrella_llena;
       estrella2 = estrella_llena;
@@ -65,7 +64,7 @@ console.log(correctAnswers)
           source={require('./../../../../../assets/images/prequizz_score/score_prequiz.png')} // Ajusta la ruta de la imagen
           style={styles.emojiImage}
         />
-           <Text style={styles.points}>{correctAnswers} PUNTOS</Text>
+           <Text style={styles.points}>{totalScore} PUNTOS</Text>
         </View>
         <Text style={styles.title}> {message}</Text>
         <View style={styles.circlesContainer}>
@@ -93,7 +92,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-
     backgroundColor: '#FFFFFF'
   },
    points: {

@@ -29,6 +29,8 @@ export const API_EVALUATION_MODULEID_URL = `${base_url}/api/evaluation`;
 
 export const API_EVALUATIONS_RESULT_URL = `${base_url}/api/evaluationresults`;
 
+export const API_EVALUATIONS_PREQUIZZRESULT_URL = `${base_url}/api/prequizzresults`;
+
 //obtener ranking por evaluacion : http://192.168.18.3:4100/api/evaluationresults/by-evaluation/:id-evaluacion
 
 export const API_EVALUATIONS_RANKING_URL = `${base_url}/api/evaluationresults/by-evaluation`;
@@ -39,6 +41,8 @@ export const API_EVALUATIONS_RESULT_EVAID = `${base_url}/api/evaluationresults/b
 export const API_COURSES_WITH_USERS = `${base_url}/api/custom/coursesuser`;
 
 export const API_GET_ALL_USERS = `${base_url}/api/users/all`;
+
+export const API_GET_ALL_STUDENTS = `${base_url}/api/users/students`;
 
 export const API_GET_PROFILE = `${base_url}/api/profiles/alldata`;
 
@@ -72,7 +76,6 @@ export const API_EVALUATIONS_EVAID_USER = `${base_url}/api/evaluationresults/by-
 
 //obtener ranking por evaluacion : http://192.168.18.3:4100/api/evaluationresults/by-evaluation/:id-evaluacion
 
-export const API_PREQUIZZ_RESULT = `${base_url}/api/evaluationresults`;
 
 
 //obtEner resultados de prequizz por curso

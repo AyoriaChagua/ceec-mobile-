@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { Evaluation , Result , GetResult} from "../interfaces/EvaluationInterface";
-import { API_EVALUATION_MODULEID_URL , API_EVALUATIONS_RESULT_URL , API_EVALUATIONS_EVAID_USER} from "../utils/Endpoints";
+import { API_EVALUATION_MODULEID_URL , API_EVALUATIONS_RESULT_URL , API_EVALUATIONS_EVAID_USER, API_EVALUATIONS_PREQUIZZRESULT_URL} from "../utils/Endpoints";
 
 export const getEvaluationModuleId  = async (module_id: number, userToken: string): Promise<Evaluation[]> => {
     try {
@@ -44,7 +44,7 @@ export const getEvaluationModuleId  = async (module_id: number, userToken: strin
 
   export const updateQuizResult = async (resultId: number, totalScore: number, userToken: string): Promise<void> => {
     try {
-      const response = await axios.put(`${API_EVALUATIONS_RESULT_URL}/${resultId}`, { total_score: totalScore }, {
+      const response = await axios.put(`${API_EVALUATIONS_PREQUIZZRESULT_URL}/${resultId}`, { total_score: totalScore }, {
         headers: {
           Authorization: userToken,
           'Content-Type': 'application/json',

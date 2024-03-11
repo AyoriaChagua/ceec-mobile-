@@ -34,7 +34,7 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   
 
-  const { handleShowResult } = usePreQuizEva(navigation , totalScore , calculateEffectiveness, elapsedTime , totalQuestions , course_id);
+  const { handleShowResult } = usePreQuizEva(navigation , score , calculateEffectiveness, elapsedTime , totalQuestions , course_id);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,7 +43,8 @@ const PreQuizScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigati
 
     return () => clearInterval(interval);
   }, []);
-  
+
+  console.log("total_score:",totalScore)
   const renderOptionText = (opt: string) => {
     const words = decodeURIComponent(opt).split(' ');
     return words.length > 2 ? (

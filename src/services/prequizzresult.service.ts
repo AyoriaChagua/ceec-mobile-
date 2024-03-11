@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { PrequizzResult , PrequizzResultCourse , PrequizzResultUserCourse} from "../interfaces/PrequizzResultInterface";
-import { API_PREQUIZZ_RESULT , API_PREQUIZZ_RESULT_BY_COURSE , API_PREQUIZZ_RESULT_BY_COURSEANDUSER} from "../utils/Endpoints";
+import { API_EVALUATIONS_PREQUIZZRESULT_URL , API_PREQUIZZ_RESULT_BY_COURSE , API_PREQUIZZ_RESULT_BY_COURSEANDUSER} from "../utils/Endpoints";
 
 export const getPrequizzCourseId  = async (course_id: number, userToken: string): Promise<PrequizzResultCourse[]> => {
     try {
@@ -23,7 +23,7 @@ export const getPrequizzCourseId  = async (course_id: number, userToken: string)
 
 export const sendPreQuizResult = async (PrequizzResult: PrequizzResult, userToken: string): Promise<void> => {
     try {
-      const response = await axios.post(API_PREQUIZZ_RESULT , PrequizzResult, {
+      const response = await axios.post(API_EVALUATIONS_PREQUIZZRESULT_URL , PrequizzResult, {
         headers: {
           Authorization: userToken,
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export const sendPreQuizResult = async (PrequizzResult: PrequizzResult, userToke
 // Ejemplo de cómo debería ser la función updatePreQuizResult
 export const updatePreQuizResult = async (pre_result_id: number, puntaje: number, efectividad: number, userToken: string): Promise<void> => {
   try {
-    const response = await axios.put(`${API_PREQUIZZ_RESULT}/${pre_result_id}`, { puntaje, efectividad }, {
+    const response = await axios.put(`${API_EVALUATIONS_PREQUIZZRESULT_URL}/${pre_result_id}`, { puntaje, efectividad }, {
       headers: {
         Authorization: userToken,
         'Content-Type': 'application/json',

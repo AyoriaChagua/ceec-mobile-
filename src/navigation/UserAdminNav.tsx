@@ -1,4 +1,4 @@
-import React from 'react';
+    import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DashboardScreen from '../screens/auth/admin/DashboardScreen';
 import NotasResumenScreen from '../screens/auth/adminuser/NotasResumenScreen';
@@ -19,7 +19,7 @@ import ShowProfile from '../screens/auth/profile/ShowProfile';
 import CreateModule from '../screens/auth/admin/CreateModule';
 import StudentsPerCourse from '../screens/auth/admin/StudentsPerCourse';
 import AddStudentsToCourse from '../screens/auth/admin/AddStudentsToCourse';
-
+import ListUser from '../screens/auth/adminuser/ListUser';
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
 
@@ -67,7 +67,7 @@ const AdminDrawer = () => {
 
            <Drawer.Screen
                 name="NotasResumen"
-                component={NotasResumenScreen}
+                component={ListUser}
                 options={{
                     headerTitle: '',
                     drawerIcon: ({ color }) => (
