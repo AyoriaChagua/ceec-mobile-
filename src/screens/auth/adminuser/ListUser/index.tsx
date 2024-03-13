@@ -7,6 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamListAdmin } from '../../../../interfaces/NavigationInterfaces';
 import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import { useUsersData } from './hooks/useStudents';
+
 type Props = {
   readonly navigation: NativeStackNavigationProp<RootStackParamListAdmin, 'Users'>;
 };

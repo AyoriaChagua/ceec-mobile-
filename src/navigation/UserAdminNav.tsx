@@ -67,7 +67,7 @@ const AdminDrawer = () => {
 
            <Drawer.Screen
                 name="NotasResumen"
-                component={ListUser}
+                component={NotasResumenScreen}
                 options={{
                     headerTitle: '',
                     drawerIcon: ({ color }) => (

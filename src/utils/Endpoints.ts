@@ -90,6 +90,8 @@ export const API_AUTH_URL = `https://ceec-web-api.onrender.com/api/auth/signin`;
 
 export const API_SOCKET_URL = `https://ceec-web-api.onrender.com`;
 
+//obtener notas de preguizz por campaña y userid  https://ceec-web-api.onrender.com/api/prequizzresult/notasprequizz/:userId/:campaignid
+export const API_PREQUIZZRESULT_NOTA = `${base_url}/api/prequizzresult/notasprequizz`;
 
 
 

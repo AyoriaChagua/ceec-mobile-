@@ -1,4 +1,5 @@
 export type RootStackParamListAdmin = {
+    DescargaDatos : undefined
     Login: undefined
     NotasResumen: undefined
     Dashboard: undefined

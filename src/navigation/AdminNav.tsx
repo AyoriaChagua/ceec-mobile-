@@ -93,6 +93,16 @@ const AdminDrawer = () => {
                 }}
             />
 
+            <Drawer.Screen
+                name="Perfil"
+                component={!profileInfo ? ProfileScreen : ShowProfile}
+                options={{
+                    headerTitle: '',
+                    drawerIcon: ({ color }) => (
+                        <Icon source="account-circle" color={color} size={22} />
+                    ),
+                }}
+            />
         </Drawer.Navigator>
     )
 };

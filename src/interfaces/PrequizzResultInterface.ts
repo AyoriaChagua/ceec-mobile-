@@ -48,4 +48,40 @@ export interface PrequizzResult {
   }
 
   
+  //
+
+  export interface PrequizzNota{
+    success: boolean;
+    data: CourseData[];
+  }
   
+  export interface CourseData {
+    id: number;
+    course_id: number;
+    user_id: number;
+    progress: number;
+    is_approved: null | boolean;
+    created_at: string;
+    updated_at: string;
+    Course: Course | null;
+  }
+  
+  export interface Course {
+    name: string;
+    preQuizzResultModels: PreQuizzResultModel[];
+    CampaignCourses: CampaignCourse[];
+  }
+  
+  export interface PreQuizzResultModel {
+    pre_result_id: number;
+    puntaje: string;
+    efectividad: string;
+    user_id: number;
+    course_id: number;
+  }
+  
+  export interface CampaignCourse {
+    campaign_course_id: number;
+    campaign_id: number;
+    course_id: number;
+  }
