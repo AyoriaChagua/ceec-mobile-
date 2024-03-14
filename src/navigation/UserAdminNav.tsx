@@ -1,9 +1,10 @@
-    import React from 'react';
+import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DashboardScreen from '../screens/auth/admin/DashboardScreen';
 import NotasResumenScreen from '../screens/auth/adminuser/NotasResumenScreen';
 import CustomDrawer from '../components/CustomDrawer';
-import Logo from '../../assets/images/logo.svg';
+import Logo from '../../assets/images/logo-white.svg';
+
 import { Icon } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import DetailsTest from '../screens/auth/admin/DetailsTest';
@@ -20,6 +21,8 @@ import CreateModule from '../screens/auth/admin/CreateModule';
 import StudentsPerCourse from '../screens/auth/admin/StudentsPerCourse';
 import AddStudentsToCourse from '../screens/auth/admin/AddStudentsToCourse';
 import ListUser from '../screens/auth/adminuser/ListUser';
+import DescargaDatos from '../screens/auth/adminuser/DescargaDatos';
+
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
 
@@ -47,10 +50,12 @@ const AdminDrawer = () => {
                 />
             )}
             screenOptions={{
-                drawerActiveBackgroundColor: '#2B32CE',
+                drawerActiveBackgroundColor: '#3C63FF',
                 drawerActiveTintColor: '#fff',
                 headerTitleStyle: { fontSize: 18 },
+                headerTintColor: 'white',
                 headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                headerStyle: { backgroundColor: '#3C63FF' },
             }}
         >
             <Drawer.Screen
@@ -75,6 +80,18 @@ const AdminDrawer = () => {
                     ),
                 }}
             />
+
+<Drawer.Screen
+                name="DescargaDatos"
+                component={DescargaDatos}
+                options={{
+                    headerTitle: '',
+                    drawerIcon: ({ color }) => (
+                        <Icon source="collage" color={color} size={22} />
+                    ),
+                }}
+            />
+
 
 
             <Drawer.Screen

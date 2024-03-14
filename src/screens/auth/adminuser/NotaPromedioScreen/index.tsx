@@ -1,164 +1,78 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
-import CheckBox from '@react-native-community/checkbox';
+import React, { useCallback, useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { ListItem, Icon as UIIcon } from '@rneui/themed'; // Importa el ListItem y el Icon de la biblioteca @rneui/themed
+import { windowHeight } from '../../../../utils/Dimentions';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamListAdmin } from '../../../../interfaces/NavigationInterfaces';
 
+type Props = {
+  readonly navigation: NativeStackNavigationProp<RootStackParamListAdmin, 'DescargaDatos'>;
+};
 
-const screenWidth = Dimensions.get('window').width;
+export default function DescargaDatos({ navigation }: Props) {
+  const [expandedCampaigns, setExpandedCampaigns] = useState<boolean>(false); // Estado para controlar si las campañas están expandidas o no
 
-const NotasResumen = () => {
-  const [notaspre] = useState([
-    {
-      id: 2,
-      course_id: 2,
-      user_id: 3,
-      progress: 0,
-      is_approved: null,
-      created_at: '2024-01-12T15:00:46.367Z',
-      updated_at: '2024-01-12T15:00:46.367Z',
-      Course: {
-        name: 'La Comunicación',
-        preQuizzResultModels: [
-          {
-            pre_result_id: 1,
-            puntaje: '0',
-            efectividad: '0',
-            user_id: 3,
-            course_id: 2,
-          },
-        ],
-        CampaignCourses: [
-          {
-            campaign_course_id: 3,
-            campaign_id: 2,
-            course_id: 2,
-          },
-        ],
-      },
-    },
-    {
-      id: 7,
-      course_id: 4,
-      user_id: 3,
-      progress: 0,
-      is_approved: null,
-      created_at: '2024-02-26T19:14:13.046Z',
-      updated_at: '2024-02-26T19:14:13.046Z',
-      Course: {
-        name: 'Retenciones',
-        preQuizzResultModels: [
-          {
-            pre_result_id: 7,
-            puntaje: '2',
-            efectividad: '40',
-            user_id: 3,
-            course_id: 4,
-          },
-        ],
-        CampaignCourses: [
-          {
-            campaign_course_id: 2,
-            campaign_id: 2,
-            course_id: 4,
-          },
-        ],
-      },
-    },
-    {
-      id: 1,
-      course_id: 1,
-      user_id: 3,
-      progress: 0,
-      is_approved: null,
-      created_at: '2024-01-12T15:00:46.367Z',
-      updated_at: '2024-01-12T15:00:46.367Z',
-      Course: {
-        name: 'Workforce Management- Best Practice',
-        preQuizzResultModels: [],
-        CampaignCourses: [
-          {
-            campaign_course_id: 4,
-            campaign_id: 2,
-            course_id: 1,
-          },
-        ],
-      },
-    },
-  ]);
-
-  const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
-
-  const handleCheckboxChange = (courseName: string) => {
-    if (selectedCourses.includes(courseName)) {
-      setSelectedCourses(selectedCourses.filter((course) => course !== courseName));
-    } else {
-      setSelectedCourses([...selectedCourses, courseName]);
-    }
-  };
-
-  const chartConfig = {
-    backgroundGradientFrom: '#1E2923',
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: '#fff',
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(128, 0, 255, ${opacity})`,
-    strokeWidth: 2,
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false,
-  };
-
-  const data = {
-    labels: selectedCourses,
-    datasets: [
-      {
-        data: selectedCourses.map((courseName) =>
-          parseFloat(
-            notaspre.find((nota) => nota.Course.name === courseName)?.Course.preQuizzResultModels[0]?.puntaje ?? '0'
-          )
-        ),
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
-        strokeWidth: 2,
-      },
-    ],
-    legend: ['NOTA PREQUIZZ'],
-  };
+  const toggleCampaigns = useCallback(() => {
+    setExpandedCampaigns(!expandedCampaigns);
+  }, [expandedCampaigns]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.checkboxContainer}>
-        {notaspre.map((nota) => (
-          <View key={nota.id} style={styles.checkboxItem}>
-            <CheckBox
-              value={selectedCourses.includes(nota.Course.name)}
-              onValueChange={() => handleCheckboxChange(nota.Course.name)}
-            />
-            <Text>{nota.Course.name}</Text>
+      <ScrollView>
+        <Text style={styles.texto}>Descarga Data General</Text>
+
+        {/* Botón para desplegar las opciones de descarga por campaña */}
+        <TouchableOpacity style={styles.button} onPress={toggleCampaigns}>
+          <Text style={{ color: 'white' }}>Descarga por Campaña</Text>
+        </TouchableOpacity>
+
+        {/* Lista de campañas */}
+        {expandedCampaigns && (
+          <View>
+          
+
+<ListItem  bottomDivider>
+        <ListItem.Content>
+          <ListItem.Title>Contactados</ListItem.Title>
+          <Icon name="book" size={30} color="#4951FF" />
+        </ListItem.Content>
+        <ListItem.Chevron />
+      </ListItem>
+           
           </View>
-        ))}
-      </View>
-      <LineChart data={data} width={screenWidth} height={220} chartConfig={chartConfig} />
+        )}
+
+        <Text style={styles.texto}>Descarga por Curso</Text>
+        {/* Implementa la funcionalidad de descarga por curso aquí */}
+      </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 50,
+    padding: 20,
+    backgroundColor: '#F5F5F5',
   },
-  checkboxContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  texto: {
+    textAlign: 'center',
+    color: '#6885F8',
+    fontSize: 20,
+    width: 250,
+    height: 35,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginHorizontal: 10,
   },
-  checkboxItem: {
-    flexDirection: 'row',
+  button: {
+    backgroundColor: '#6885F8',
+    borderRadius: 10,
+    padding: 10,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 20,
   },
 });
-
-export default NotasResumen;

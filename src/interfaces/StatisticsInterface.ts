@@ -2,7 +2,7 @@ import { DailySession } from "./UserInterfaces";
 
 export interface BasicStatistics {
     totalStudents: number;
-    approvedPercentage: number;
+     approvedPercentage: number;
     inProgressPercentage: number;
     disapprovedPercentage: number;
 }
