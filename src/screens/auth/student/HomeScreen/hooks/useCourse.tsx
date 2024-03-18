@@ -17,7 +17,7 @@ export const useCourse = () => {
           setCourseData(courses);
           
         } catch (error) {
-          // Manejo de errores
+         
         }
       }
     };

@@ -44,7 +44,7 @@ export const getEvaluationModuleId  = async (module_id: number, userToken: strin
 
   export const updateQuizResult = async (resultId: number, totalScore: number, userToken: string): Promise<void> => {
     try {
-      const response = await axios.put(`${API_EVALUATIONS_PREQUIZZRESULT_URL}/${resultId}`, { total_score: totalScore }, {
+        const response = await axios.put(`${API_EVALUATIONS_RESULT_URL}/${resultId}`, { total_score: totalScore }, {
         headers: {
           Authorization: userToken,
           'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ export default function DashboarScreen({ navigation }: Props) {
   const { activeUsers, isLoading: isLoadingUsers, basicStatistics } = useActiveUsers();
   const { isLoading: isLoadingSessions, averages, weekDaysSimplify, goToNextPage, goToPrevPage, weekRange } = useSessionStatistics();
   const { actives, total } = activeUsers;
-  const porcentaje = (actives! / total!) * 100
+  const porcentaje = 0  /*(actives! / total!) * 100/*
 
   if (isLoadingSessions || isLoadingUsers) {
     return <LoadIndicator animating={true} size='large' />
@@ -57,16 +57,24 @@ export default function DashboarScreen({ navigation }: Props) {
           <CardCircularProgress
             title='Estado total'
             leyend={[
-              { text: `${basicStatistics?.approvedPercentage}% aprobados`, color: "#4951FF" },
+              { text: `${10 }% aprobados`, color: "#4951FF" },
+              { text: `${80}% en progreso`, color: "#FFB648" },
+              { text: `${10}% desaprobados`, color: "#DB6868" }
+              /*{ text: `${basicStatistics?.approvedPercentage}% aprobados`, color: "#4951FF" },
               { text: `${basicStatistics?.inProgressPercentage}% en progreso`, color: "#FFB648" },
-              { text: `${basicStatistics?.disapprovedPercentage}% desaprobados`, color: "#DB6868" }
+              { text: `${basicStatistics?.disapprovedPercentage}% desaprobados`, color: "#DB6868" }*/
             ]}
           >
             <CustomProgressChart data={[
-              [basicStatistics!.disapprovedPercentage / 100],
+              [10 /100],
+              [80 /100],
+              [10 /100],
+              /*    [basicStatistics!.disapprovedPercentage / 100],
               [basicStatistics!.inProgressPercentage / 100],
-              [basicStatistics!.approvedPercentage / 100],
+              [basicStatistics!.approvedPercentage / 100], */
             ]} />
+
+
           </CardCircularProgress>
         </View>
       </View>

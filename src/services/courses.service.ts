@@ -52,7 +52,6 @@ export const getCourseInfoById = async (courseId: number, userToken: string): Pr
   }
 };
 
-
 //todos los cursos con los estudiantes inscritos en el ;D
 export const GetCoursesWithUsers = async (): Promise<CoursesWithUser[]> => {
   try {
