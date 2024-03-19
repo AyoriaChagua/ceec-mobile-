@@ -1,6 +1,5 @@
-
 import axios, { AxiosError } from 'axios';
-import { Course, CourseRequest, CourseResponse, CourseWithModules } from "../interfaces/CourseInterfaces";
+import { CampaignCoursesData , Course, CourseRequest, CourseResponse, CourseWithModules } from "../interfaces/CourseInterfaces";
 import {
   API_COURSES_URL,
   API_COURSES_ID_URL,
@@ -13,7 +12,7 @@ import {
 import { CoursesWithModules, CoursesWithUser } from "../interfaces/CoursesInterfaces";
 
 import { StudentInfo } from "../interfaces/UserInterfaces";
-export const getCourseByIdUser = async (userId: number, userToken: string): Promise<Course[]> => {
+export const getCourseByIdUser = async (userId: number, userToken: string): Promise<CampaignCoursesData> => {
   try {
     const response = await axios.get(`${API_COURSES_URL}/${userId}`, {
       headers: {

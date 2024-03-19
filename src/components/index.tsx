@@ -18,7 +18,7 @@ export { default as LegendMark } from './LegendMark';
 
 export { default as Rectangle } from './Rectangle';
 
-
+export { default as CampaignCardAdmin } from './CampaignCardAdmin';
 export { default as ModuleCardAdmin } from './ModuleCardAdmin';
 export { default as FormModule } from './FormModule';
 export { default as FormCourse } from './FormCourse';

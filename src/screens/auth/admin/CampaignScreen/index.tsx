@@ -1,12 +1,13 @@
 import { TouchableOpacity, Text, ScrollView, View } from 'react-native';
 import React from 'react';
 import { styles } from './styles';
-import { CourseCardAdmin, LoadIndicator } from '../../../../components';
-import useCoursesWithModules from './hooks/useCourses';
+import { CampaignCardAdmin, LoadIndicator } from '../../../../components';
+import {useCampaigns }  from './hooks/useCampaigns';
 import { RootStackParamListAdmin } from '../../../../interfaces/NavigationInterfaces';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import { Icon } from 'react-native-paper';
+import { getCurrentDateAsString } from '../../../../utils/Dates';
 
 
 type Props = {
@@ -14,21 +15,8 @@ type Props = {
 };
 
 export default function CoursesScreen({ navigation }: Props) {
-  const { coursesWithModules, loading, error, fetchData } = useCoursesWithModules();
+  const { loading, campaigns } = useCampaigns();
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchData();
-    }, [])
-  );
-
-  if (loading) {
-    return <LoadIndicator animating={true} size='large' />
-  }
-
-  if (error) {
-    return <Text>Error: {error}</Text>;
-  }
 
   const navigateToCreateCourse = () => {
     navigation.dispatch(
@@ -74,15 +62,15 @@ export default function CoursesScreen({ navigation }: Props) {
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView style={styles.container} >
-        {coursesWithModules.map(course => (
-          <CourseCardAdmin
+        {campaigns.map(campaign => (
+          <CampaignCardAdmin
             userCount={9}
-            key={course.course_id}
-            courseId={course.course_id}
-            moduleCount={course.modules.length}
-            courseName={course.name}
-            createdAt={course.created_at}
-            background_color={course.background_color}
+            key={campaign.campaign_id}
+            courseId={campaign.campaign_id}
+            moduleCount={campaign.campaign_id}
+            courseName={campaign.name}
+            createdAt={new Date()}
+            background_color={"4951FF"}
             navigateToCreateModule={navigateToCreateModuleScreen}
             navigateToAddStudents={navigateToAddStudentsScreen}
             navigateToStudentsPerCourse={navigateToStudentsPerCourseScreen}

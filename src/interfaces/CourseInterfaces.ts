@@ -41,6 +41,28 @@ export interface Course {
   };
 }
 
+export interface CampaignCourse {
+  campaign_course_id: number;
+  campaign_id: number;
+  course_id: number;
+  Course: {
+    course_id: number;
+    name: string;
+    description: string;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+    is_finish: boolean;
+    limit_date: null | string;
+    image: string;
+    background_color: string;
+    logo: null | string;
+  };
+}
+
+export interface CampaignCoursesData {
+  campaignCourses: CampaignCourse[];
+}
 export interface ModuleService extends BaseModule {
   course_id: number;
   is_finish: boolean;

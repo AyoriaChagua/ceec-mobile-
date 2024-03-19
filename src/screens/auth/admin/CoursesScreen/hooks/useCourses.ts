@@ -3,6 +3,7 @@ import { GetCoursesWithModules } from '../../../../../services/courses.service';
 import { CoursesWithModules } from '../../../../../interfaces/CoursesInterfaces';
 
 
+
 const useCoursesWithModules = () => {
   const [coursesWithModules, setCoursesWithModules] = useState<CoursesWithModules[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

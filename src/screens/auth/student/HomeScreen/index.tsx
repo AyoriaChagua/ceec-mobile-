@@ -19,9 +19,9 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
   const [searchText, setSearchText] = useState<string>('');
 
   const filterCourses = (text: string) => {
-    return courseData.filter(course => course.name.toLowerCase().includes(text.toLowerCase()));
+    return courseData.campaignCourses.filter(course => course.Course.name.toLowerCase().includes(text.toLowerCase()));
   };
-
+  
   const filteredData = filterCourses(searchText);
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -40,21 +40,21 @@ const HomeScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation 
             filteredData.map((course, index) => (
               <TouchableOpacity
                 key={index}
-                onPress={() => navigation.navigate('Module', { course_id: course.course_id })}
+                onPress={() => navigation.navigate('Module', { course_id: course.Course.course_id })}
               >
                 <Card
                   key={index}
-                  containerStyle={[styles.cardContainer, { backgroundColor: course.background_color }]}
+                  containerStyle={[styles.cardContainer, { backgroundColor: course.Course.background_color }]}
                 >
                   <View style={styles.cardContent}>
                     <View style={styles.imageContainer}>
-                      <Image source={{ uri: course.image }} style={styles.cardImage} />
+                      <Image source={{ uri: course.Course.image }} style={styles.cardImage} />
                     </View>
                     <View style={styles.contentContainer}>
-                      <Text style={textStyles.courseTitle}>{course.name}</Text>
-                      {course.logo ? (
+                      <Text style={textStyles.courseTitle}>{course.Course.name}</Text>
+                      {course.Course.logo  ? (
                       <View style={styles.logoContainer}>
-                      <Image source={{ uri: course.logo }} style={styles.logo} />
+                      <Image source={{ uri: course.Course.logo }} style={styles.logo} />
                     </View>
                         ) : null}
                       </View>

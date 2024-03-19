@@ -18,7 +18,7 @@ import ShowProfile from '../screens/auth/profile/ShowProfile';
 import CreateModule from '../screens/auth/admin/CreateModule';
 import StudentsPerCourse from '../screens/auth/admin/StudentsPerCourse';
 import AddStudentsToCourse from '../screens/auth/admin/AddStudentsToCourse';
-
+import CampaignScreen from '../screens/auth/admin/CampaignScreen';
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
 
@@ -64,7 +64,7 @@ const AdminDrawer = () => {
             />
             <Drawer.Screen
                 name="Cursos"
-                component={CoursesScreen}
+                component={CampaignScreen} /*{CoursesScreen}*/
                 options={{
                     headerTitle: 'Cursos',
                     drawerIcon: ({ color }) => (
