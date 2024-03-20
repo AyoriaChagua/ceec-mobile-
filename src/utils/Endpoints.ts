@@ -86,6 +86,8 @@ export const API_POST_IMAGE = `${base_url}/api/image-service/upload`;
 
 export const API_POST_COURSE = `${base_url}/api/courses/`;
 
+export const API_GET_COURSES = `${base_url}/api/courses`;
+
 export const API_DICTIONARY = `${base_url}/api/dictionaryquizz`;
 
 //Obtener todas los resultados por eva_id y user :  http://192.168.18.3:4100/api/evaluationresults/by-user-evaluation/:userId/:evaluationId 

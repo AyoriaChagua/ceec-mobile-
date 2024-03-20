@@ -63,10 +63,10 @@ const AdminDrawer = () => {
                 }}
             />
             <Drawer.Screen
-                name="Cursos"
+                name="Campaña"
                 component={CampaignScreen} /*{CoursesScreen}*/
                 options={{
-                    headerTitle: 'Cursos',
+                    headerTitle: '',
                     drawerIcon: ({ color }) => (
                         <Icon source="book-open" color={color} size={22} />
                     ),
@@ -111,6 +111,18 @@ const AdminNav = () => (
             options={{
                 headerShown: true,
                 headerLeftLabelVisible: false,
+            }}
+        />
+
+        <Stack.Screen
+            name="Cursos"
+            component={CoursesScreen}
+            
+            options={{
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                title: "",
+                headerLeftLabelVisible: false,
+                headerShown: true
             }}
         />
         <Stack.Screen

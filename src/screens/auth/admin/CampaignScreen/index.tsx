@@ -9,12 +9,11 @@ import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import { Icon } from 'react-native-paper';
 import { getCurrentDateAsString } from '../../../../utils/Dates';
 
-
 type Props = {
   readonly navigation: NativeStackNavigationProp<RootStackParamListAdmin, 'Course'>;
 };
 
-export default function CoursesScreen({ navigation }: Props) {
+export default function CampaignScreen({ navigation }: Props) {
   const { loading, campaigns } = useCampaigns();
 
 
@@ -63,18 +62,20 @@ export default function CoursesScreen({ navigation }: Props) {
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView style={styles.container} >
         {campaigns.map(campaign => (
+          <TouchableOpacity key={campaign.campaign_id}  onPress={() => navigation.navigate('Cursos', { campaign_id: campaign.campaign_id })}>
           <CampaignCardAdmin
             userCount={9}
             key={campaign.campaign_id}
             courseId={campaign.campaign_id}
             moduleCount={campaign.campaign_id}
             courseName={campaign.name}
-            createdAt={new Date()}
+            createdAt={campaign.limit_date}
             background_color={"4951FF"}
             navigateToCreateModule={navigateToCreateModuleScreen}
             navigateToAddStudents={navigateToAddStudentsScreen}
             navigateToStudentsPerCourse={navigateToStudentsPerCourseScreen}
           />
+          </TouchableOpacity>
         ))}
       </ScrollView>
       <TouchableOpacity

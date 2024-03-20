@@ -8,6 +8,20 @@ export interface CourseCardProps {
   modules: Module[];
   namemodulo: string;
 }
+export interface GetCourse {
+  course_id: number;
+  name: string;
+  description: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  is_finish: boolean;
+  limit_date: null | string;
+  image: string;
+  background_color: null | string;
+  logo: null | string;
+}
+
 
 
 export interface CourseWithModules {

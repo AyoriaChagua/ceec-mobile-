@@ -17,6 +17,7 @@ export interface Course {
     image: null | string;
 }
 
+/*
 export interface CoursesWithModules {
 
     background_color: string;
@@ -36,4 +37,30 @@ export interface Module {
     is_active: boolean;
     created_at: Date;
     name: string;
+}*/
+
+export interface Module {
+    is_active: boolean;
+    created_at: Date;
+    name: string;
+}
+
+export interface CampaignCourse {
+    campaign_course_id: number;
+    campaign_id: number;
+    course_id: number;
+    Course: {
+        course_id: number;
+        name: string;
+        description: string;
+        is_active: boolean;
+        created_at: Date;
+        updated_at: string;
+        is_finish: boolean;
+        limit_date: string | null;
+        image: string | null;
+        background_color: string ;
+        logo: string | null;
+        modules: Module[];
+    };
 }

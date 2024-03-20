@@ -1,32 +1,34 @@
 import { useEffect, useState } from 'react';
 import { GetCoursesWithModules } from '../../../../../services/courses.service';
-import { CoursesWithModules } from '../../../../../interfaces/CoursesInterfaces';
-
-
-
-const useCoursesWithModules = () => {
-  const [coursesWithModules, setCoursesWithModules] = useState<CoursesWithModules[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+import { CampaignCourse } from '../../../../../interfaces/CoursesInterfaces';
+import { useAuth } from '../../../../../context/AuthContext';
+const useCoursesWithModules = (campaign_id: number) => {
+  const [coursesWithModules, setCoursesWithModules] = useState<CampaignCourse[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { userToken } = useAuth();
 
+useEffect(() => {
   const fetchData = async () => {
-    try {
-      setLoading(true);
-      const data = await GetCoursesWithModules();
-      setCoursesWithModules(data);
-    } catch (error) {
-      console.error('Error fetching courses with modules:', error);
-      setError('Error fetching courses with modules. Check the console for details.');
-    } finally {
-      setLoading(false);
+    if (userToken) {
+      try {
+        setLoading(true);
+        const data = await GetCoursesWithModules(campaign_id, userToken);
+        setCoursesWithModules(data);
+        console.log(data)
+      } catch (error) {
+        console.error('Error fetching ranking data:', error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  fetchData();
+}, [campaign_id, userToken]);
 
-  return { coursesWithModules, loading, error, fetchData };
+return { coursesWithModules, loading, error };
 };
+
 
 export default useCoursesWithModules;

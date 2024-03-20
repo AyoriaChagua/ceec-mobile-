@@ -22,7 +22,8 @@ import StudentsPerCourse from '../screens/auth/admin/StudentsPerCourse';
 import AddStudentsToCourse from '../screens/auth/admin/AddStudentsToCourse';
 import ListUser from '../screens/auth/adminuser/ListUser';
 import DescargaDatos from '../screens/auth/adminuser/DescargaDatos';
-
+import RankingScreen from '../screens/auth/adminuser/RankingScreen';
+import RankingCourseEvaluation from '../screens/auth/adminuser/RankingCourseEvaluation';
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
 
@@ -73,6 +74,16 @@ const AdminDrawer = () => {
            <Drawer.Screen
                 name="NotasResumen"
                 component={NotasResumenScreen}
+                options={{
+                    headerTitle: '',
+                    drawerIcon: ({ color }) => (
+                        <Icon source="collage" color={color} size={22} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Ranking"
+                component={RankingScreen}
                 options={{
                     headerTitle: '',
                     drawerIcon: ({ color }) => (
@@ -164,6 +175,18 @@ const UserAdminNav = () => (
                 headerLeftLabelVisible: false,
                 headerShown: true
             }}
+        />
+         <Stack.Screen
+            name='RankingCourseEvaluation'
+            component={RankingCourseEvaluation}
+            options={{
+                headerTintColor: 'white',
+                title: "",
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                headerStyle: { backgroundColor: '#3C63FF' },
+                headerLeftLabelVisible: false,
+                headerShown: true
+            }} 
         />
     </Stack.Navigator>
 );

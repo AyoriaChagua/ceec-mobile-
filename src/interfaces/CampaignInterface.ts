@@ -3,7 +3,7 @@ export interface Campaign {
     name: string;
     description: string;
     is_finish: boolean;
-    limit_date: string;
+    limit_date: Date;
     image: string;
   }
   

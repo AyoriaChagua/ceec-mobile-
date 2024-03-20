@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { CampaignCoursesData , Course, CourseRequest, CourseResponse, CourseWithModules } from "../interfaces/CourseInterfaces";
+import {  CampaignCoursesData , Course, GetCourse,CourseRequest, CourseResponse, CourseWithModules } from "../interfaces/CourseInterfaces";
 import {
   API_COURSES_URL,
   API_COURSES_ID_URL,
@@ -7,9 +7,10 @@ import {
   API_COURSES_WITH_USERS,
   API_GET_COURSES_WITH_MODULES,
   API_GET_STUDENTS_INFO,
-  API_GET_COURSES_BY_ID
+  API_GET_COURSES_BY_ID,
+  API_GET_COURSES
 } from "../utils/Endpoints";
-import { CoursesWithModules, CoursesWithUser } from "../interfaces/CoursesInterfaces";
+import {  CampaignCourse,CoursesWithUser } from "../interfaces/CoursesInterfaces";
 
 import { StudentInfo } from "../interfaces/UserInterfaces";
 export const getCourseByIdUser = async (userId: number, userToken: string): Promise<CampaignCoursesData> => {
@@ -35,6 +36,25 @@ export const getCourseByIdUser = async (userId: number, userToken: string): Prom
 export const getCourseInfoById = async (courseId: number, userToken: string): Promise<Course | null> => {
   try {
     const response = await axios.get(`${API_COURSES_ID_URL}/${courseId}`, {
+      headers: {
+        Authorization: userToken,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status === 403) {
+      console.error('Permission Denied: You do not have access to this resource.');
+    } else {
+      console.error('Error while fetching course data:', error);
+    }
+    throw error;
+  }
+};
+
+export const getCourses = async ( userToken: string): Promise<GetCourse[]> => {
+  try {
+    const response = await axios.get(`${API_GET_COURSES}`, {
       headers: {
         Authorization: userToken,
       },
@@ -82,19 +102,29 @@ export const GetAllStudentInfo = async (): Promise<StudentInfo[]> => {
   }
 }
 
-export const GetCoursesWithModules = async (): Promise<CoursesWithModules[]> => {
+export const GetCoursesWithModules = async (campaign_id :number, userToken: string): Promise<CampaignCourse[]> => {
   try {
-    const configObject = {
-      method: 'GET',
-      url: API_GET_COURSES_WITH_MODULES
-    }
-    const coursesWithModules = await axios<CoursesWithModules[]>(configObject);
-    return coursesWithModules.data;
+    const response = await axios.get(`${API_GET_COURSES_WITH_MODULES}/${campaign_id}`, {
+      headers: {
+        Authorization: userToken,
+      },
+    });
+    return response.data;
   } catch (error) {
-    console.error(error, 'customer service');
-    throw error
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status === 403) {
+      console.error('Permission Denied: You do not have access to this resource.');
+    } else {
+      console.error('Error while fetching course data:', error);
+    }
+    throw error;
   }
 }
+
+
+
+
+
 
 //
 export const GetCourseWithModules = async (id: number): Promise<CourseWithModules | null> => {

@@ -1,6 +1,7 @@
 import { TouchableOpacity, Text, ScrollView, View } from 'react-native';
 import React from 'react';
 import { styles } from './styles';
+import { useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { CourseCardAdmin, LoadIndicator } from '../../../../components';
 import useCoursesWithModules from './hooks/useCourses';
 import { RootStackParamListAdmin } from '../../../../interfaces/NavigationInterfaces';
@@ -9,19 +10,15 @@ import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import { Icon } from 'react-native-paper';
 
 
-type Props = {
-  readonly navigation: NativeStackNavigationProp<RootStackParamListAdmin, 'Course'>;
-};
 
-export default function CoursesScreen({ navigation }: Props) {
-  const { coursesWithModules, loading, error, fetchData } = useCoursesWithModules();
+type CursosScreenRouteProp = RouteProp<RootStackParamListAdmin, 'Cursos'>;
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchData();
-    }, [])
-  );
+const CoursesScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
+  const route = useRoute<CursosScreenRouteProp>();
+  const { params } = route;
+  const { coursesWithModules, loading, error } = useCoursesWithModules(params.campaign_id);
 
+  
   if (loading) {
     return <LoadIndicator animating={true} size='large' />
   }
@@ -77,12 +74,12 @@ export default function CoursesScreen({ navigation }: Props) {
         {coursesWithModules.map(course => (
           <CourseCardAdmin
             userCount={9}
-            key={course.course_id}
-            courseId={course.course_id}
-            moduleCount={course.modules.length}
-            courseName={course.name}
-            createdAt={course.created_at}
-            background_color={course.background_color}
+            key={course.Course.course_id}
+            courseId={course.Course.course_id}
+            moduleCount={course.Course.modules.length}
+            courseName={course.Course.name}
+            createdAt={course.Course.created_at}
+            background_color={course.Course.background_color}
             navigateToCreateModule={navigateToCreateModuleScreen}
             navigateToAddStudents={navigateToAddStudentsScreen}
             navigateToStudentsPerCourse={navigateToStudentsPerCourseScreen}
@@ -97,3 +94,5 @@ export default function CoursesScreen({ navigation }: Props) {
     </View>
   )
 }
+
+export default CoursesScreen;

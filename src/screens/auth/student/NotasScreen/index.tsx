@@ -10,11 +10,11 @@ const NotasScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation
     
   return (
     <ScrollView style={styles.container}>
-      {courseData.length > 0 ? (
-        courseData.map((course, index) => (
+      {courseData.campaignCourses.length > 0 ? (
+        courseData.campaignCourses.map((course, index) => (
           <TouchableOpacity
             key={index}
-            onPress={() => navigation.navigate('DetailNotas', { course_id: course.course_id })}
+            onPress={() => navigation.navigate('DetailNotas', { course_id: course.Course.course_id })}
           >
             <Card
               key={index}
@@ -27,14 +27,14 @@ const NotasScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigation
             >
               <Card.Divider />
               <View style={styles.titleContainer}>
-              <Text style={styles.title}>{course.name}</Text>
+              <Text style={styles.title}>{course.Course.name}</Text>
 
               {/* Agregar el Text para mostrar el estado del curso */}
               
             </View>
 
             <Text style={styles.estadoCurso}>
-                Estado de Curso: {course.is_finish ? 'Completado' : 'Pendiente'}
+                Estado de Curso: {course.Course.is_finish ? 'Completado' : 'Pendiente'}
               </Text>
             <Icon name="arrow-right" size={60} color="#4951FF" style={styles.icon} />
           </Card>

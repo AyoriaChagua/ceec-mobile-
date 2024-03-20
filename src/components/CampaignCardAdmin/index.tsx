@@ -1,7 +1,6 @@
 import { Text, View } from 'react-native';
 import { styles } from './styles';
 import CustomButtonGroup from '../CustomButtonGroup';
-
 interface Props {
     readonly moduleCount: number;
     readonly courseName: string;
@@ -13,7 +12,6 @@ interface Props {
     readonly navigateToAddStudents: (courseId: number) => void
     readonly navigateToStudentsPerCourse: (courseId: number) => void
 }
-
 export default function CampaignCardAdmin({ moduleCount, courseName, createdAt, userCount, courseId, navigateToCreateModule, navigateToAddStudents, navigateToStudentsPerCourse, background_color }: Props) {
     const dateObject = new Date(createdAt);
 
