@@ -7,27 +7,32 @@ import { RootStackParamListAdmin } from '../../../../interfaces/NavigationInterf
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import { Card, Icon } from '@rneui/themed';
+import {useRankingCourse} from './hooks/useRankingCourse';
 
-type RankingCourseRouteProp = RouteProp<RootStackParamListAdmin, 'Ranking'>;
+type RankingCourseRouteProp = RouteProp<RootStackParamListAdmin, 'RankingCourseEvaluation'>;
 
 const RankingCourseEvaluation : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
-    const cursos = ['cursos1', 'curso2', 'curso3'];
-    const [selectedCourse, setSelectedCourse] = useState('');
     const [dropdownVisible, setDropdownVisible] = useState(false);
-  
+    const route = useRoute<RankingCourseRouteProp>();
+    const { params } = route;
+    const { usersevaluations } = useRankingCourse(params.course_id);
     return (
-      <View style={{ flex: 1, backgroundColor: "#fff" }} >
-        <ScrollView  >
-          <View style={{ flexDirection: 'row', margin: 10, padding: 10, backgroundColor: '#ddd', borderRadius: 10 }}>
-            <Image source={{ uri: 'https://res.cloudinary.com/dhfsbbos3/image/upload/v1708704757/cld-sample-4.jpg' }} style={{ width: 100, height: 100, borderRadius: 10 }} />
-            <View style={{ marginLeft: 10 }}>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Angela Maria</Text>
-              <Text style={{ fontSize: 16 }}>18 puntos</Text>
+      <View style={styles.container}>
+        <ScrollView>
+          {usersevaluations.map((userEval, index) => (
+            <View key={index} style={styles.cardContainer}>
+              <Image source={{ uri: userEval.User?.Profile?.profile_picture  || "https://res.cloudinary.com/dhfsbbos3/image/upload/v1711056243/CEEC/mvnegfqtwbqkjxtidtmx.png"  }} style={styles.profileImage} />
+              <View style={styles.userDetails}>
+                <Text style={styles.userName}>{userEval.User?.Profile?.first_name || "Usuario" }  {userEval.User?.Profile?.last_name}</Text>
+                <Text>{userEval.User?.email} </Text>
+                <Text style={styles.score}>{userEval.average_score} puntos</Text>
+                <Text style={{ fontSize: 16, color: userEval.status === 'Desaprobado' ? 'red' : userEval.status === 'Aprobado' ? 'green' : 'blue' }}>{userEval.status}</Text>
+              </View>
             </View>
-          </View>
+          ))}
         </ScrollView>
       </View>
-    )
-}
+    );
+  }
 
 export default RankingCourseEvaluation;

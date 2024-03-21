@@ -19,6 +19,26 @@ const RankingScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
     return (
       <View style={{ flex: 1, backgroundColor: "#fff" }} >
         <ScrollView  >
+
+        <View style={styles.container} >
+          <View style={{ padding: 10, width:200, margin: 10, borderRadius: 5 }}>
+            <Text style={{ color: "#4951FF",fontSize: 20, fontWeight: 'bold' }}>Campaña</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor:  "#FAFAFF" }}>
+              {!dropdownVisible && <Text style={{ color: "#4951FF"}}>{selectedCourse}</Text>}
+              <TouchableOpacity onPress={() => setDropdownVisible(!dropdownVisible)}>
+                <Icon name="chevron-down" type='font-awesome' size={24} color={"#4951FF"}  />
+              </TouchableOpacity>
+            </View>
+            {dropdownVisible && courses.map((curso, index) => (
+              <TouchableOpacity key={index} onPress={() => { setSelectedCourse(curso.name); setDropdownVisible(false); navigation.navigate('RankingCourseEvaluation', { course_id: curso.course_id }); }}>
+                <Text style={{ fontSize: 18, marginTop: 10 , color:"#4951FF"}}>{curso.name   }</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          </View>
+
+
+
             <View style={styles.container} >
           <View style={{ padding: 10, width:200, margin: 10, borderRadius: 5 }}>
             <Text style={{ color: "#4951FF",fontSize: 20, fontWeight: 'bold' }}>Cursos</Text>
@@ -29,12 +49,14 @@ const RankingScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
               </TouchableOpacity>
             </View>
             {dropdownVisible && courses.map((curso, index) => (
-              <TouchableOpacity key={index} onPress={() => { setSelectedCourse(curso.name); setDropdownVisible(false); navigation.navigate('RankingCourseEvaluation', { course: curso.course_id }); }}>
+              <TouchableOpacity key={index} onPress={() => { setSelectedCourse(curso.name); setDropdownVisible(false); navigation.navigate('RankingCourseEvaluation', { course_id: curso.course_id }); }}>
                 <Text style={{ fontSize: 18, marginTop: 10 , color:"#4951FF"}}>{curso.name   }</Text>
               </TouchableOpacity>
             ))}
           </View>
           </View>
+
+        
         </ScrollView>
       </View>
     )

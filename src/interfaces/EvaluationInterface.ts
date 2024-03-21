@@ -120,3 +120,4 @@ export interface Result {
   user_id: number,
   total_score: number;
 }
+
