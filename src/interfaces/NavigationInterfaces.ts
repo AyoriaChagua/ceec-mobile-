@@ -1,4 +1,5 @@
 export type RootStackParamListAdmin = {
+    Usabilidad : undefined
     RankingCourseEvaluation:{ course_id: number }
     Ranking: undefined
     DescargaDatos : undefined

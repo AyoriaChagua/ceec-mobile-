@@ -8,16 +8,14 @@ import { useActiveUsers } from './hooks/useBasicStatistics';
 import { useSessionStatistics } from './hooks/useTimeDedicated';
 import CustomCircularProgress from '../../../../components/CustomCircularProgress';
 
-
 type Props = {
   readonly navigation: NativeStackNavigationProp<RootStackParamListAdmin, 'Details'>;
 };
 
-
 export default function DashboarScreen({ navigation }: Props) {
-  const { activeUsers, isLoading: isLoadingUsers, basicStatistics } = useActiveUsers();
+ /* const { activeUsers, isLoading: isLoadingUsers, basicStatistics } = useActiveUsers();*/
   const { isLoading: isLoadingSessions, averages, weekDaysSimplify, goToNextPage, goToPrevPage, weekRange } = useSessionStatistics();
-  const { actives, total } = activeUsers;
+ /* const { actives } = activeUsers;*/
   const porcentaje = 0  /*(actives! / total!) * 100/*
 
   if (isLoadingSessions || isLoadingUsers) {
@@ -34,11 +32,12 @@ export default function DashboarScreen({ navigation }: Props) {
       })
     );
   };**/
-
+const total= 6;
+const actives=0;
   return (
     <ScrollView style={styles.container}>
       <View style={styles.container}>
-        <HeaderDashboard nStudents={total!} />
+        <HeaderDashboard nStudents={total} />
       </View>
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', gap: 10 }}>

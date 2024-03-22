@@ -80,6 +80,8 @@ export const API_POST_STUDENTS_TO_COURSES = `${base_url}/api/coursestudent/many`
 
 export const API_RANKING_STUDENTS_EVALUATION = `${base_url}/api/ranking`
 
+export const API_RANKING_EXCEL_COURSE = `${base_url}/api/ranking/excel`
+
 export const API_POST_IMAGE = `${base_url}/api/image-service/upload`;
 
 export const API_POST_COURSE = `${base_url}/api/courses/`;

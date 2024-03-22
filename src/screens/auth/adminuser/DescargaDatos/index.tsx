@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Asegúrate de importar la biblioteca de íconos correcta
 
-
+//import {getRankingExcelCourse} from '../../../../services/ranking.service';
+import { useAuth } from '../../../../context/AuthContext';
 import { CardStudent, CustomButton, CustomSearcher, LoadIndicator } from '../../../../components'
 import { windowHeight } from '../../../../utils/Dimentions'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -13,8 +14,6 @@ import { ListItem} from '@rneui/themed'; // Import ListItem and Icon from your U
 type Props = {
   readonly navigation: NativeStackNavigationProp<RootStackParamListAdmin, 'DescargaDatos'>;
 };
-
-
 
 export default function DescargaDatos({ navigation }: Props) {
   const url = ''; // URL del archivo que quieres descargar
@@ -29,20 +28,32 @@ export default function DescargaDatos({ navigation }: Props) {
     { name: "Workforce-Managment", campaignId: 1, icon: "file-text-o" }
   ];
 
+  
   const [expanded, setExpanded] = useState(false); 
   const [expanded2, setExpanded2] = useState(false); 
+  const {  userToken } = useAuth();
+
   return (
     <View style={styles.container}>
        <ScrollView>
       <View style={styles.row}>
         <Text style={styles.texto}>Descarga Data General</Text>
-        <TouchableOpacity style={styles.button} onPress={(
+        <TouchableOpacity style={styles.button} onPress={async () => { 
+    const courseId = 1; 
+/*
+    if (typeof  'string' && userToken) {
+      try {
+    await getRankingExcelCourse(courseId, userToken);
+  } catch (error) {
+    console.error('Error fetching module notas:', error);
+    // Manejo de errores
+  }
 
+}*/
 
-
-        ) => { /* Aquí va tu función de descarga */ }}>
-          <Icon name="download" size={30} color="#fff" />
-        </TouchableOpacity>
+}}>
+    <Icon name="download" size={30} color="#fff" />
+</TouchableOpacity>
       </View>
       <View style={styles.row2}>
        

@@ -24,6 +24,7 @@ import ListUser from '../screens/auth/adminuser/ListUser';
 import DescargaDatos from '../screens/auth/adminuser/DescargaDatos';
 import RankingScreen from '../screens/auth/adminuser/RankingScreen';
 import RankingCourseEvaluation from '../screens/auth/adminuser/RankingCourseEvaluation';
+import UsabilidadScreen from '../screens/auth/adminuser/UsabilidadScreen';
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
 
@@ -84,6 +85,17 @@ const AdminDrawer = () => {
             <Drawer.Screen
                 name="Ranking"
                 component={RankingScreen}
+                options={{
+                    headerTitle: '',
+                    drawerIcon: ({ color }) => (
+                        <Icon source="collage" color={color} size={22} />
+                    ),
+                }}
+            />
+
+        <Drawer.Screen
+                name="Usabilidad"
+                component={UsabilidadScreen}
                 options={{
                     headerTitle: '',
                     drawerIcon: ({ color }) => (
@@ -188,6 +200,7 @@ const UserAdminNav = () => (
                 headerShown: true
             }} 
         />
+
     </Stack.Navigator>
 );
 

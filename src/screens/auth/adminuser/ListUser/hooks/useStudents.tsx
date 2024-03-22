@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { UserWithRole } from "../../../../../interfaces/StudentInterfaces";
 import { GetAllStudents } from "../../../../../services/student.service";
 import { useAuth } from "../../../../../context/AuthContext";
-
 export const useUsersData = () => {
     const [users, setUsers] = useState<UserWithRole[]>([]);
     const [searchedText, setSearchedText] = useState("");
@@ -30,7 +29,7 @@ export const useUsersData = () => {
         const filtered = users.filter(student => {
             const lowerCaseQuery = searchedText.toLowerCase();
             return (
-
+                
                 (student.Profile?.first_name!.toLowerCase().includes(lowerCaseQuery) ??
                     student.Profile?.last_name!.toLowerCase().includes(lowerCaseQuery)
                 ) ?? student.email.toLowerCase().includes(lowerCaseQuery)

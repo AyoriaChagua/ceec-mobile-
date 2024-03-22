@@ -11,45 +11,44 @@ import {useCourse} from './hooks/useCourse';
 type CursosScreenRouteProp = RouteProp<RootStackParamListAdmin, 'Ranking'>;
 
 const RankingScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
-    const route = useRoute<CursosScreenRouteProp>();
-
-    const [selectedCourse, setSelectedCourse] = useState('');
-    const [dropdownVisible, setDropdownVisible] = useState(false);
-    const { courses } = useCourse();
+  const route = useRoute<CursosScreenRouteProp>();
+  const campaigns = ["Blindaje Prepago", "Contactados"]
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedCampaign, setSelectedCampaign] = useState('');
+  const [dropdownVisibleCourse, setDropdownVisibleCourse] = useState(false);
+  const [dropdownVisibleCampaign, setDropdownVisibleCampaign] = useState(false);
+  const { courses } = useCourse();
     return (
-      <View style={{ flex: 1, backgroundColor: "#fff" }} >
-        <ScrollView  >
-
-        <View style={styles.container} >
-          <View style={{ padding: 10, width:200, margin: 10, borderRadius: 5 }}>
-            <Text style={{ color: "#4951FF",fontSize: 20, fontWeight: 'bold' }}>Campaña</Text>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor:  "#FAFAFF" }}>
-              {!dropdownVisible && <Text style={{ color: "#4951FF"}}>{selectedCourse}</Text>}
-              <TouchableOpacity onPress={() => setDropdownVisible(!dropdownVisible)}>
-                <Icon name="chevron-down" type='font-awesome' size={24} color={"#4951FF"}  />
-              </TouchableOpacity>
+      <View style={{ flex: 1, backgroundColor: "#fff" }}>
+        <ScrollView>
+          <View style={styles.container}>
+            <View style={{ padding: 10, width:200, margin: 10, borderRadius: 5 }}>
+              <Text style={{ color: "#4951FF",fontSize: 20, fontWeight: 'bold' }}>Campaña</Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor:  "#FAFAFF" }}>
+                {!dropdownVisibleCampaign && <Text style={{ color: "#4951FF"}}>{selectedCampaign}</Text>}
+                <TouchableOpacity onPress={() => setDropdownVisibleCampaign(!dropdownVisibleCampaign)}>
+                  <Icon name="chevron-down" type='font-awesome' size={24} color={"#4951FF"}  />
+                </TouchableOpacity>
+              </View>
+              {dropdownVisibleCampaign && campaigns.map((campaign, index) => (
+                <TouchableOpacity key={index} onPress={() => { setSelectedCampaign(campaign); setDropdownVisibleCampaign(false); ; navigation.navigate('RankingCourseEvaluation', { course_id: 2 });}}>
+                  <Text style={{ fontSize: 18, marginTop: 10 , color:"#4951FF"}}>{campaign}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
-            {dropdownVisible && courses.map((curso, index) => (
-              <TouchableOpacity key={index} onPress={() => { setSelectedCourse(curso.name); setDropdownVisible(false); navigation.navigate('RankingCourseEvaluation', { course_id: curso.course_id }); }}>
-                <Text style={{ fontSize: 18, marginTop: 10 , color:"#4951FF"}}>{curso.name   }</Text>
-              </TouchableOpacity>
-            ))}
           </View>
-          </View>
-
-
 
             <View style={styles.container} >
           <View style={{ padding: 10, width:200, margin: 10, borderRadius: 5 }}>
             <Text style={{ color: "#4951FF",fontSize: 20, fontWeight: 'bold' }}>Cursos</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor:  "#FAFAFF" }}>
-              {!dropdownVisible && <Text style={{ color: "#4951FF"}}>{selectedCourse}</Text>}
-              <TouchableOpacity onPress={() => setDropdownVisible(!dropdownVisible)}>
+              {!dropdownVisibleCourse && <Text style={{ color: "#4951FF"}}>{selectedCourse}</Text>}
+              <TouchableOpacity onPress={() => setDropdownVisibleCourse(!dropdownVisibleCourse)}>
                 <Icon name="chevron-down" type='font-awesome' size={24} color={"#4951FF"}  />
               </TouchableOpacity>
             </View>
-            {dropdownVisible && courses.map((curso, index) => (
-              <TouchableOpacity key={index} onPress={() => { setSelectedCourse(curso.name); setDropdownVisible(false); navigation.navigate('RankingCourseEvaluation', { course_id: curso.course_id }); }}>
+            {dropdownVisibleCourse && courses.map((curso, index) => (
+              <TouchableOpacity key={index} onPress={() => { setSelectedCourse(curso.name); setDropdownVisibleCourse(false); navigation.navigate('RankingCourseEvaluation', { course_id: curso.course_id }); }}>
                 <Text style={{ fontSize: 18, marginTop: 10 , color:"#4951FF"}}>{curso.name   }</Text>
               </TouchableOpacity>
             ))}
