@@ -25,6 +25,7 @@ import DescargaDatos from '../screens/auth/adminuser/DescargaDatos';
 import RankingScreen from '../screens/auth/adminuser/RankingScreen';
 import RankingCourseEvaluation from '../screens/auth/adminuser/RankingCourseEvaluation';
 import UsabilidadScreen from '../screens/auth/adminuser/UsabilidadScreen';
+import RankingCampaign from '../screens/auth/adminuser/RankingCampaign';
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
 
@@ -191,6 +192,18 @@ const UserAdminNav = () => (
          <Stack.Screen
             name='RankingCourseEvaluation'
             component={RankingCourseEvaluation}
+            options={{
+                headerTintColor: 'white',
+                title: "",
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                headerStyle: { backgroundColor: '#3C63FF' },
+                headerLeftLabelVisible: false,
+                headerShown: true
+            }} 
+        />
+         <Stack.Screen
+            name='RankingCampaign'
+            component={RankingCampaign}
             options={{
                 headerTintColor: 'white',
                 title: "",

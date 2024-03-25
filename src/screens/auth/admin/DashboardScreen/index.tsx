@@ -42,7 +42,7 @@ const actives=0;
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <CardCircularProgress
-            title='Tasa de inicio'
+            title='Tasa de Conectividad'
             leyend={[
               { text: `${actives!} activos`, color: "#4951FF" },
               { text: `${total! - actives!} inactivos`, color: "#616161" }

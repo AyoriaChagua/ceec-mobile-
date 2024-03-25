@@ -32,7 +32,7 @@ const RankingScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
                 </TouchableOpacity>
               </View>
               {dropdownVisibleCampaign && campaigns.map((campaign, index) => (
-                <TouchableOpacity key={index} onPress={() => { setSelectedCampaign(campaign.name); setDropdownVisibleCampaign(false); ; navigation.navigate('RankingCourseEvaluation', { course_id: 2 });}}>
+                <TouchableOpacity key={index} onPress={() => { setSelectedCampaign(campaign.name); setDropdownVisibleCampaign(false); ; navigation.navigate('RankingCampaign', { campaign_id: 2 });}}>
                   <Text style={{ fontSize: 18, marginTop: 10 , color:"#4951FF"}}>{campaign.name}</Text>
                 </TouchableOpacity>
               ))}

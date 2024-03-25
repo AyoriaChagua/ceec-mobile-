@@ -26,7 +26,7 @@ const RankingCourseEvaluation: React.FC<{ navigation: NavigationProp<any> }> = (
                         <View style={styles.userDetails}>
                             <Text style={styles.userName}>{userEval.User?.Profile?.first_name || "Usuario"}  {userEval.User?.Profile?.last_name}</Text>
                             <Text>{userEval.User?.email} </Text>
-                            <Text style={styles.score}>{userEval.average_score} puntos</Text>
+                            <Text style={styles.score}>{userEval.average_score} puntos / 20 puntos</Text>
                             <Text style={{ fontSize: 16, color: userEval.status === 'Desaprobado' ? 'red' : userEval.status === 'Aprobado' ? 'green' : 'blue' }}>{userEval.status}</Text>
                             <View style={styles.userDetails2}>
                             <TouchableOpacity onPress={() => setShowInfo(!showInfo)}>
@@ -38,10 +38,9 @@ const RankingCourseEvaluation: React.FC<{ navigation: NavigationProp<any> }> = (
                                     <Text style={styles.text2}>------------------------------------------</Text>
                                     {userEval.evaluations.map((evaluation, evalIndex) => (
                                         <View key={evalIndex}>
-                                           
                                             <Text>Módulo: {evaluation.Evaluation.Module.name}</Text>
                                             <Text>Nombre de la evaluación: {evaluation.Evaluation.name}</Text>
-                                            <Text>Puntuación total: {evaluation.total_score}</Text>
+                                            <Text>Puntuación total: {evaluation.total_score} / 20 </Text>
                                             <Text>Finalizado: {evaluation.realize_exam ? 'Sí' : 'No'}</Text>
                                             <Text style={styles.text2}>------------------------------------------</Text>
                                         </View>

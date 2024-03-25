@@ -23,17 +23,18 @@ const ModuleScreen: React.FC<{ navigation: NavigationProp<any> }> = ({ navigatio
 
   const content_list: Module[] = [
     {
-      numbertype: 1,
-      module_id: selectedModule || 0, // Si selectedModule es null, asigna 0
-      contentName: "Diccionario",
-      icon: <Icon name="article" size={30} color="#4951FF" />,
-    },
-    {
       numbertype: 2,
       module_id: selectedModule || 0,
       contentName: "Material de clase",
       icon: <Icon name="movie" size={30} color="#4951FF" />,
     },
+    {
+      numbertype: 1,
+      module_id: selectedModule || 0, // Si selectedModule es null, asigna 0
+      contentName: "Diccionario",
+      icon: <Icon name="article" size={30} color="#4951FF" />,
+    },
+    
     {
       numbertype: 3,
       module_id: selectedModule || 0,
