@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { RankingEva } from "../interfaces/EvaluationInterface";
 import { API_EVALUATIONS_RANKING_URL , API_RANKING_STUDENTS_EVALUATION , API_RANKING_EXCEL_COURSE} from "../utils/Endpoints";
 import {UserEvaluation} from "../interfaces/RankingInterface";
-//import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system';
 export const getRankingEvaluation  = async (evaluationId: number, userToken: string): Promise<RankingEva[]> => {
     try {
       const response = await axios.get(`${API_EVALUATIONS_RANKING_URL}/${evaluationId}`, {
@@ -44,7 +44,7 @@ export const getRankingEvaluation  = async (evaluationId: number, userToken: str
 
   
 
-/*
+
 export const getRankingExcelCourse = async (course_id: number, userToken: string) => {
   try {
     const response = await axios.get(`${API_RANKING_EXCEL_COURSE}/${course_id}`, {
@@ -67,4 +67,4 @@ export const getRankingExcelCourse = async (course_id: number, userToken: string
     }
     throw error; 
   }
-};*/
+};

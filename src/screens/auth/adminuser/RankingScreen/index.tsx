@@ -8,16 +8,17 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import { Card, Icon } from '@rneui/themed';
 import {useCourse} from './hooks/useCourse';
+import {useCampaigns} from './../../admin/CampaignScreen/hooks/useCampaigns';
 type CursosScreenRouteProp = RouteProp<RootStackParamListAdmin, 'Ranking'>;
 
 const RankingScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigation }) => {
   const route = useRoute<CursosScreenRouteProp>();
-  const campaigns = ["Blindaje Prepago", "Contactados"]
   const [selectedCourse, setSelectedCourse] = useState('');
   const [selectedCampaign, setSelectedCampaign] = useState('');
   const [dropdownVisibleCourse, setDropdownVisibleCourse] = useState(false);
   const [dropdownVisibleCampaign, setDropdownVisibleCampaign] = useState(false);
   const { courses } = useCourse();
+  const { campaigns } = useCampaigns();
     return (
       <View style={{ flex: 1, backgroundColor: "#fff" }}>
         <ScrollView>
@@ -31,8 +32,8 @@ const RankingScreen : React.FC<{ navigation: NavigationProp<any> }> = ({ navigat
                 </TouchableOpacity>
               </View>
               {dropdownVisibleCampaign && campaigns.map((campaign, index) => (
-                <TouchableOpacity key={index} onPress={() => { setSelectedCampaign(campaign); setDropdownVisibleCampaign(false); ; navigation.navigate('RankingCourseEvaluation', { course_id: 2 });}}>
-                  <Text style={{ fontSize: 18, marginTop: 10 , color:"#4951FF"}}>{campaign}</Text>
+                <TouchableOpacity key={index} onPress={() => { setSelectedCampaign(campaign.name); setDropdownVisibleCampaign(false); ; navigation.navigate('RankingCourseEvaluation', { course_id: 2 });}}>
+                  <Text style={{ fontSize: 18, marginTop: 10 , color:"#4951FF"}}>{campaign.name}</Text>
                 </TouchableOpacity>
               ))}
             </View>

@@ -1,6 +1,6 @@
 
 //const base_url = `https://ceec-web-api.onrender.com/api`;
-const base_url = `http://192.168.170.52:4100`;
+const base_url = `http://192.168.18.3:4100`;
 //const base_url = `http://192.168.0.11:4100`;
 
 
@@ -105,9 +105,9 @@ export const API_PREQUIZZ_RESULT_BY_COURSE = `${base_url}/api/prequizzresult`;
 export const API_PREQUIZZ_RESULT_BY_COURSEANDUSER = `${base_url}/api/prequizzresult/usercourse`;
 
 
-export const API_AUTH_URL = `http://192.168.170.52:4100/api/auth/signin`; /*`https://ceec-web-api.onrender.com/api/auth/signin`;*/ 
+export const API_AUTH_URL = `http://192.168.18.3:4100/api/auth/signin`; /*`https://ceec-web-api.onrender.com/api/auth/signin`;*/ 
 
-export const API_SOCKET_URL = `http://192.168.170.52:4100`; /*`https://ceec-web-api.onrender.com`;*/ 
+export const API_SOCKET_URL = `http://192.168.18.3:4100`; /*`https://ceec-web-api.onrender.com`;*/ 
 
 //obtener notas de preguizz por campaña y userid  https://ceec-web-api.onrender.com/api/prequizzresult/notasprequizz/:userId/:campaignid
 export const API_PREQUIZZRESULT_NOTA = `${base_url}/api/prequizzresult/notasprequizz`;
@@ -121,3 +121,4 @@ export const API_PREQUIZZ = `${base_url}/api/prequizz`;
 export const API_EVALUATION_ADMIN = `${base_url}/api/evaluations`;
 
 export const API_USER_ADMIN = `${base_url}/api/users/new`;
+

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Asegúrate de importar la biblioteca de íconos correcta
 
-//import {getRankingExcelCourse} from '../../../../services/ranking.service';
+import {getRankingExcelCourse} from '../../../../services/ranking.service';
 import { useAuth } from '../../../../context/AuthContext';
 import { CardStudent, CustomButton, CustomSearcher, LoadIndicator } from '../../../../components'
 import { windowHeight } from '../../../../utils/Dimentions'
@@ -40,7 +40,7 @@ export default function DescargaDatos({ navigation }: Props) {
         <Text style={styles.texto}>Descarga Data General</Text>
         <TouchableOpacity style={styles.button} onPress={async () => { 
     const courseId = 1; 
-/*
+
     if (typeof  'string' && userToken) {
       try {
     await getRankingExcelCourse(courseId, userToken);
@@ -49,7 +49,7 @@ export default function DescargaDatos({ navigation }: Props) {
     // Manejo de errores
   }
 
-}*/
+}
 
 }}>
     <Icon name="download" size={30} color="#fff" />
