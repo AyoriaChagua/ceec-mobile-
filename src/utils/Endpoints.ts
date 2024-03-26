@@ -6,6 +6,9 @@ const base_url = `http://192.168.170.52:4100`;
 
 export const API_COURSES_URL = `${base_url}/api/campaignuser/courses` ;
 
+export const API_CLIENTS_URL =  `${base_url}/api/clients` ;
+
+export const API_USERADMIN = `${base_url}/api/users/useradmin` ;
 
 export const API_CAMPAIGN_URL = `${base_url}/api/campaigns` ;
 

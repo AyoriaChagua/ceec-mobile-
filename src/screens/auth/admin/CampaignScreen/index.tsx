@@ -78,6 +78,12 @@ export default function CampaignScreen({ navigation }: Props) {
           </TouchableOpacity>
         ))}
       </ScrollView>
+
+      //crear campaña
+
+
+
+      // asignar campaña a user-admin
       <TouchableOpacity
         style={styles.bottomButton}
         onPress={() => navigateToCreateCourse()}>
