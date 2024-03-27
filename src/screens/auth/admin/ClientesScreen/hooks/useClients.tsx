@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { GetAllCampaign } from '../../../../../services/campaign.service';
+import {GetAllClients} from '../../../../../services/clients.service';
 import { Campaign } from '../../../../../interfaces/CampaignInterface';
+import { Client } from '../../../../../interfaces/ClientsInterface';
 import { useAuth } from '../../../../../context/AuthContext';
-export const useCampaigns = () => {
-  const [ campaigns, setCampaign] = useState<Campaign[]>([]);
+export const useClients = () => {
+  const [ clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { userInfo, userToken } = useAuth();
@@ -12,15 +13,15 @@ export const useCampaigns = () => {
     const fetchCampaignData = async () => {
       if (userToken) {
         try {
-          const campaigndata = await GetAllCampaign(userToken);
-          if (campaigndata === null) {
-            setCampaign([]); //establece el estado a un array vacío
-          } else if (Array.isArray(campaigndata)) {
-            setCampaign(campaigndata); //establece el estado a ese array
+          const data = await GetAllClients(userToken);
+          if (data === null) {
+            setClients([]); //establece el estado a un array vacío
+          } else if (Array.isArray(data)) {
+            setClients(data); //establece el estado a ese array
           } else {
-            setCampaign([campaigndata]); //campaigndata es un solo objeto Campaign, conviértelo en un array
+            setClients([data]); //campaigndata es un solo objeto Campaign, conviértelo en un array
           }
-          console.log(campaigndata)
+          console.log(data)
         } catch (error) {
           console.error('Error fetching ranking data:', error);
         } finally {
@@ -28,9 +29,8 @@ export const useCampaigns = () => {
         }
       }
     };
-
     fetchCampaignData();
   }, [userToken]); 
 
-  return { campaigns, loading };
+  return { clients, loading };
 };

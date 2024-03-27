@@ -1,6 +1,8 @@
-
 export interface Client {
   client_id: number;
+  name: string;
+}
+export interface ClientPost {
   name: string;
 }
 
@@ -10,7 +12,6 @@ export interface Profile {
   phone: number;
   profile_picture: string;
 }
-
 export interface UserAdmin {
   user_id: number;
   email: string;

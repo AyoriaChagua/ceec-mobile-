@@ -18,8 +18,8 @@ const RankingCourseEvaluation: React.FC<{ navigation: NavigationProp<any> }> = (
     const [showInfo, setShowInfo] = useState(false); // State to show or hide additional info
 
     return (
-        <View style={styles.container}>
-            <ScrollView>
+        <View style={{ flex: 1, backgroundColor: "#fff" }}>
+            <ScrollView style={styles.container}>
                 {usersevaluations.map((userEval, index) => (
                     <View key={index} style={styles.cardContainer}>
                         <Image source={{ uri: userEval.User?.Profile?.profile_picture || "https://res.cloudinary.com/dhfsbbos3/image/upload/v1711056243/CEEC/mvnegfqtwbqkjxtidtmx.png" }} style={styles.profileImage} />

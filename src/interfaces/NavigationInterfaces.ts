@@ -1,5 +1,6 @@
 export type RootStackParamListAdmin = {
-    Clients:   undefined 
+    CreateUserAdmin : undefined
+    Clientes:   undefined 
     RankingCampaign : { campaign_id: number }
     Usabilidad : undefined
     RankingCourseEvaluation:{ course_id: number }

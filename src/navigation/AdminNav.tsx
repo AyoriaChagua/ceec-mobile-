@@ -2,7 +2,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DashboardScreen from '../screens/auth/admin/DashboardScreen';
 import CustomDrawer from '../components/CustomDrawer';
-import Logo from '../../assets/images/logo.svg';
+import Logo from '../../assets/images/logo-white.svg';
 import { Icon } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import DetailsTest from '../screens/auth/admin/DetailsTest';
@@ -19,6 +19,8 @@ import CreateModule from '../screens/auth/admin/CreateModule';
 import StudentsPerCourse from '../screens/auth/admin/StudentsPerCourse';
 import AddStudentsToCourse from '../screens/auth/admin/AddStudentsToCourse';
 import CampaignScreen from '../screens/auth/admin/CampaignScreen';
+import ClientesScreen from '../screens/auth/admin/ClientesScreen';
+import CreateUserAdmin from '../screens/auth/admin/CreateUserAdmin';
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
 
@@ -46,10 +48,12 @@ const AdminDrawer = () => {
                 />
             )}
             screenOptions={{
-                drawerActiveBackgroundColor: '#2B32CE',
+                drawerActiveBackgroundColor: '#3C63FF',
                 drawerActiveTintColor: '#fff',
                 headerTitleStyle: { fontSize: 18 },
+                headerTintColor: 'white',
                 headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                headerStyle: { backgroundColor: '#3C63FF' },
             }}
         >
             <Drawer.Screen
@@ -59,6 +63,16 @@ const AdminDrawer = () => {
                     headerTitle: '',
                     drawerIcon: ({ color }) => (
                         <Icon source="collage" color={color} size={22} />
+                    ),
+                }}
+            />
+             <Drawer.Screen
+                name="Clientes"
+                component={ClientesScreen} /*{CoursesScreen}*/
+                options={{
+                    headerTitle: '',
+                    drawerIcon: ({ color }) => (
+                        <Icon source="book-open" color={color} size={22} />
                     ),
                 }}
             />
@@ -154,6 +168,15 @@ const AdminNav = () => (
                 headerShown: true
             }}
         />
+        <Stack.Screen
+            name='CreateUserAdmin'
+            component={CreateUserAdmin}
+            options={{
+                headerRight: () => <Logo width={60} style={{ marginHorizontal: 15 }} />,
+                title: "",
+                headerLeftLabelVisible: false,
+                headerShown: true
+            }} />
         <Stack.Screen
             name='StudentsPerCourse'
             component={StudentsPerCourse}

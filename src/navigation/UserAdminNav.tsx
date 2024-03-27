@@ -4,7 +4,6 @@ import DashboardScreen from '../screens/auth/admin/DashboardScreen';
 import NotasResumenScreen from '../screens/auth/adminuser/NotasResumenScreen';
 import CustomDrawer from '../components/CustomDrawer';
 import Logo from '../../assets/images/logo-white.svg';
-
 import { Icon } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import DetailsTest from '../screens/auth/admin/DetailsTest';
@@ -26,6 +25,7 @@ import RankingScreen from '../screens/auth/adminuser/RankingScreen';
 import RankingCourseEvaluation from '../screens/auth/adminuser/RankingCourseEvaluation';
 import UsabilidadScreen from '../screens/auth/adminuser/UsabilidadScreen';
 import RankingCampaign from '../screens/auth/adminuser/RankingCampaign';
+
 const Drawer = createDrawerNavigator<RootStackParamListAdmin>();
 const Stack = createStackNavigator<RootStackParamListAdmin>();
 
@@ -168,6 +168,8 @@ const UserAdminNav = () => (
                 headerLeftLabelVisible: false,
                 headerShown: true
             }} />
+
+
        
         <Stack.Screen
             name='StudentsPerCourse'

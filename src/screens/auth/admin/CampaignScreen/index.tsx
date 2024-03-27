@@ -57,38 +57,38 @@ export default function CampaignScreen({ navigation }: Props) {
       })
     );
   };
-
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView style={styles.container} >
+        {/* Mapeo de campañas */}
         {campaigns.map(campaign => (
           <TouchableOpacity key={campaign.campaign_id}  onPress={() => navigation.navigate('Cursos', { campaign_id: campaign.campaign_id })}>
-          <CampaignCardAdmin
-            userCount={9}
-            key={campaign.campaign_id}
-            courseId={campaign.campaign_id}
-            moduleCount={campaign.campaign_id}
-            courseName={campaign.name}
-            createdAt={campaign.limit_date}
-            background_color={"4951FF"}
-            navigateToCreateModule={navigateToCreateModuleScreen}
-            navigateToAddStudents={navigateToAddStudentsScreen}
-            navigateToStudentsPerCourse={navigateToStudentsPerCourseScreen}
-          />
+            <CampaignCardAdmin
+              userCount={9}
+              key={campaign.campaign_id}
+              courseId={campaign.campaign_id}
+              moduleCount={campaign.campaign_id}
+              courseName={campaign.name}
+              createdAt={campaign.limit_date}
+              background_color={"4951FF"}
+              navigateToCreateModule={navigateToCreateModuleScreen}
+              navigateToAddStudents={navigateToAddStudentsScreen}
+              navigateToStudentsPerCourse={navigateToStudentsPerCourseScreen}
+            />
           </TouchableOpacity>
         ))}
       </ScrollView>
-
-      //crear campaña
-
-
-
-      // asignar campaña a user-admin
+  
+      {/* Botón para crear campaña */}
       <TouchableOpacity
         style={styles.bottomButton}
         onPress={() => navigateToCreateCourse()}>
-        <Icon size={45} source={"plus-circle"} color='#4951FF' />
+        {/* Aquí debes envolver el componente <Icon> dentro de un componente de texto */}
+        <Text>
+          <Icon size={45} source={"plus-circle"} color='#4951FF' />
+        </Text>
       </TouchableOpacity>
     </View>
   )
-}
+
+};

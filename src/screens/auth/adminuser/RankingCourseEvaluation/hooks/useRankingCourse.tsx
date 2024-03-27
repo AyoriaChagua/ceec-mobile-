@@ -1,4 +1,3 @@
-// useModuleScreen.tsx
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../../../context/AuthContext';
 import {UserEvaluation} from '../../../../../interfaces/RankingInterface';
